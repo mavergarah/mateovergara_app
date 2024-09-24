@@ -1,0 +1,37 @@
+{% extends "calculations/index.html" %}
+
+{% block title %}Cálculo de Conduits{% endblock %}
+
+{% block content %}
+
+<form class="" action="conduits_result" method="post">
+{% csrf_token %}
+<fieldset>
+  <!-- Entering of the variables for arc flase calculations -->
+  <label for="method">Ingrese los diámetros o las áreas separadas por comas</label>
+  <input type="text" name="co_ingreso" value="mm o mm2">
+  <select class="solicitud" name="co_diametro">
+      <option value="DoA">Diámetro o área?</option>
+      <option value="d">Diámetro</option>
+      <option value="a">Área</option>
+  </select>
+  <select class="solicitud" name="co_conduit_kind">
+      <option value="KoC">Tipo de conduit?</option>
+      <option value="pvc-80">PVC-80</option>
+      <option value="pvc-40">PVC-40</option>
+      <option value="pvc-A">PVC-A</option>
+      <option value="emt">EMT</option>
+      <option value="imc">IMC</option>
+      <option value="rmc">RMC</option>
+      <option value="ent">ENT</option>
+      <option value="fmc">FMC</option>
+  </select>
+  <input type="submit" name="co_calculate" value="Calcular">
+
+  <label for="method">{{ error }}</label>
+
+</fieldset>
+
+</form>
+
+{% endblock %}

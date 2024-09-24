@@ -1,0 +1,9 @@
+{% extends "calculations/index.html" %}
+
+{% block title %}Work Clearances{% endblock %}
+
+{% block content %}
+  <h4>El límite de aproximación seguro a una parte móvil es: {{ safety_clearance_movil }} m</h4>
+  <h4>El límite de aproximación restringido a una parte fija es: {{ safety_clearance_static }} m</h4>
+  <h4>El límite de aproximación restringido es: {{ restricted_clearance }} m</h4>
+{% endblock %}

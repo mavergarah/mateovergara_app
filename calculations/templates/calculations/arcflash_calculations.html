@@ -1,0 +1,44 @@
+{% extends "calculations/index.html" %}
+
+{% block title %}Arc Flash{% endblock %}
+
+{% block content %}
+
+<form class="" action="arcflash_result" method="post">
+{% csrf_token %}
+<fieldset>
+  <!-- Entering of the variables for arc flase calculations -->
+  <input type="text" name="ar_voltage" value="Tensión (kV)">
+  <input type="text" name="ar_short_circuit_current" value="F (kA)">
+  <input type="text" name="ar_time" value="t (s)">
+  <input type="text" name="ar_conductors_separation" value="G (mm)">
+  <input type="text" name="ar_distance" value="D (m)">
+  <select class="solicitud" name="ar_panel_kind">
+      <option value="">Tipo de tablero</option>
+      <option value="CCM">CCM</option>
+      <option value="PP">Panel de Potencia</option>
+  </select>
+  <select class="solicitud" name="ar_arc_kind">
+      <option value="">Tipo de arco</option>
+      <option value="O">Abierto</option>
+      <option value="C">Cerrado</option>
+  </select>
+  <select class="solicitud" name="ar_earth_kind">
+      <option value="">Conexión a tierra</option>
+      <option value="HR">Alta resistencia</option>
+      <option value="WR">Sin resistencia</option>
+  </select>
+  <select class="solicitud" name="method">
+      <option value="">Método de cálculo</option>
+      <option value="IE15">IEEE1584</option>
+      <option value="NFPA70E">NFPA 70E</option>
+  </select>
+  <input type="submit" name="ar_calculate" value="Calcular">
+
+  <label for="method">{{ error }}</label>
+
+</fieldset>
+
+</form>
+
+{% endblock %}

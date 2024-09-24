@@ -1,0 +1,25 @@
+{% extends "calculations/index.html" %}
+
+{% block title %}Distancias de Seguridad{% endblock %}
+
+{% block content %}
+
+<form class="" action="safety_clearances_result" method="post">
+{% csrf_token %}
+<fieldset>
+  <!-- Entering of the variables for arc flase calculations -->
+  <input type="text" name="sc_voltage" value="Tensión entre líneas (V)">
+  <select class="solicitud" name="sc_voltage_system">
+      <option value="Sistema">Sistema</option>
+      <option value="AC">AC</option>
+      <option value="DC">DC</option>
+  </select>
+  <input type="submit" name="sc_calculate" value="Calcular">
+
+  <label for="method">{{ error }}</label>
+
+</fieldset>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "calculations/index.html" %}
+
+{% block title %}Cálculo de Conduits{% endblock %}
+
+{% block content %}
+  <h4>El calibre del conductor de fase es: {{ phase }}</h4>
+  <h4>El calibre del conductor de neutro es: {{ neutral }}</h4>
+  <h4>El calibre del conductor de tierra es: {{ ground }}</h4>
+  <h4>La caída de tensión es: {{ Vdrop }} %</h4>
+  <h4>El dispositivo de protección contra sobrecorriente es: {{ protective }} A</h4>
+{% endblock %}
