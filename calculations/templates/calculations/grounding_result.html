@@ -1,0 +1,25 @@
+{% extends "calculations/index.html" %}
+
+{% block title %}Conductor de Tierra{% endblock %}
+
+{% block content %}
+  <table border="1">
+    <tr>
+      <th>Protección (A)</th>
+      <th>Calibre</th>
+      <th>Material</th>
+    </tr>
+    <tr>
+      <td>{{ protective }}</td>
+      <td>{{ gauge }}</td>
+      <td>{{ material }}</td>
+    </tr>
+  </table>
+  <br>
+  <h6>Notas:</h6>
+  <ol>
+    <li>La selección del conductor de (puesta a tierra o de equipos) ha sido realizada de acuerdo a la
+    tabla 250.122 de la NTC 2050.</li>
+    <li>El usuario es responsable de revisar los cálculos obtenidos.</li>
+  </ol>
+{% endblock %}

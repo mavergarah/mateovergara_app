@@ -3,9 +3,28 @@
 {% block title %}Cálculo de Conduits{% endblock %}
 
 {% block content %}
-  <h4>El calibre del conductor de fase es: {{ phase }}</h4>
-  <h4>El calibre del conductor de neutro es: {{ neutral }}</h4>
-  <h4>El calibre del conductor de tierra es: {{ ground }}</h4>
-  <h4>La caída de tensión es: {{ Vdrop }} %</h4>
-  <h4>El dispositivo de protección contra sobrecorriente es: {{ protective }} A</h4>
+<table border = "1">
+  <tr>
+    <th>Fase</th>
+    <th>Neutro</th>
+    <th>Tierra</th>
+    <th>Protección (A)</th>
+    <th><b>Caída de tensión (%)</b></td>
+  </tr>
+  <tr>
+    <td>{{ phase }}</td>
+    <td>{{ neutral }}</td>
+    <td>{{ ground }}</td>
+    <td>{{ protective }}</td>
+    <td>{{ Vdrop }}</td>
+  </tr>
+</table>
+
+<br>
+  <h6>Notas al cálculo:</h6>
+  <ol>
+    <li>El cálculo se ha realizado de acuerdo a la NTC 2050 de 2021 (Código eléctrico colombiano).</li>
+    <li>El factor de corrección por temperatura considerado es: {{ corrective_factor }}</li>
+  </ol>
+
 {% endblock %}

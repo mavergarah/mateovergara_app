@@ -1,0 +1,163 @@
+/* 1- BARRA DE NAVEGACIÓN */
+nav {
+  background-color: #f0f0f0; /* Ajusta el color de fondo */
+  padding: 0.1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-item {
+  margin: 0 10px; /* Espacio entre elementos */
+  font-size: 16px;
+  color: #333;
+  text-decoration: none;
+}
+
+.logo {
+  /* Estilos para el logo */
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
+  width: 40px;
+  height: 40px;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+}
+
+li {
+  margin: 0 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px; /* Ajusta el tamaño de la fuente */
+  font-family: Helvetica, Sans-Serif;
+}
+
+a:hover {
+  color: #007bff; /* Ajusta el color al pasar el ratón */
+}
+
+.active {
+  font-weight: bold; /* Resalta el elemento activo */
+}
+
+/* Estilos adicionales para elementos como el buscador, carrito y usuario */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background: none; /* Elimina cualquier fondo */
+  border: none;
+  color: #333; /* Color del texto */
+  cursor: pointer;
+  padding: 0px 16px;
+  /* Quitar el subrayado al pasar el ratón */
+  text-decoration: none;
+  font-family: Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown-content.show {
+  display: block; /* Or display: flex; if you prefer */
+}
+
+/* 2- FORMULARIO DE INGRESO */
+.fieldset {
+  background-color: #f0f0f0;
+  border: 0.5px;
+  border-radius: 8px;
+  width: 500px;
+  font-family: Helvetica, Sans-Serif;
+  margin: auto;
+}
+
+.input {
+  border-radius: 5px;
+  width: 500px;
+  height: 28px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  font-size: 16px;
+  font-family: Helvetica, Sans-Serif;
+  text-align: left;
+  margin-bottom: 15px;
+  margin-top: 5px;
+  color: #363636;
+}
+
+.label-form {
+  font-size: 12px;
+  font-family: Helvetica, Sans-Serif;
+  text-align:left;
+  width: 200px;
+}
+
+.label-form-error {
+  font-size: 16px;
+  font-family: Helvetica, Sans-Serif;
+  text-align: center;
+  width: 300px;
+  color: #fc2f00;
+}
+
+.select-form {
+  border-radius: 5px;
+  width: 500px;
+  height: 35px;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  font-size: 16px;
+  font-family: Helvetica, Sans-Serif;
+  text-align: left;
+  margin-bottom: 15px;
+  margin-top: 5px;
+  color: #363636;
+}
+
+.button-form {
+  border-radius: 5px;
+  width: 500px;
+  height: 35px;
+  background-color: #cca43b;
+  border: 1px solid #e5e5e5;
+  font-size: 16px;
+  font-family: Helvetica, Sans-Serif;
+  text-align: center;
+  margin-bottom: 15px;
+  margin-top: 5px;
+  color: #242f40;
+  font-weight: bold;
+}

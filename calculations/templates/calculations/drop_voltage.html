@@ -1,0 +1,66 @@
+{% extends "calculations/index.html" %}
+
+{% block title %}Caída de Tensión{% endblock %}
+
+{% block content %}
+
+<form class="" action="drop_voltage_result" method="post">
+{% csrf_token %}
+<fieldset>
+  <!-- Ingreso de variables por parte del usuario para el cálculo de regulación de tensión -->
+  <input type="text" name="dro_voltage" value="Tensión (V)">
+  <input type="text" name="dro_length" value="Longitud (m)">
+  <input type="text" name="dro_current" value="Corriente (A)">
+  <input type="text" name="dro_pf" value="Factor de Potencia (p.u)">
+  <select class="solicitud" name="dro_system">
+      <option value="sistema">Tipo de sistema?</option>
+      <option value="1">Monofásico</option>
+      <option value="2">Bifásico</option>
+      <option value="3">Trifásico</option>
+  </select>
+  <select class="solicitud" name="dro_conduit_kind">
+      <option value="conduit">Tipo de conduit?</option>
+      <option value="PVC">PVC</option>
+      <option value="st">Acero</option>
+  </select>
+  <select class="solicitud" name="dro_cable_kind">
+      <option value="material">Material del Conductor?</option>
+      <option value="Cu">Cu</option>
+      <option value="Al">Al</option>
+  </select>
+  <select class="solicitud" name="dro_cable_gauge">
+      <option value="calibre">Calibre?</option>
+      <option value="14 AWG">14 AWG</option>
+      <option value="12 AWG">12 AWG</option>
+      <option value="10 AWG">10 AWG</option>
+      <option value="8 AWG">8 AWG</option>
+      <option value="6 AWG">6 AWG</option>
+      <option value="4 AWG">4 AWG</option>
+      <option value="3 AWG">3 AWG</option>
+      <option value="2 AWG">2 AWG</option>
+      <option value="1 AWG">1 AWG</option>
+      <option value="1/0 AWG">1/0 AWG</option>
+      <option value="2/0 AWG">2/0 AWG</option>
+      <option value="3/0 AWG">3/0 AWG</option>
+      <option value="4/0 AWG">4/0 AWG</option>
+      <option value="250 MCM">250 MCM</option>
+      <option value="300 MCM">300 MCM</option>
+      <option value="350 MCM">350 MCM</option>
+      <option value="400 MCM">400 MCM</option>
+      <option value="500 MCM">500 MCM</option>
+      <option value="600 MCM">600 MCM</option>
+      <option value="750 MCM">750 MCM</option>
+      <option value="1000 MCM">1000 MCM</option>
+  </select>
+  <input type="submit" name="ca_calcular" value="Calcular">
+
+  <label for="method">{{ error }}</label>
+</fieldset>
+</form>
+
+<br>
+<h6>Nota Importante:</h6>
+<ol>
+  <li>Recuerda que la corriente ajustada debe ser mayor a la continua.</li>
+
+{% endblock %}

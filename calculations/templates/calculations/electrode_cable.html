@@ -1,0 +1,56 @@
+{% extends "calculations/index.html" %}
+
+{% block title %}Conductor del electrodo{% endblock %}
+
+{% block content %}
+
+<form class="" action="electrode_result" method="post">
+{% csrf_token %}
+<fieldset>
+  <!-- Ingreso de variables para cálculo del conductor del electrodo de puesta a tierra -->
+  <select class="solicitud" name="ele_cable_gauge">
+      <option value="calibre">Calibre?</option>
+      <option value="14 AWG">14 AWG</option>
+      <option value="12 AWG">12 AWG</option>
+      <option value="10 AWG">10 AWG</option>
+      <option value="8 AWG">8 AWG</option>
+      <option value="6 AWG">6 AWG</option>
+      <option value="4 AWG">4 AWG</option>
+      <option value="3 AWG">3 AWG</option>
+      <option value="2 AWG">2 AWG</option>
+      <option value="1 AWG">1 AWG</option>
+      <option value="1/0 AWG">1/0 AWG</option>
+      <option value="2/0 AWG">2/0 AWG</option>
+      <option value="3/0 AWG">3/0 AWG</option>
+      <option value="4/0 AWG">4/0 AWG</option>
+      <option value="250 MCM">250 MCM</option>
+      <option value="300 MCM">300 MCM</option>
+      <option value="350 MCM">350 MCM</option>
+      <option value="400 MCM">400 MCM</option>
+      <option value="500 MCM">500 MCM</option>
+      <option value="600 MCM">600 MCM</option>
+      <option value="750 MCM">750 MCM</option>
+      <option value="1000 MCM">1000 MCM</option>
+  </select>
+  <select class="solicitud" name="ele_material">
+      <option value="material">Material del conductor?</option>
+      <option value="Cu">Cu</option>
+      <option value="Al">Al</option>
+  </select>
+  <input type="submit" name="gro_calculate" value="Calcular">
+
+  <label for="method">{{ error }}</label>
+
+</fieldset>
+
+<br>
+<h5>Instrucciones de uso:</h5>
+<ol>
+  <li>Para realizar el cálculo es necesario que ingreses el calibre del mayor conductor
+    no puesto a tierra (es decir la FASE) de la acometida o área equivalente para conductores en paralelo.</li>
+  <li>La selección del conductor se realiza de acuerdo a la tabla 250.66 de la NTC 2050 del 2020.</li>
+</ol>
+
+</form>
+
+{% endblock %}

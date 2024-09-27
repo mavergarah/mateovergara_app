@@ -1,0 +1,30 @@
+{% extends "calculations/index.html" %}
+
+{% block title %}Dispositivo de Protección{% endblock %}
+
+{% block content %}
+
+<form class="" action="protective_result" method="post">
+{% csrf_token %}
+<fieldset>
+  <!-- Entering of the variables for arc flase calculations -->
+  <input type="text" name="pro_current_ad" value="Corriente Ajustada (A)">
+  <input type="text" name="pro_current_cont" value="Corriente Continua (A)">
+  <input type="submit" name="ca_calcular" value="Calcular">
+
+  <label for="method">{{ error }}</label>
+</fieldset>
+</form>
+
+<br>
+<h6>Instrucciones de uso:</h6>
+<ol>
+  <li>CORRIENTE CONTINUA se refiere a la corriente de la carga continua. Recuerda que una
+  carga continua es aquella que opera tres horas o más de forma continua.</li>
+  <li>Ten presente que la corriente ajustada debe ser mayor a la continua.</li>
+  <li>La corriente ajustada es la corriente nominal del conductor una vez que
+    se le han aplicado factores de corrección por temperatura y factores de ajuste
+    para más de tres conductores portadores de corriente en una misma canalización.</li>
+  <li>Si la carga no es continua se debe ingresar la corriente de la carga no continua.</li>
+
+{% endblock %}

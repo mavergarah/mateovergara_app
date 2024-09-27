@@ -86,7 +86,7 @@ def incident_energy_doughty_neal(F, kind_of_panel, t, kind_of_arc):
 
     return E
 
-def incident_energy_IEEE1584(V_phases, Ibf, G, t, D, kind_of_arc, kind_of_panel, kind_of_earth):
+def incident_energy_IEEE1584(V_phases, Ibf, G, t, d, kind_of_arc, kind_of_panel, kind_of_earth):
     """ Esta función calcula el arco eléctrico de acuerdo a la IEEE 1584 Guía para Efectuar el cálculo del
     riesgo de relámpago de arco. Las limitantes de este método de cálculo son:
     0.208 kV a 15 kV trifásico
@@ -98,6 +98,10 @@ def incident_energy_IEEE1584(V_phases, Ibf, G, t, D, kind_of_arc, kind_of_panel,
 
     # Se importa el módulo math para poder realizar operaciones logaritmicas
     import math
+
+    # La distancia d ingresada está en metros, pero el método de la IEEE1584 exige que sea en mm.
+    # Por lo que en este punto se realiza la conversión de metros a milímetros.
+    D = d * 1000
 
     if V_phases < 1:
         # Se asigna valor a la constante K dependiendo del tipo de arco (O- Open, C- Closed)
@@ -156,9 +160,9 @@ def incident_energy_IEEE1584(V_phases, Ibf, G, t, D, kind_of_arc, kind_of_panel,
     E_2t = 4.184 * Cf * En_2t * (t / 0.2) * ((610 ** x) / (D ** x))
 
     if E > E_2t:
-        return E
+        return (E * 0.238)
     else:
-        return E_2t
+        return (E_2t * 0.238)# se multiplica por este valor para convertir las unidades de Joules a Calorias
 
 def is_number(value):
     try:

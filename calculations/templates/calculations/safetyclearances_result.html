@@ -3,7 +3,24 @@
 {% block title %}Work Clearances{% endblock %}
 
 {% block content %}
-  <h4>El límite de aproximación seguro a una parte móvil es: {{ safety_clearance_movil }} m</h4>
-  <h4>El límite de aproximación restringido a una parte fija es: {{ safety_clearance_static }} m</h4>
-  <h4>El límite de aproximación restringido es: {{ restricted_clearance }} m</h4>
+  <table border="1">
+    <tr>
+      <th>Límite de aproximación seguro (m) a una parte móvil</th>
+      <th>Límite de aproximación seguro (m) a una parte fija</th>
+      <th>Límite de aproximación restringido (m)</th>
+      <th>Tensión (V)</th>
+    </tr>
+    <tr>
+      <td>{{ safety_clearance_movil }}</td>
+      <td>{{ safety_clearance_static }}</td>
+      <td>{{ restricted_clearance }}</td>
+      <td>{{ voltage }}</td>
+    </tr>
+  </table>
+  <br>
+  <h6>Notas:</h6>
+  <ol>
+    <li>La selección de las distancias de seguridad se hizo de acuerdo al libro 3 del RETIE.</li>
+    <li>Estas distancias aplican UNICAMENTE para el nivel de tensión ingresado.</li>
+  </ol>
 {% endblock %}

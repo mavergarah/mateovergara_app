@@ -1,0 +1,32 @@
+{% extends "calculations/index.html" %}
+
+{% block title %}Cálculo de Conduits{% endblock %}
+
+{% block content %}
+
+<form class="" action="grounding_result" method="post">
+{% csrf_token %}
+<fieldset>
+  <!-- Ingreso de variables para cálculo del conductor de protección -->
+  <input type="text" name="gro_ingreso" value="Protección (A)">
+  <select class="solicitud" name="gro_diametro">
+      <option value="material">Material del conductor?</option>
+      <option value="Cu">Cu</option>
+      <option value="Al">Al</option>
+  </select>
+  <input type="submit" name="gro_calculate" value="Calcular">
+
+  <label for="method">{{ error }}</label>
+
+</fieldset>
+
+<br>
+<ol>
+  <li>Para realizar el cálculo es necesario que ingreses la corriente nominal (en Amperios) del
+  dispositivo de protección de tu circuito ramal o alimentador, así como el material del conductor
+  de protección que esperas poner en tu proyecto.</li>
+</ol>
+
+</form>
+
+{% endblock %}

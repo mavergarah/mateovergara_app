@@ -7,7 +7,7 @@
 <form class="" action="safety_clearances_result" method="post">
 {% csrf_token %}
 <fieldset>
-  <!-- Entering of the variables for arc flase calculations -->
+  <!-- Ingreso de datos por parte del usuario para el cálculo de las distancias de seguridad -->
   <input type="text" name="sc_voltage" value="Tensión entre líneas (V)">
   <select class="solicitud" name="sc_voltage_system">
       <option value="Sistema">Sistema</option>
@@ -21,5 +21,13 @@
 </fieldset>
 
 </form>
+
+<br>
+<h5>Instrucciones de uso:</h5>
+<ol>
+  <li>Solo debes ingresar el nivel de tensión entre líneas en voltios (V) y seleccionar el tipo de
+  si el sistema es de corriente alterna (AC) o de corriente directa (DC).</li>
+  <li>Muchas gracias por utilizar esta aplicación.</li>
+</ol>
 
 {% endblock %}

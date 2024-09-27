@@ -3,34 +3,38 @@
 {% block title %}Espacios de Trabajo{% endblock %}
 
 {% block content %}
-
+<br>
 <form class="" action="work_clearances_result" method="post">
 {% csrf_token %}
-<fieldset>
+<fieldset class="fieldset">
+
   <!-- Entering of the variables for arc flase calculations -->
-  <input type="text" name="wc_voltage" value="Tensión entre líneas (V)">
-  <input type="text" name="wc_height" value="Altura del tablero (m)">
-  <input type="text" name="wc_width" value="Ancho del tablero (m)">
-  <select class="solicitud" name="wc_voltage_system">
-      <option value="Sistema">Sistema</option>
+  <label class="label-form" for="wc_voltage">Tensión (V):</label>
+  <input class="input" type="text" name="wc_voltage" value="208">
+  <label class="label-form" for="wc_height">Altura (m):</label>
+  <input class="input" type="text" name="wc_height" value="2.0">
+  <label class="label-form" for="wc_width">Ancho (m):</label>
+  <input class="input" type="text" name="wc_width" value="0.76">
+  <select class="select-form" name="wc_voltage_system">
+      <option value="Sistema">¿Sistema?</option>
       <option value="1">Monofásico</option>
       <option value="2">Bifásico</option>
       <option value="3">Trifásico</option>
   </select>
-  <select class="solicitud" name="wc_condition">
-      <option value="Condicion?">Condición?</option>
+  <select class="select-form" name="wc_condition">
+      <option value="Condicion?">¿Condición?</option>
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
   </select>
-  <select class="solicitud" name="wc_backspace">
-      <option value="Acceso posterior?">Acceso posterior?</option>
+  <select class="select-form" name="wc_backspace">
+      <option value="Acceso posterior?">¿Acceso posterior?</option>
       <option value="Si">Sí</option>
       <option value="No">No</option>
   </select>
-  <input type="submit" name="wc_calculate" value="Calcular">
+  <input class="button-form" type="submit" name="wc_calculate" value="Calcular">
 
-  <label for="method">{{ error }}</label>
+  <label class="label-form-error" for="method">{{ error }}</label>
 
 </fieldset>
 

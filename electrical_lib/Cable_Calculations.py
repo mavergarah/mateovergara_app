@@ -1,3 +1,12 @@
+def is_choice(value, option):
+    """ Esta función verifica se haya seleccionado una opción de un formulario
+    """
+
+    if value == option:
+        return False
+    else:
+        return True
+
 def is_number(value):
     """ Esta función verifica que un valor ingresado sea un número entero positivo
     """
@@ -52,6 +61,80 @@ def cable_validation(P, U, Phases, FP, V, L, T_amb, T_cond, CL, K, NC, KC):
         validation = 'Error'
 
     return validation
+
+def electrode_conductor(gauge_input,K):
+    """ Esta función selecciona el conductor del electrodo de puesta a tierra basado en
+    la tabla 250.66 de la NTC 2050 del 2021. La función busca la posición en la que se
+    encuentra el calibre ingresado por el usuario en el arreglo all_gauges. Sabiendo esa
+    posición se puede determinar en que rango está el calibre y seleccionar el conductor
+    del electrodo de puesta a tierra. Los rango son:
+    Cu: 2 AWG o menor --> Hasta la posición 8
+    Al: 1/0 AWG o menor --> Hasta la posición 10
+    Cu: 1 AWG - 1/0 AWG --> 9 - 10
+    Al: 2/0 AWG - 3/0 AWG --> 11 - 12
+    Cu: 2/0 AWG - 3/0 AWG --> 11 - 12
+    Al: 4/0 AWG - 250 MCM --> 13 - 14
+    Cu: 4/0 AWG - 350 MCM --> 14 - 16
+    Al: 300 MCM - 500 MCM --> 15 - 18
+    Cu: 400 MCM - 600 MCM --> 17 - 19
+    Al: 500 MCM - 900 MCM --> 18 - 20
+    Cu: 750 MCM - 1000 MCM --> 20 en adelante
+    Al: 1000 MCM --> 21
+
+    """
+    all_gauges = ['14 AWG','12 AWG','10 AWG','8 AWG','6 AWG','4 AWG','3 AWG','2 AWG','1 AWG','1/0 AWG','2/0 AWG','3/0 AWG', '4/0 AWG','250 MCM','300 MCM','350 MCM','400 MCM','500 MCM','600 MCM','750 MCM','1000 MCM']
+    i = 1
+
+    while not gauge_input == all_gauges[i-1]:
+        i = i + 1
+
+    if K == 'Cu':
+        if i <= 8:
+            ground_cu = '8 AWG'
+            ground_al = '6 AWG'
+        elif i <= 10:
+            ground_cu = '6 AWG'
+            ground_al = '4 AWG'
+        elif i <= 12:
+            ground_cu = '4 AWG'
+            ground_al = '2 AWG'
+        elif i <= 16:
+            ground_cu = '2 AWG'
+            ground_al = '1/0 AWG'
+        elif i <= 19:
+            ground_cu = '1/0 AWG'
+            ground_al = '3/0 AWG'
+        elif i >= 20:
+            ground_cu = '2/0 AWG'
+            ground_al = '4/0 AWG'
+        else:
+            ground_cu = 'No gauge'
+            ground_al = 'No gauge'
+    else:
+        if i <= 10:
+            ground_cu = '8 AWG'
+            ground_al = '6 AWG'
+        elif i <= 12:
+            ground_cu = '6 AWG'
+            ground_al = '4 AWG'
+        elif i <= 14:
+            ground_cu = '4 AWG'
+            ground_al = '2 AWG'
+        elif i <= 18:
+            ground_cu = '2 AWG'
+            ground_al = '1/0 AWG'
+        elif i <= 20:
+            ground_cu = '1/0 AWG'
+            ground_al = '3/0 AWG'
+        elif i >= 21:
+            ground_cu = '2/0 AWG'
+            ground_al = '4/0 AWG'
+        else:
+            ground_cu = 'No gauge'
+            ground_al = 'No gauge'
+
+    return ground_cu, ground_al
+
 
 def earth_conductor(protective_device, kind_of_cable):
     """ Esta función selecciona el conductor de puesta a tierra del equipo basado en el tipo de material del
@@ -239,7 +322,7 @@ def protective_device(I_adjust, I_continuous):
     elif I_continuous <= 5000 <= I_adjust:
         return 5000
     else:
-        return ''
+        return '-'
 
 def find_next_gauge(gauge):
     """ Compara el calibre actual y devuelve el siguiente calibre más grande para poder volver a calcular la regulación
@@ -273,7 +356,7 @@ def drop_voltage_calculation(Ph, V, L, I, PF, gauge, KC, K):
     else:
         drop_voltage = 2 * I * (L / 1000) * (R * PF + XL * math.sin(math.acos(PF)))
     print('La caida de tensión es: %.4f V' % drop_voltage)
-    return (drop_voltage * 100 / V)
+    return drop_voltage, (drop_voltage * 100 / V), R, XL
 
 def resistance_and_reactance(gauge, KC, K):
     """ Selecciona la resisencia y la reactancia del calibre de un conductor determinado dependiendo del calibre
@@ -1963,7 +2046,7 @@ def cable_calculation(P, U, Ph, PF, V, L, T = 75, T_amb = 25, CL = 'y', K = 'Cu'
     print('Corriente ajustada: ', I_adjust)
 
     # 8. Calculo de la regulación de tensión
-    Vdrop_percent = drop_voltage_calculation(Ph, V, L, I, PF, gauge, KC, K)
+    Vdrop, Vdrop_percent, R, X = drop_voltage_calculation(Ph, V, L, I, PF, gauge, KC, K)
 
     # 9. Si la caída de tensión es superior al 3% se debe seleccionar un conductor con una caída de tensión
     # inferior a esta.
@@ -1975,7 +2058,7 @@ def cable_calculation(P, U, Ph, PF, V, L, T = 75, T_amb = 25, CL = 'y', K = 'Cu'
     if Ph == 1:
         neutral_conductor = gauge
     else:
-        neutral_conductor = ''
+        neutral_conductor = '-'
 
     # 11. Calcular la protección del circuito
     protective = protective_device(nominal_current * correction_factor * adjustment_factor, I_continuous)
@@ -1988,4 +2071,4 @@ def cable_calculation(P, U, Ph, PF, V, L, T = 75, T_amb = 25, CL = 'y', K = 'Cu'
     earth = earth_conductor(protective, K)
 
     # 13. Imprimir los resultados del cálculo
-    return gauge, neutral_conductor, earth, Vdrop_percent, protective
+    return gauge, neutral_conductor, earth, Vdrop_percent, protective, correction_factor

@@ -3,5 +3,20 @@
 {% block title %}Cálculo de Conduits{% endblock %}
 
 {% block content %}
-  <h4>El diámetro del conduit tipo {{ kind_of_conduit }} es: {{ conduit }} pulgadas</h4>
+  <table border="1">
+    <tr>
+      <th>Conduit</th>
+      <th>Calibre (pulg)</th>
+    </tr>
+    <tr>
+      <td>{{ kind_of_conduit }}</td>
+      <td>{{ conduit }}</td>
+    </tr>
+  </table>
+  <br>
+  <h6>Notas:</h6>
+  <ol>
+    <li>El cálculo ha sido realizado de acuerdo a los porcentajes de llenado permisibles de la tabla 9 de la NTC 2050.</li>
+    <li>Por favor revisar los cálculos obtenidos.</li>
+  </ol>
 {% endblock %}

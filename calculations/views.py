@@ -36,23 +36,108 @@ def cable_result(request):
         NC = float(request.POST['ca_numero-conductores'])
         C = request.POST['ca_conduit']
 
-        ph, n, g, V_drop, pd = Cable_Calculations.cable_calculation(P, U, Ph, FP, V, L, T_cond, T_amb, CL, K, NC, C)
-        return render(request, 'calculations/cable_result.html', {'phase':ph, 'neutral':n,'ground':g, 'Vdrop':V_drop,
-        'protective':pd})
+        ph, n, g, V_drop, pd, fa_corr = Cable_Calculations.cable_calculation(P, U, Ph, FP, V, L, T_cond, T_amb, CL, K, NC, C)
+        return render(request, 'calculations/cable_result.html', {'phase':ph, 'neutral':n,'ground':g, 'Vdrop':round(V_drop,2),
+        'protective':pd, 'corrective_factor':fa_corr})
     else:
         return render(request, 'calculations/cable_calculations.html', {'error':'El formulario contiene errores'})
 
 def drop_voltage(request):
-    vdrop = Cable_Calculations.drop_voltage_calculation(3, 208, 60, 30, 0.9, '10 AWG', 'PVC', 'Cu')
-    return render(request, 'calculations/index.html', {'result':vdrop})
+    return render(request, 'calculations/drop_voltage.html')
+
+def drop_voltage_result(request):
+
+    # Validar datos de ingreso del usuario. Las funciones retornan True or False
+    V = Cable_Calculations.is_number(request.POST['dro_voltage'])
+    L = Cable_Calculations.is_number(request.POST['dro_length'])
+    I = Cable_Calculations.is_number(request.POST['dro_current'])
+    FP = Cable_Calculations.is_number(request.POST['dro_pf'])
+    Ph = Cable_Calculations.is_choice(request.POST['dro_system'],'sistema')
+    gauge = Cable_Calculations.is_choice(request.POST['dro_cable_gauge'],'calibre')
+    KC = Cable_Calculations.is_choice(request.POST['dro_cable_kind'],'material')
+    K = Cable_Calculations.is_choice(request.POST['dro_conduit_kind'],'conduit')
+
+    print(Ph, gauge, KC, K)
+    if (V and L and I and FP and Ph and gauge and KC and K):
+        # Capturar los datos del formulario HTML para realizar el cálculo
+        V = float(request.POST['dro_voltage'])
+        L = float(request.POST['dro_length'])
+        I = float(request.POST['dro_current'])
+        FP = float(request.POST['dro_pf'])
+        Ph = float(request.POST['dro_system'])
+        gauge = request.POST['dro_cable_gauge']
+        KC = request.POST['dro_cable_kind']
+        K = request.POST['dro_conduit_kind']
+
+        VDrop, VDrop100, R, X = Cable_Calculations.drop_voltage_calculation(Ph, V, L, I, FP, gauge, KC, K)
+        return render(request, 'calculations/drop_voltage_result.html',{'drop_voltage':round(VDrop,2),
+        'drop_voltage_percentage':round(VDrop100,2), 'resistance':R, 'reactance':X})
+    else:
+        return render(request, 'calculations/drop_voltage.html',{'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
 
 def protective_device(request):
-    protective_device = Cable_Calculations.protective_device(45, 60)
-    return render(request, 'calculations/index.html', {'result':protective_device})
+    return render(request, 'calculations/protective_device.html')
+
+def protective_result(request):
+    # Validar los datos de ingreso al formulario del HTML
+    I_ad = Cable_Calculations.is_number(request.POST['pro_current_ad'])
+    I_cont = Cable_Calculations.is_number(request.POST['pro_current_cont'])
+    print(I_ad, I_cont)
+
+    # Realizar cálculo de conduits si el formulario no tiene errores
+    if I_ad and I_cont:
+        I_ad = float(request.POST['pro_current_ad']) # Variable de corriente ajustada
+        I_cont = float(request.POST['pro_current_cont']) # Variable de corriente continua
+
+        protective = Cable_Calculations.protective_device(I_ad, I_cont)
+        print(protective)
+        return render(request, 'calculations/protective_result.html', {'protective_device':protective})
+    else:
+        return render(request, 'calculations/protective_device.html', {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
 
 def grounding_cable(request):
-    earth = Cable_Calculations.earth_conductor(60, 'Cu')
-    return render(request, 'calculations/index.html', {'result':earth})
+    return render(request, 'calculations/grounding_cable.html')
+
+def grounding_result(request):
+
+    # Validar los datos ingresados por el usuario
+    Protective = Cable_Calculations.is_number(request.POST['gro_ingreso'])
+    Material = Cable_Calculations.is_choice(request.POST['gro_diametro'],'material')
+
+    if Protective and Material:
+        # Obtener los valores ingresados por el usuario en el formulario HTML
+        Protective = float(request.POST['gro_ingreso'])
+        Material = request.POST['gro_diametro']
+
+        # Realizar la selección del conductor de puesta a tierra
+        grounding_cable = Cable_Calculations.earth_conductor(Protective, Material)
+
+        return render(request, 'calculations/grounding_result.html',{'protective':Protective,
+        'gauge':grounding_cable,'material':Material})
+    else:
+        return render(request, 'calculations/grounding_cable.html',{'error':'El formulario contiene errores.'})
+
+def electrode_cable(request):
+    return render(request, 'calculations/electrode_cable.html')
+
+def electrode_result(request):
+
+    # Validar los datos ingresados por el usuario
+    gauge = Cable_Calculations.is_choice(request.POST['ele_cable_gauge'], 'calibre')
+    material = Cable_Calculations.is_choice(request.POST['ele_material'], 'material')
+
+    if gauge and material:
+        # Obtener los valores ingresados por el usuario en el formulario HTML
+        gauge = request.POST['ele_cable_gauge']
+        material = request.POST['ele_material']
+
+        # Realizar la selección del conductor de puesta a tierra
+        electrode_cu, electrode_al = Cable_Calculations.electrode_conductor(gauge, material)
+
+        return render(request, 'calculations/electrode_result.html',{'ele_cu':electrode_cu,
+        'ele_al':electrode_al,'material':material, 'gauge':gauge})
+    else:
+        return render(request, 'calculations/electrode_cable.html',{'error':'El formulario contiene errores.'})
 
 def conduit_calculation(request):
     return render(request, 'calculations/conduits_calculation.html')
@@ -100,7 +185,7 @@ def work_clearances_result(request):
         DC, HC, WC, BC = Safety_Calculations.work_clearances(V, H, W, VS, CO, BS)
         print(DC, HC, WC, BC)
 
-        return render(request, 'calculations/workclearances_result.html', {'height':HC, 'width': WC, 'depth':DC, 'back':BC})
+        return render(request, 'calculations/workclearances_result.html', {'height':HC, 'width': WC, 'depth':DC, 'back':BC, 'condition':CO,'voltage':V})
     else:
         return render(request, 'calculations/workclearances_calculations.html', {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
 
@@ -120,7 +205,7 @@ def safety_clearances_result(request):
 
         SCM, SCS, RC = Safety_Calculations.safety_clearances(V, S)
 
-        return render(request, 'calculations/safetyclearances_result.html', {'safety_clearance_movil':SCM, 'safety_clearance_static': SCS, 'restricted_clearance':RC})
+        return render(request, 'calculations/safetyclearances_result.html', {'safety_clearance_movil':SCM, 'safety_clearance_static': SCS, 'restricted_clearance':RC, 'voltage':V})
     else:
         return render(request, 'calculations/safetyclearances_calculations.html', {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
 
@@ -151,6 +236,6 @@ def arcflash_result(request):
         IE = Arc_Flash_Calculation.incident_energy(V, I, t, D, G, KP, KA, KE, KM)
         print(IE)
 
-        return render(request, 'calculations/arcflash_result.html', {'result':IE})
+        return render(request, 'calculations/arcflash_result.html', {'result':round(IE,2)})
     else:
         return render(request, 'calculations/arcflash_calculations.html', {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})

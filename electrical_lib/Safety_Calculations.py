@@ -141,7 +141,7 @@ def work_clearances(voltage = 220, panel_height = 0.6, panel_width = 0.76, syste
     if back_equipments == 'Si':
         back_clearance = 0.76
     else:
-        back_clearance = 0
+        back_clearance = '-'
 
     print(back_equipments)
     # SE ENTREGA EL RESULTADO

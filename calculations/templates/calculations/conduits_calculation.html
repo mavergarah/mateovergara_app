@@ -7,8 +7,7 @@
 <form class="" action="conduits_result" method="post">
 {% csrf_token %}
 <fieldset>
-  <!-- Entering of the variables for arc flase calculations -->
-  <label for="method">Ingrese los diámetros o las áreas separadas por comas</label>
+  <!-- Ingreso de variables para el cálculo del diámetro de la tubería eléctrica -->
   <input type="text" name="co_ingreso" value="mm o mm2">
   <select class="solicitud" name="co_diametro">
       <option value="DoA">Diámetro o área?</option>
@@ -33,5 +32,14 @@
 </fieldset>
 
 </form>
+
+<br>
+<h5>Instrucciones de uso:</h5>
+<ol>
+  <li>Primero debes seleccionar si tienes las áreas o los diámetros de los conductores.</li>
+  <li>Luego debes ingresar cada uno separado por comas. No hacerlo de esta manera puede hacer
+  que el programa presente errores.</li>
+  <li>Muchas gracias por utilizar esta aplicación.</li>
+</ol>
 
 {% endblock %}

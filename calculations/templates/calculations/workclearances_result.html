@@ -3,8 +3,27 @@
 {% block title %}Work Clearances{% endblock %}
 
 {% block content %}
-  <h4>La altura de su espacio de trabajo es: {{ height }}</h4>
-  <h4>El ancho de su espacio de trabajo es: {{ width }}</h4>
-  <h4>La profundidad de su espacio de trabajo es: {{ depth }}</h4>
-  <h4>El espacio de trabajo en la parte posterior es: {{ back }}</h4>
+  <table border="1">
+    <tr>
+      <th>Altura (m)</th>
+      <th>Ancho (m)</th>
+      <th>Profundidad (m)</th>
+      <th>Posterior (m)</th>
+    </tr>
+      <td>{{ height }}</td>
+      <td>{{ width }}</td>
+      <td>{{ depth }}</td>
+      <td>{{ back }}</td>
+    <tr>
+
+    </tr>
+  </table>
+<br>
+  <h6>Notas: </h6>
+
+  <ol>
+    <li>"Posterior" debe ser entendido como el espacio de trabajo que debe ser mantenido en la parte posterior para acceder a elementos NO ENERGIZADOS.</li>
+    <li>Estos espacios de trabajo han sido seleccionados de acuerdo al artículo 110.26 de la NTC 2050 del 2021.</li>
+    <li>Los espacios de trabajo indicados en la tabla corresponden al nivel de tensión {{ voltage }} V y a la condición {{ condition }}. </li>
+  </ol>
 {% endblock %}
