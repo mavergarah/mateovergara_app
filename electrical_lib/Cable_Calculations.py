@@ -142,7 +142,9 @@ def earth_conductor(protective_device, kind_of_cable):
     """
 
     # 1. Evaluar el valor del dispositivo de protección
-    if protective_device <= 15:
+    if protective_device == '-':
+        earth_gauge = '-'
+    elif protective_device <= 15:
         if kind_of_cable == 'Cu':
             earth_gauge = '14 AWG'
         else:
@@ -2063,7 +2065,7 @@ def cable_calculation(P, U, Ph, PF, V, L, T = 75, T_amb = 25, CL = 'y', K = 'Cu'
     # 11. Calcular la protección del circuito
     protective = protective_device(nominal_current * correction_factor * adjustment_factor, I_continuous)
 
-    if protective == '':
+    if protective == '-':
         protective = protective_device(nominal_current * correction_factor * adjustment_factor, I)
     print('El dispositivo de protección es: ', protective)
 

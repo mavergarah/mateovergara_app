@@ -2,18 +2,24 @@
 
 {% block title %}Arc Flash{% endblock %}
 {% block content %}
-    <table border="1">
+<br>
+    <table class="table" border="1">
+      <caption class="caption-result">Tabla de resultados.</caption>
       <tr>
-        <th>Energía Incidente (cal/cm2)</th>
+        <th class="th">Energía Incidente (cal/cm2)</th>
+        <th class="th">Nivel de Protección de EPPs</th>
       </tr>
       <tr>
-        <td>{{ result }}</td>
+        <td class="td">{{ result }}</td>
+        <td class="td">{{ epps }}</td>
       </tr>
     </table>
     <br>
-    <h6>Notas:</h6>
+    <h6 class="h6-result">Notas:</h6>
+    <div class="instrucciones">
     <ol>
       <li>El cálculo ha sido realizado de acuerdo al anexo D de la NFPA 70E.</li>
       <li>Por favor revisar los cálculos obtenidos.</li>
     </ol>
+    </div>
 {% endblock %}

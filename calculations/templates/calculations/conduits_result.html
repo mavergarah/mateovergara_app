@@ -3,20 +3,25 @@
 {% block title %}Cálculo de Conduits{% endblock %}
 
 {% block content %}
-  <table border="1">
+<br>
+  <table class="table" border="1">
+    <caption class="caption-result">Tabla de resultados.</caption>
     <tr>
-      <th>Conduit</th>
-      <th>Calibre (pulg)</th>
+    <tr>
+      <th class="th">Conduit</th>
+      <th class="th">Calibre (pulg)</th>
     </tr>
     <tr>
-      <td>{{ kind_of_conduit }}</td>
-      <td>{{ conduit }}</td>
+      <td class="td">{{ kind_of_conduit }}</td>
+      <td class="td">{{ conduit }}</td>
     </tr>
   </table>
   <br>
-  <h6>Notas:</h6>
+  <h6 class="h6-result">Notas:</h6>
+  <div class="result-notes">
   <ol>
-    <li>El cálculo ha sido realizado de acuerdo a los porcentajes de llenado permisibles de la tabla 9 de la NTC 2050.</li>
+    <li>El cálculo ha sido realizado de acuerdo a los porcentajes de llenado permisibles de la tabla 1 de la NTC 2050.</li>
     <li>Por favor revisar los cálculos obtenidos.</li>
   </ol>
+  </div>
 {% endblock %}

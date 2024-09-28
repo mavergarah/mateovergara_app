@@ -31,6 +31,7 @@ def cable_result(request):
         L = float(request.POST['ca_longitud'])
         T_amb = float(request.POST['ca_temperature'])
         T_cond = float(request.POST['ca_temp-conductor'])
+        print(T_amb)
         CL = request.POST['ca_carga_continua']
         K = request.POST['ca_material']
         NC = float(request.POST['ca_numero-conductores'])
@@ -233,9 +234,9 @@ def arcflash_result(request):
         KE = request.POST['ar_earth_kind'] # Kind of earth (HR - High Resistance or WR - Without Resistance)
         KM = request.POST['method'] # Method of calculation
 
-        IE = Arc_Flash_Calculation.incident_energy(V, I, t, D, G, KP, KA, KE, KM)
+        IE, EPPs = Arc_Flash_Calculation.incident_energy(V, I, t, D, G, KP, KA, KE, KM)
         print(IE)
 
-        return render(request, 'calculations/arcflash_result.html', {'result':round(IE,2)})
+        return render(request, 'calculations/arcflash_result.html', {'result':round(IE,3), 'epps':EPPs})
     else:
         return render(request, 'calculations/arcflash_calculations.html', {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})

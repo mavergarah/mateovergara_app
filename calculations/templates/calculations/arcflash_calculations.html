@@ -3,42 +3,71 @@
 {% block title %}Arc Flash{% endblock %}
 
 {% block content %}
-
+<br>
 <form class="" action="arcflash_result" method="post">
 {% csrf_token %}
-<fieldset>
+<fieldset class="fieldset">
   <!-- Ingreso de datos por parte del usuario para cálculo de arco eléctrico -->
-  <input type="text" name="ar_voltage" value="Tensión (kV)">
-  <input type="text" name="ar_short_circuit_current" value="F (kA)">
-  <input type="text" name="ar_time" value="t (s)">
-  <input type="text" name="ar_conductors_separation" value="G (mm)">
-  <input type="text" name="ar_distance" value="D (m)">
-  <select class="solicitud" name="ar_panel_kind">
+  <h5 class="h5-fieldset">Cálculo de Energía Incidente</h5>
+  <label class="label-form" for="ar_voltage">Tensión (V):</label>
+  <input class="input" type="text" name="ar_voltage" value="220">
+  <label class="label-form" for="ar_short_circuit_current">Corriente de cortocircuito trifáisco - F (kA):</label>
+  <input class="input" type="text" name="ar_short_circuit_current" value="0.7">
+  <label class="label-form" for="ar_time">Tiempo de despeje de falla - t (s):</label>
+  <input class="input" type="text" name="ar_time" value="0.01">
+  <label class="label-form" for="ar_conductors_separation">Separación de conductores - G (mm):</label>
+  <input class="input" type="text" name="ar_conductors_separation" value="13">
+  <label class="label-form" for="ar_conductors_separation">Distancia del arco a la persona - D (m):</label>
+  <input class="input" type="text" name="ar_distance" value="0.9">
+  <select class="select-form" name="ar_panel_kind">
       <option value="">Tipo de tablero</option>
       <option value="CCM">CCM</option>
       <option value="PP">Panel de Potencia</option>
   </select>
-  <select class="solicitud" name="ar_arc_kind">
+  <select class="select-form" name="ar_arc_kind">
       <option value="">Tipo de arco</option>
       <option value="O">Abierto</option>
       <option value="C">Cerrado</option>
   </select>
-  <select class="solicitud" name="ar_earth_kind">
+  <select class="select-form" name="ar_earth_kind">
       <option value="">Conexión a tierra</option>
       <option value="HR">Alta resistencia</option>
       <option value="WR">Sin resistencia</option>
   </select>
-  <select class="solicitud" name="method">
+  <select class="select-form" name="method">
       <option value="">Método de cálculo</option>
       <option value="IE15">IEEE1584</option>
       <option value="NFPA70E">NFPA 70E</option>
   </select>
-  <input type="submit" name="ar_calculate" value="Calcular">
+  <input class="button-form" type="submit" name="ar_calculate" value="Calcular">
 
-  <label for="method">{{ error }}</label>
+  <label class="label-form-error" for="ar_distance">{{ error }}</label>
 
 </fieldset>
 
 </form>
+
+<br>
+<h6 class="h6-instrucciones">Instrucciones de uso:</h6>
+<div class="instrucciones">
+  <ol>
+    <li>Solo debes ingresar: la tensión entre líneas (V), la corriente de cortocircuito
+      (kA), el tiempo de despeje de la falla (s), la separación entre conductores
+      (mm - tabla D.4.2 de la NFPA 70E), la distancia del arco a la persona (m), el tipo de tablero,
+      el tipo de arco, la conexión a tierra y el método de cálculo. Cuando hayas ingresado todos los
+      datos le das CALCULAR.</li>
+    <li>Recuerda que la distancia mínima entre conductores (G - mm) es 13 mm mientras que la
+    máxima es 153 mm, de acuerdo al Apéndice C de la NFPA 70E.</li>
+    <li>El TIPO DE ARCO se refiere a ARCOS AL AIRE LIBRE (abierto) y a ARCOS en una caja (cerrado).</li>
+    <li>Ten presente que el MÉTODO IEEE1584 presenta las siguientes limitaciones: 0.208-15 kV,
+    50-60 Hz, 700-106.000 A.</li>
+    <li>Un sistema de CONEXIÓN A TIERRA "sin resistencia" es como el sistema TN-C-S, por ejemplo.</li>
+    <li>Recuerda que los CCM son para niveles de tensión menores o iguales a 1 kV. Mientras que los tableros
+    de potencia son para todos los niveles de tensión.</li>
+    <li>El método NFPA 70E calcula la energía incidente para tensiones iguales o inferiores a 600 V con el método:
+    ENSAYO DE DAUGHTY NEAL.</li>
+    <li>Muchas gracias por utilizar esta aplicación!</li>
+  </ol>
+</div>
 
 {% endblock %}

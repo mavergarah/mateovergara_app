@@ -3,18 +3,20 @@
 {% block title %}Cálculo de Conduits{% endblock %}
 
 {% block content %}
-
+<br>
 <form class="" action="conduits_result" method="post">
 {% csrf_token %}
-<fieldset>
+<fieldset class="fieldset">
   <!-- Ingreso de variables para el cálculo del diámetro de la tubería eléctrica -->
-  <input type="text" name="co_ingreso" value="mm o mm2">
-  <select class="solicitud" name="co_diametro">
+  <h5 class="h5-fieldset">Cálculo de Conduits</h5>
+  <label class="label-form" for="wc_voltage">Tensión (V):</label>
+  <select class="select-form" name="co_diametro">
       <option value="DoA">Diámetro o área?</option>
       <option value="d">Diámetro</option>
       <option value="a">Área</option>
   </select>
-  <select class="solicitud" name="co_conduit_kind">
+  <input class="input" type="text" name="co_ingreso" value="mm o mm2">
+  <select class="select-form" name="co_conduit_kind">
       <option value="KoC">Tipo de conduit?</option>
       <option value="pvc-80">PVC-80</option>
       <option value="pvc-40">PVC-40</option>
@@ -25,21 +27,23 @@
       <option value="ent">ENT</option>
       <option value="fmc">FMC</option>
   </select>
-  <input type="submit" name="co_calculate" value="Calcular">
+  <input class="button-form" type="submit" name="co_calculate" value="Calcular">
 
-  <label for="method">{{ error }}</label>
+  <label class="label-form-error" for="method">{{ error }}</label>
 
 </fieldset>
 
 </form>
 
 <br>
-<h5>Instrucciones de uso:</h5>
+<h6 class="h6-instrucciones">Instrucciones de uso:</h6>
+<div class="instrucciones">
 <ol>
   <li>Primero debes seleccionar si tienes las áreas o los diámetros de los conductores.</li>
   <li>Luego debes ingresar cada uno separado por comas. No hacerlo de esta manera puede hacer
   que el programa presente errores.</li>
-  <li>Muchas gracias por utilizar esta aplicación.</li>
+  <li>Muchas gracias por utilizar esta aplicación!</li>
 </ol>
+</div>
 
 {% endblock %}

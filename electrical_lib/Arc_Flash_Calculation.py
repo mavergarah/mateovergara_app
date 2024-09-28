@@ -50,7 +50,7 @@ def arc_flash_boundary(V_phases, P_trafo, Z_trafo, t, output = 'm'):
     else:
         return Dc
 
-def incident_energy_600_more(V_phases, F, D, t = 2):
+def incident_energy_600_more(V, F, d, t = 2):
     """ Esta función calcula la energía incidente basado en el anexo D de la NFPA 70E del 2015
 
     Para realizar dicho cálculo es necesario ingresar la tensión entre fases del sistema (V, kV), la corriente de
@@ -59,6 +59,9 @@ def incident_energy_600_more(V_phases, F, D, t = 2):
 
     """Este método se puede utilizar solo para arcos trifásicos abierto en sistemas con valores nominales
     superiores a 600 V """
+
+    D = d * 100
+    V_phases = V / 1000
 
     E = (793 * F * V_phases * t) / D**2
 
@@ -74,7 +77,7 @@ def incident_energy_doughty_neal(F, kind_of_panel, t, kind_of_arc):
     una para el cálculo al aire libre y otra para en una caja cúbica, por eso uno de los parámetros de ingreso a
     la función es la variable kind_of_arc la cual puede tomar dos valores: C- Closed o O- Open. """
 
-    if kind_of_panel == 'PD' or kind_of_panel == 'CCM':
+    if kind_of_panel == 'CCM':
         D = 45
     else:
         D = 61
@@ -86,7 +89,7 @@ def incident_energy_doughty_neal(F, kind_of_panel, t, kind_of_arc):
 
     return E
 
-def incident_energy_IEEE1584(V_phases, Ibf, G, t, d, kind_of_arc, kind_of_panel, kind_of_earth):
+def incident_energy_IEEE1584(V, Ibf, G, t, d, kind_of_arc, kind_of_panel, kind_of_earth):
     """ Esta función calcula el arco eléctrico de acuerdo a la IEEE 1584 Guía para Efectuar el cálculo del
     riesgo de relámpago de arco. Las limitantes de este método de cálculo son:
     0.208 kV a 15 kV trifásico
@@ -102,6 +105,8 @@ def incident_energy_IEEE1584(V_phases, Ibf, G, t, d, kind_of_arc, kind_of_panel,
     # La distancia d ingresada está en metros, pero el método de la IEEE1584 exige que sea en mm.
     # Por lo que en este punto se realiza la conversión de metros a milímetros.
     D = d * 1000
+
+    V_phases = V/1000
 
     if V_phases < 1:
         # Se asigna valor a la constante K dependiendo del tipo de arco (O- Open, C- Closed)
@@ -231,8 +236,17 @@ def incident_energy(V, F, t, D, G, kind_of_panel, kind_of_arc, kind_of_earth, me
         incident_energy = incident_energy_IEEE1584(V, F, G, t, D, kind_of_arc, kind_of_panel, kind_of_earth)
     else:
         if V > 600:
-            incident_energy = incident_energy_600_more(V, F, t, D)
+            incident_energy = incident_energy_600_more(V, F, D, t)
         else:
             incident_energy = incident_energy_doughty_neal(F, kind_of_panel, t, kind_of_arc)
+    print(incident_energy)
+    if incident_energy <= 4:
+        epps = 'Cat. 1'
+    elif incident_energy <= 8:
+        epps = 'Cat. 2'
+    elif incident_energy <= 25:
+        epps = 'Cat. 3'
+    elif incident_energy <= 40:
+        epps = 'Cat. 4'
 
-    return incident_energy
+    return incident_energy, epps

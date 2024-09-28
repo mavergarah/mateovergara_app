@@ -3,31 +3,35 @@
 {% block title %}Distancias de Seguridad{% endblock %}
 
 {% block content %}
-
+<br>
 <form class="" action="safety_clearances_result" method="post">
 {% csrf_token %}
-<fieldset>
+<fieldset class="fieldset">
+  <h5 class="h5-fieldset">Cálculo Distancias de Seguridad</h5>
   <!-- Ingreso de datos por parte del usuario para el cálculo de las distancias de seguridad -->
-  <input type="text" name="sc_voltage" value="Tensión entre líneas (V)">
-  <select class="solicitud" name="sc_voltage_system">
-      <option value="Sistema">Sistema</option>
+  <label class="label-form" for="sc_voltage">Tensión entre líneas (V):</label>
+  <input class="input" type="text" name="sc_voltage" value="220">
+  <select class="select-form" name="sc_voltage_system">
+      <option value="¿Tipo de Sistema?">Sistema</option>
       <option value="AC">AC</option>
       <option value="DC">DC</option>
   </select>
-  <input type="submit" name="sc_calculate" value="Calcular">
+  <input class="button-form" type="submit" name="sc_calculate" value="Calcular">
 
-  <label for="method">{{ error }}</label>
+  <label class="label-form-error" for="method">{{ error }}</label>
 
 </fieldset>
 
 </form>
 
 <br>
-<h5>Instrucciones de uso:</h5>
-<ol>
-  <li>Solo debes ingresar el nivel de tensión entre líneas en voltios (V) y seleccionar el tipo de
-  si el sistema es de corriente alterna (AC) o de corriente directa (DC).</li>
-  <li>Muchas gracias por utilizar esta aplicación.</li>
-</ol>
+<h6 class="h6-instrucciones">Instrucciones de uso:</h6>
+<div class="instrucciones">
+  <ol>
+    <li>Solo debes ingresar el nivel de tensión entre líneas en voltios (V) y seleccionar
+      si el sistema es de corriente alterna (AC) o de corriente directa (DC).</li>
+    <li>Muchas gracias por utilizar esta aplicación!</li>
+  </ol>
+</div>
 
 {% endblock %}

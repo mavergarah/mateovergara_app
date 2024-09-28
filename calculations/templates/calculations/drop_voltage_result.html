@@ -3,18 +3,21 @@
 {% block title %}Cálculo de Conduits{% endblock %}
 
 {% block content %}
-  <table border="1">
+<br>
+  <table class="table" border="1">
+  <caption class="caption-result">Tabla de resultados.</caption>
     <tr>
-      <th>CT (V)</th>
-      <th>CT (%)</th>
+      <th class="th">CT (V)</th>
+      <th class="th">CT (%)</th>
     </tr>
     <tr>
-      <td>{{ drop_voltage }}</td>
-      <td>{{ drop_voltage_percentage }}</td>
+      <td class="td">{{ drop_voltage }}</td>
+      <td class="td">{{ drop_voltage_percentage }}</td>
     </tr>
   </table>
   <br>
-  <h6>Notas:</h6>
+  <h6 class="h6-result">Notas:</h6>
+  <div class="instrucciones">
   <ol>
     <li>CT es: Caída de Tensión.</li>
     <li>El cálculo ha sido realizado de acuerdo a la NTC 2050.</li>
@@ -23,4 +26,5 @@
     <li>Los valores de Resistencia y de Reactancia para el calibre {{ gauge }} tomados de la tabla 9 de la NTC 2050 son:
     {{ resistance }}, {{ reactance }}(Ohm/km)</li>
   </ol>
+  </div>
 {% endblock %}

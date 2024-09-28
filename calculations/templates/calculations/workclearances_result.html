@@ -3,27 +3,30 @@
 {% block title %}Work Clearances{% endblock %}
 
 {% block content %}
-  <table border="1">
+<br>
+  <table class="table" border="1">
+    <caption class="caption-result">Tabla de resultados. Tensión: {{ voltage }} V;Condición: {{ condition }}.</caption>
     <tr>
-      <th>Altura (m)</th>
-      <th>Ancho (m)</th>
-      <th>Profundidad (m)</th>
-      <th>Posterior (m)</th>
+      <th class="th">Altura (m)</th>
+      <th class="th">Ancho (m)</th>
+      <th class="th">Profundidad (m)</th>
+      <th class="th">Posterior (m)</th>
     </tr>
-      <td>{{ height }}</td>
-      <td>{{ width }}</td>
-      <td>{{ depth }}</td>
-      <td>{{ back }}</td>
+      <td class="td">{{ height }}</td>
+      <td class="td">{{ width }}</td>
+      <td class="td">{{ depth }}</td>
+      <td class="td">{{ back }}</td>
     <tr>
 
     </tr>
   </table>
 <br>
-  <h6>Notas: </h6>
-
-  <ol>
-    <li>"Posterior" debe ser entendido como el espacio de trabajo que debe ser mantenido en la parte posterior para acceder a elementos NO ENERGIZADOS.</li>
-    <li>Estos espacios de trabajo han sido seleccionados de acuerdo al artículo 110.26 de la NTC 2050 del 2021.</li>
-    <li>Los espacios de trabajo indicados en la tabla corresponden al nivel de tensión {{ voltage }} V y a la condición {{ condition }}. </li>
-  </ol>
+  <h6 class="h6-result">Notas: </h6>
+  <div class="result-notes">
+    <ol>
+      <li>"Posterior" debe ser entendido como el espacio de trabajo que debe ser mantenido en la parte posterior para acceder a elementos NO ENERGIZADOS.</li>
+      <li>Estos espacios de trabajo han sido seleccionados de acuerdo al artículo 110.26 de la NTC 2050 del 2021.</li>
+      <li>Los espacios de trabajo corresponden al nivel de tensión y a la condición indicada en la tabla. </li>
+    </ol>
+  </div>
 {% endblock %}

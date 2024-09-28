@@ -104,6 +104,13 @@ a:hover {
   margin: auto;
 }
 
+.h5-fieldset {
+  font-size: 16px;
+  font-family: Helvetica, Sans-Serif;
+  margin: auto;
+  text-align:center;
+}
+
 .input {
   border-radius: 5px;
   width: 500px;
@@ -159,5 +166,71 @@ a:hover {
   margin-bottom: 15px;
   margin-top: 5px;
   color: #242f40;
+  font-weight: bold;
+}
+
+/* 2- RESULTADOS (TABLAS Y NOTAS) */
+
+.table {
+  margin: auto;
+  border-spacing: 0;
+}
+
+.th {
+  width: 150px;
+  text-align: center;
+  vertical-align: center;
+  border: 1px solid #242f40;
+  font-family: Helvetica, Sans-Serif;
+  font-size: 20px;
+  border-spacing: 0;
+  background-color: #f0f0f0;
+}
+
+.td {
+  width: 150px;
+  text-align: center;
+  vertical-align: center;
+  border: 1px solid #242f40;
+  font-family: Helvetica, Sans-Serif;
+  font-size: 20px;
+  border-spacing: 0;
+}
+
+.result-notes {
+  font-family: Helvetica, Sans-Serif;
+  font-size: 16px;
+  margin: auto;
+  text-align:left;
+  width: 700px;
+}
+
+.instrucciones {
+  font-family: Helvetica, Sans-Serif;
+  font-size: 16px;
+  margin: auto;
+  text-align:left;
+  width: 700px;
+}
+
+.h6-result {
+  font-size: 16px;
+  font-family: Helvetica, Sans-Serif;
+  margin: auto;
+  text-align:center;
+}
+
+.h6-instrucciones {
+  font-size: 16px;
+  font-family: Helvetica, Sans-Serif;
+  margin: auto;
+  text-align:center;
+}
+
+.caption-result {
+  font-size: 18px;
+  font-family: Helvetica, Sans-Serif;
+  margin: auto;
+  text-align:center;
   font-weight: bold;
 }

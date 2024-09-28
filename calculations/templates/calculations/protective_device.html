@@ -3,21 +3,25 @@
 {% block title %}Dispositivo de Protección{% endblock %}
 
 {% block content %}
-
+<br>
 <form class="" action="protective_result" method="post">
 {% csrf_token %}
-<fieldset>
+<fieldset class="fieldset">
   <!-- Entering of the variables for arc flase calculations -->
-  <input type="text" name="pro_current_ad" value="Corriente Ajustada (A)">
-  <input type="text" name="pro_current_cont" value="Corriente Continua (A)">
-  <input type="submit" name="ca_calcular" value="Calcular">
+  <h5 class="h5-fieldset">Selección del Dispositivo de Protección</h5>
+  <label class="label-form" for="pro_current_ad">Corriente Ajustada (A):</label>
+  <input class="input" type="text" name="pro_current_ad" value="16">
+  <label class="label-form" for="pro_current_cont">Corriente Continua (A):</label>
+  <input class="input" type="text" name="pro_current_cont" value="13">
+  <input class="button-form" type="submit" name="ca_calcular" value="Calcular">
 
-  <label for="method">{{ error }}</label>
+  <label class="label-form-error" for="ca_calcular">{{ error }}</label>
 </fieldset>
 </form>
 
 <br>
-<h6>Instrucciones de uso:</h6>
+<h6 class="h6-result">Instrucciones de uso:</h6>
+<div class="result-notes">
 <ol>
   <li>CORRIENTE CONTINUA se refiere a la corriente de la carga continua. Recuerda que una
   carga continua es aquella que opera tres horas o más de forma continua.</li>
@@ -26,5 +30,7 @@
     se le han aplicado factores de corrección por temperatura y factores de ajuste
     para más de tres conductores portadores de corriente en una misma canalización.</li>
   <li>Si la carga no es continua se debe ingresar la corriente de la carga no continua.</li>
+</ol>
+</div>
 
 {% endblock %}

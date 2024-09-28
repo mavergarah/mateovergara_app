@@ -3,29 +3,36 @@
 {% block title %}Cálculo de Conduits{% endblock %}
 
 {% block content %}
-
+<br>
 <form class="" action="grounding_result" method="post">
 {% csrf_token %}
-<fieldset>
+<fieldset class="fieldset">
   <!-- Ingreso de variables para cálculo del conductor de protección -->
-  <input type="text" name="gro_ingreso" value="Protección (A)">
-  <select class="solicitud" name="gro_diametro">
-      <option value="material">Material del conductor?</option>
+  <h5 class="h5-fieldset">Cálculo del Conductor de Protección</h5>
+  <label class="label-form" for="gro_ingreso">Protección (A):</label>
+  <input class="input" name="gro_ingreso" value="Protección (A)">
+  <select class="select-form" name="gro_diametro">
+      <option value="material">¿Material del conductor?</option>
       <option value="Cu">Cu</option>
       <option value="Al">Al</option>
   </select>
-  <input type="submit" name="gro_calculate" value="Calcular">
+  <input class="button-form" type="submit" name="gro_calculate" value="Calcular">
 
-  <label for="method">{{ error }}</label>
+  <label class="label-form-error" for="method">{{ error }}</label>
 
 </fieldset>
 
 <br>
+<h6 class="h6-result">Notas:</h6>
+<div class="result-notes">
 <ol>
-  <li>Para realizar el cálculo es necesario que ingreses la corriente nominal (en Amperios) del
-  dispositivo de protección de tu circuito ramal o alimentador, así como el material del conductor
-  de protección que esperas poner en tu proyecto.</li>
+  <li>Para realizar el cálculo es necesario que ingreses la corriente nominal (A) del
+  dispositivo de protección de tu circuito ramal o alimentador, así como el material (Cu, Al) del conductor
+  de protección que esperas poner en tu proyecto. Una vez que hayas hecho esto, ya puedes darle al botón
+  calcular.</li>
+  <li>Muchas gracias por utilizar esta aplicación!</li>
 </ol>
+</div>
 
 </form>
 

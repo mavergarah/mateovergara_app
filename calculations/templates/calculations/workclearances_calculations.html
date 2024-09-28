@@ -7,7 +7,7 @@
 <form class="" action="work_clearances_result" method="post">
 {% csrf_token %}
 <fieldset class="fieldset">
-
+  <h5 class="h5-fieldset">Cálculo de Espacios de Trabajo</h5>
   <!-- Entering of the variables for arc flase calculations -->
   <label class="label-form" for="wc_voltage">Tensión (V):</label>
   <input class="input" type="text" name="wc_voltage" value="208">
@@ -37,6 +37,17 @@
   <label class="label-form-error" for="method">{{ error }}</label>
 
 </fieldset>
+<br>
+<h6 class="h6-instrucciones">Instrucciones de uso:</h6>
+<div class="instrucciones">
+  <ol>
+    <li>Solo debes ingresar el nivel de tensión entre líneas en voltios (V), la altura y el ancho
+      del tablero (m), seleccionar si el sistema es monofásico, bifásico o trifásico, la condición en la
+      que se encuentra el tablero y finalmente si tiene acceso posterior a ELEMENTOS DESENERGIZADOS. Luego
+      le das al botón calcular y listo!</li>
+    <li>Muchas gracias por utilizar esta aplicación!</li>
+  </ol>
+</div>
 
 </form>
 

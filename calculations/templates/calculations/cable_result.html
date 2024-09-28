@@ -3,28 +3,32 @@
 {% block title %}Cálculo de Conduits{% endblock %}
 
 {% block content %}
-<table border = "1">
+<br>
+<table class="table" border = "1">
+<caption class="caption-result">Tabla de resultados.</caption>
   <tr>
-    <th>Fase</th>
-    <th>Neutro</th>
-    <th>Tierra</th>
-    <th>Protección (A)</th>
-    <th><b>Caída de tensión (%)</b></td>
+    <th class="th">Fase</th>
+    <th class="th">Neutro</th>
+    <th class="th">Tierra</th>
+    <th class="th">Protección (A)</th>
+    <th class="th"><b>Caída de tensión (%)</b></td>
   </tr>
   <tr>
-    <td>{{ phase }}</td>
-    <td>{{ neutral }}</td>
-    <td>{{ ground }}</td>
-    <td>{{ protective }}</td>
-    <td>{{ Vdrop }}</td>
+    <td class="td">{{ phase }}</td>
+    <td class="td">{{ neutral }}</td>
+    <td class="td">{{ ground }}</td>
+    <td class="td">{{ protective }}</td>
+    <td class="td">{{ Vdrop }}</td>
   </tr>
 </table>
 
 <br>
-  <h6>Notas al cálculo:</h6>
+  <h6 class="h6-result">Notas al cálculo:</h6>
+  <div class="instrucciones">
   <ol>
     <li>El cálculo se ha realizado de acuerdo a la NTC 2050 de 2021 (Código eléctrico colombiano).</li>
     <li>El factor de corrección por temperatura considerado es: {{ corrective_factor }}</li>
   </ol>
+  </div>
 
 {% endblock %}

@@ -1,21 +1,25 @@
 {% extends "calculations/index.html" %}
 
-{% block title %}Cálculo de Conduits{% endblock %}
+{% block title %}Conductor de Tierra{% endblock %}
 
 {% block content %}
-  <table border="1">
+<br>
+  <table class="table" border="1">
+  <caption class="caption-result">Tabla de resultados.</caption>
     <tr>
-      <th>Protección (A)</th>
+      <th class="th">Protección (A)</th>
     </tr>
     <tr>
-      <td>{{ protective_device }}</td>
+      <td class="td">{{ protective_device }}</td>
     </tr>
   </table>
   <br>
-  <h6>Notas:</h6>
+  <h6 class="h6-result">Notas:</h6>
+  <div class="instrucciones">
   <ol>
     <li>El cálculo ha sido realizado de acuerdo a la NTC 2050.</li>
     <li>El usuario es responsable de revisar los cálculos obtenidos.</li>
     <li>Recuerda que la corriente ajustada debe ser mayor a la continua.</li>
   </ol>
+  </div>
 {% endblock %}

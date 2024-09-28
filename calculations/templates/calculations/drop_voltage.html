@@ -3,33 +3,37 @@
 {% block title %}Caída de Tensión{% endblock %}
 
 {% block content %}
-
+<br>
 <form class="" action="drop_voltage_result" method="post">
 {% csrf_token %}
-<fieldset>
+<fieldset class="fieldset">
   <!-- Ingreso de variables por parte del usuario para el cálculo de regulación de tensión -->
-  <input type="text" name="dro_voltage" value="Tensión (V)">
-  <input type="text" name="dro_length" value="Longitud (m)">
-  <input type="text" name="dro_current" value="Corriente (A)">
-  <input type="text" name="dro_pf" value="Factor de Potencia (p.u)">
-  <select class="solicitud" name="dro_system">
-      <option value="sistema">Tipo de sistema?</option>
+  <label class="label-form" for="dro_voltage">Tensión (V):</label>
+  <input class="input" type="text" name="dro_voltage" value="120">
+  <label class="label-form" for="dro_length">Longitud (m):</label>
+  <input class="input" type="text" name="dro_length" value="10">
+  <label class="label-form" for="dro_current">Corriente (A):</label>
+  <input class="input" type="text" name="dro_current" value="15">
+  <label class="label-form" for="dro_pf">Factor de Potencia (0 - 1):</label>
+  <input class="input" type="text" name="dro_pf" value="0.85">
+  <select class="select-form" name="dro_system">
+      <option value="sistema">¿Tipo de sistema?</option>
       <option value="1">Monofásico</option>
       <option value="2">Bifásico</option>
       <option value="3">Trifásico</option>
   </select>
-  <select class="solicitud" name="dro_conduit_kind">
-      <option value="conduit">Tipo de conduit?</option>
+  <select class="select-form" name="dro_conduit_kind">
+      <option value="conduit">¿Tipo de conduit?</option>
       <option value="PVC">PVC</option>
       <option value="st">Acero</option>
   </select>
-  <select class="solicitud" name="dro_cable_kind">
-      <option value="material">Material del Conductor?</option>
+  <select class="select-form" name="dro_cable_kind">
+      <option value="material">¿Material del Conductor?</option>
       <option value="Cu">Cu</option>
       <option value="Al">Al</option>
   </select>
-  <select class="solicitud" name="dro_cable_gauge">
-      <option value="calibre">Calibre?</option>
+  <select class="select-form" name="dro_cable_gauge">
+      <option value="calibre">¿Calibre?</option>
       <option value="14 AWG">14 AWG</option>
       <option value="12 AWG">12 AWG</option>
       <option value="10 AWG">10 AWG</option>
@@ -52,15 +56,17 @@
       <option value="750 MCM">750 MCM</option>
       <option value="1000 MCM">1000 MCM</option>
   </select>
-  <input type="submit" name="ca_calcular" value="Calcular">
+  <input class="button-form" type="submit" name="ca_calcular" value="Calcular">
 
-  <label for="method">{{ error }}</label>
+  <label class="label-form-error" for="method">{{ error }}</label>
 </fieldset>
 </form>
 
 <br>
-<h6>Nota Importante:</h6>
+<h6 class="h6-instrucciones">Nota Importante:</h6>
+<div class="instrucciones">
 <ol>
   <li>Recuerda que la corriente ajustada debe ser mayor a la continua.</li>
-
+</ol>
+</div>
 {% endblock %}
