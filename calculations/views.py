@@ -8,21 +8,177 @@ from electrical_lib import Conduits_Calculation
 from electrical_lib import Safety_Calculations
 
 # Create your views here.
+def cable_choosing(request):
+    # En esta vista el usuario selecciona el tipo de cálculo que quiere hacer:
+    # Un cálculo para una carga general (un toma, iluminación, etc.)
+    # Un motor para el cual tiene la potencia, la eficiencia, el factor de potencia y la tensión
+    # O un motor del que solo tiene la tensión y la potencia. En este caso se selcciona de acuerdo
+    # a la sección 430 de la NTC 2050 del 2020.
+    return render(request, 'calculations/cable_choosing.html')
+
+def cable_choosing_result(request):
+    # Dependiendo del tipo de selección que haya hecho el usuario en la vista anterior se realiza
+    # la redirección al formulario correspondiente.
+
+    # 1. Se valida la selección del usuario
+    validation = Cable_Calculations.is_choice(request.POST['ca_calculate_choosing'],'carga')
+
+    if validation:
+        select = request.POST['ca_calculate_choosing']
+
+        if select == 'CV':
+            return render(request, 'calculations/cable_calculations.html')
+        elif select == 'M':
+            return render(request, 'calculations/cable_motor_calculations.html')
+        else:
+            return render(request, 'calculations/cable_motorntc_calculations.html')
+    else:
+        return render(request, 'calculations/cable_choosing.html',{'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
+
 def cable_calculation(request):
     return render(request, 'calculations/cable_calculations.html')
 
-def cable_result(request):
+def cable_motor_result(request):
+    # Esta función realiza el cálculo de conductores para un motor del cual se conocen
+    # la eficiencia y el factor de potencia.
 
     # Validar los datos de ingreso al formulario del HTML
-    validation = Cable_Calculations.cable_validation(request.POST['ca_potencia'],
-    request.POST['ca_unidades'], request.POST['ca_fases'], request.POST['ca_fp'],
-    request.POST['ca_tension'], request.POST['ca_longitud'], request.POST['ca_temperature'],
-    request.POST['ca_temp-conductor'], request.POST['ca_carga_continua'], request.POST['ca_material'],
-    request.POST['ca_numero-conductores'], request.POST['ca_conduit'])
-    print(validation)
+    print(request.POST)
+    P = Cable_Calculations.is_number(request.POST['mo_power'])
+    n = Cable_Calculations.is_number(request.POST['mo_efficiency'])
+    n2 = Cable_Calculations.isin_range(request.POST['mo_efficiency'],0,1) # Validación de eficiencia entre 0 y 1
+    Ph = Cable_Calculations.is_choice(request.POST['mo_fases'],'fases')
+    FP = Cable_Calculations.is_number(request.POST['mo_fp'])
+    FP2 = Cable_Calculations.isin_range(request.POST['mo_fp'],0,1) # Validación de factor de potencia entre 0 y 1
+    V = Cable_Calculations.is_number(request.POST['mo_tension'])
+    L = Cable_Calculations.is_number(request.POST['mo_longitud'])
+    T_amb = Cable_Calculations.is_number(request.POST['mo_temperature'])
+    T_cond = Cable_Calculations.is_choice(request.POST['mo_temp-conductor'],'temperatura')
+    CL = Cable_Calculations.is_choice(request.POST['mo_carga_continua'],'carga continua')
+    K = Cable_Calculations.is_choice(request.POST['mo_material'],'material')
+    NC = Cable_Calculations.is_number(request.POST['mo_numero-conductores'])
+    C = Cable_Calculations.is_choice(request.POST['mo_conduit'],'conduit')
 
     # Realizar cálculo de los conductores si el formulario no tiene errores
-    if not validation == 'Error':
+    if P and n and n2 and Ph and FP and FP2 and V and L and T_amb and T_cond and CL and K and NC and C:
+        P = float(request.POST['mo_power'])
+        n = float(request.POST['mo_efficiency'])
+        Ph = float(request.POST['mo_fases'])
+        FP = float(request.POST['mo_fp'])
+        V = float(request.POST['mo_tension'])
+        L = float(request.POST['mo_longitud'])
+        T_amb = float(request.POST['mo_temperature'])
+        T_cond = float(request.POST['mo_temp-conductor'])
+        CL = request.POST['mo_carga_continua']
+        K = request.POST['mo_material']
+        NC = float(request.POST['mo_numero-conductores'])
+        C = request.POST['mo_conduit']
+
+        ph, n, g, V_drop, pd, fa_corr = Cable_Calculations.cable_calculation(P, 'HP', Ph, FP, V, L, T_cond, T_amb, CL, K, NC, C, n)
+        return render(request, 'calculations/cable_result.html', {'phase':ph, 'neutral':n,'ground':g, 'Vdrop':round(V_drop,2),
+        'protective':pd, 'corrective_factor':fa_corr})
+    else:
+        return render(request, 'calculations/cable_motor_calculations.html', {'error':'El formulario contiene errores'})
+
+def cable_motorntc_result(request):
+    # Esta función realiza el cálculo de conductores para un motor del cual se conocen
+    # la eficiencia y el factor de potencia.
+
+    # Validar los datos de ingreso al formulario del HTML
+    print(request.POST)
+    P = Cable_Calculations.is_choice(request.POST['mon_power'],'potencia')
+    Ph = Cable_Calculations.is_choice(request.POST['mon_fases'],'fases')
+    S = Cable_Calculations.is_choice(request.POST['mon_sinchronous'],'sincrono')
+    V = Cable_Calculations.is_choice(request.POST['mon_tension'],'tension')
+    L = Cable_Calculations.is_number(request.POST['mon_longitud'])
+    T_amb = Cable_Calculations.is_number(request.POST['mon_temperature'])
+    T_cond = Cable_Calculations.is_choice(request.POST['mon_temp-conductor'],'temperatura')
+    CL = Cable_Calculations.is_choice(request.POST['mon_carga_continua'],'carga continua')
+    K = Cable_Calculations.is_choice(request.POST['mon_material'],'material')
+    NC = Cable_Calculations.is_number(request.POST['mon_numero-conductores'])
+    C = Cable_Calculations.is_choice(request.POST['mon_conduit'],'conduit')
+
+    # Validar que los valores de potencia ingresados enten dentro del rango de tensión de la NTC 2050
+    if P and V and Ph:
+        # Averiguar si el sistema es monofásico, bifásico o trifásico
+        if float(request.POST['mon_fases']) == 1:
+            min = 1/6
+            max = 10
+        elif float(request.POST['mon_fases']) == 2:
+            # Preguntar por el nivel de tensión
+            min = 1/2
+            if (float(request.POST['mon_tension'])) == 115:
+                max = 2
+            else:
+                max = 200
+        else:
+            # Preguntar si el motor es síncrono o asíncrono
+            if request.POST['mon_sinchronous'] == 'NTC2050-As':
+                # Preguntar por el nivel de tensión
+                min = 1/2
+                if (float(request.POST['mon_tension'])) == 115:
+                    max = 2
+                elif float(request.POST['mon_tension']) == 200 or float(request.POST['mon_tension']) == 208 or (float(request.POST['mon_tension'])) == 230:
+                    max = 200
+                elif float(request.POST['mon_tension']) == 460 or float(request.POST['mon_tension']) == 575:
+                    max = 500
+                else:
+                    min = 60
+                    max = 500
+            else:
+                # Preguntar por el nivel de tensión
+                min = 25
+                if (float(request.POST['mon_tension'])) == 230:
+                    max = 200
+                elif float(request.POST['mon_tension']) == 460 or float(request.POST['mon_tension']) == 575:
+                    max = 200
+                else:
+                    min = 60
+                    max = 200
+
+    # Validar si el valor de potencia ingresado se encuentra dentro del rango de min y max de la sección 430
+    P2 = Cable_Calculations.isin_range(request.POST['mon_power'],min,max)
+
+    # Realizar cálculo de los conductores si el formulario no tiene errores
+    if P and P2 and Ph and S and V and L and T_amb and T_cond and CL and K and NC and C:
+        P = float(request.POST['mon_power'])
+        Ph = float(request.POST['mon_fases'])
+        S = request.POST['mon_sinchronous']
+        V = float(request.POST['mon_tension'])
+        L = float(request.POST['mon_longitud'])
+        T_amb = float(request.POST['mon_temperature'])
+        T_cond = float(request.POST['mon_temp-conductor'])
+        CL = request.POST['mon_carga_continua']
+        K = request.POST['mon_material']
+        NC = float(request.POST['mon_numero-conductores'])
+        C = request.POST['mon_conduit']
+
+        ph, n, g, V_drop, pd, fa_corr = Cable_Calculations.cable_calculation(P, 'HP', Ph, 0.85, V, L, T_cond, T_amb, CL, K, NC, C, S)
+        return render(request, 'calculations/cable_result.html', {'phase':ph, 'neutral':n,'ground':g, 'Vdrop':round(V_drop,2),
+        'protective':pd, 'corrective_factor':fa_corr})
+    else:
+        return render(request, 'calculations/cable_motor_calculations.html', {'error':'El formulario contiene errores'})
+
+def cable_result(request):
+    # Esta función realiza el cálculo de conductores para una carga general (que no es un motor)
+    # Validar los datos de ingreso al formulario del HTML
+    P = Cable_Calculations.is_number(request.POST['ca_potencia'])
+    U = Cable_Calculations.is_choice(request.POST['ca_unidades'],'unidades')
+    Ph = Cable_Calculations.is_choice(request.POST['ca_fases'],'fases')
+    FP2 = Cable_Calculations.isin_range(request.POST['ca_fp'],0,1) # Se valida que el factor de potencia esté entre 0 y 1
+    FP = Cable_Calculations.is_number(request.POST['ca_fp'])
+    V = Cable_Calculations.is_number(request.POST['ca_tension'])
+    L = Cable_Calculations.is_number(request.POST['ca_longitud'])
+    T_amb = Cable_Calculations.is_number(request.POST['ca_temperature'])
+    T_cond = Cable_Calculations.is_choice(request.POST['ca_temp-conductor'],'temperatura')
+    CL = Cable_Calculations.is_choice(request.POST['ca_carga_continua'],'carga continua')
+    K = Cable_Calculations.is_choice(request.POST['ca_material'],'material')
+    NC = Cable_Calculations.is_number(request.POST['ca_numero-conductores'])
+    C = Cable_Calculations.is_choice(request.POST['ca_conduit'],'conduit')
+
+    print(P,U,Ph,FP2,FP,V,L,T_amb,T_cond,CL,K,NC,C)
+    # Realizar cálculo de los conductores si el formulario no tiene errores
+    if P and U and Ph and FP and FP2 and V and L and T_amb and T_cond and CL and K and NC and C:
         P = float(request.POST['ca_potencia'])
         U = request.POST['ca_unidades']
         Ph = float(request.POST['ca_fases'])
@@ -31,7 +187,6 @@ def cable_result(request):
         L = float(request.POST['ca_longitud'])
         T_amb = float(request.POST['ca_temperature'])
         T_cond = float(request.POST['ca_temp-conductor'])
-        print(T_amb)
         CL = request.POST['ca_carga_continua']
         K = request.POST['ca_material']
         NC = float(request.POST['ca_numero-conductores'])

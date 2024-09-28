@@ -1,0 +1,99 @@
+{% extends "calculations/index.html" %}
+
+{% block title %}Cálculo de condutores{% endblock %}
+
+{% block content %}
+<br>
+<form class="" action="cable_motorntc_result" method="post">
+{% csrf_token %}
+<fieldset class="fieldset">
+  <!-- Entering of the variables for arc flase calculations -->
+  <h5 class="h5-fieldset">Cálculo de Conductores Eléctricos</h5>
+  <select class="select-form" name="mon_power">
+      <option value="potencia">¿Potencia del motor (HP)?</option>
+      <option value="0.5">1/2</option>
+      <option value="0.75">3/4</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="5">5</option>
+      <option value="7.5">7.5</option>
+      <option value="10">10</option>
+      <option value="15">15</option>
+      <option value="20">20</option>
+      <option value="25">25</option>
+      <option value="30">30</option>
+      <option value="40">40</option>
+      <option value="50">50</option>
+      <option value="60">60</option>
+      <option value="75">75</option>
+      <option value="100">100</option>
+      <option value="125">125</option>
+      <option value="150">150</option>
+      <option value="200">200</option>
+      <option value="250">250</option>
+      <option value="300">300</option>
+      <option value="350">350</option>
+      <option value="400">400</option>
+      <option value="450">450</option>
+      <option value="500">500</option>
+  </select>
+  <select class="select-form" name="mon_voltage">
+      <option value="tension">¿Nivel de tensión (V)?</option>
+      <option value="115">115</option>
+      <option value="200">200</option>
+      <option value="208">208</option>
+      <option value="230">230</option>
+      <option value="460">460</option>
+      <option value="575">575</option>
+      <option value="2300">2300</option>
+  </select>
+  <select class="select-form" name="mon_sinchronous">
+      <option value="sincrono">¿Síncrono o asíncrono?</option>
+      <option value="NTC2050-As">Asíncrono</option>
+      <option value="NTC2050-Si">Síncrono</option>
+  </select>
+  <select class="select-form" name="mon_fases">
+      <option value="fases">¿Cuántas Fases?</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+  </select>
+  <label class="label-form" for="mon_longitud">Longitud (m):</label>
+  <input class="input" type="text" name="mon_longitud" value="15">
+  <label class="label-form" for="mon_temperature">Temp. Ambiente (ºC):</label>
+  <input class="input" type="text" name="mon_temperature" value="25">
+  <select class="select-form" name="mon_temp-conductor">
+      <option value="temperatura">¿Temp. Conductor (ºC)?</option>
+      <option value="60">60</option>
+      <option value="75">75</option>
+      <option value="90">90</option>
+  </select>
+  <select class="select-form" name="mon_carga_continua">
+      <option value="carga continua">¿Carga continua?</option>
+      <option value="y">Sí</option>
+      <option value="n">No</option>
+  </select>
+  <select class="select-form" name="mon_material">
+      <option value="material">¿Material del conductor?</option>
+      <option value="Cu">Cobre</option>
+      <option value="Al">Aluminio</option>
+      <option value="Al-cu">Aluminio recubierto de cobre</option>
+  </select>
+  <label class="label-form" for="mon_numero-conductores">Número de conductores en una misma canalización:</label>
+  <input class="input" ype="text" name="mon_numero-conductores" value="3">
+  <select class="select-form" name="mon_conduit">
+      <option value="conduit">¿Tipo de Conduit?</option>
+      <option value="PVC">PVC</option>
+      <option value="St">Acero</option>
+  </select>
+
+  <input class="button-form" type="submit" name="mon_calcular" value="Calcular">
+
+  <label class="label-form-error" for="mon_numero-conductores">{{ error }}</label>
+
+</fieldset>
+
+</form>
+
+{% endblock %}

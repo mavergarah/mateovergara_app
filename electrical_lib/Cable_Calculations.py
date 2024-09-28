@@ -1,3 +1,13 @@
+def isin_range(value, min, max):
+    """ Esta función verifica que un valor ingresado sea un número entero positivo
+    """
+
+    try:
+        if min <= float(value) <= max:
+            return True
+    except ValueError:
+        return False
+
 def is_choice(value, option):
     """ Esta función verifica se haya seleccionado una opción de un formulario
     """
@@ -1330,7 +1340,7 @@ def search_table_31015(I, V, T, K, Pos):
 def Motor_Current_Calculation(P, V, n, Ph):
     """ Esta función realiza la selección de la corriente de un motor basado en las tablas
     de la sección 430 de la NTC 2050 segunda actualización. Para eso toma como parámetros la potencia (P) en HP
-    la tensión (V), la eficiencia (n) y el número de fases (Ph).
+    la tensión (V), si es sincrono o asincrono (n) y el número de fases (Ph).
 
     """
 

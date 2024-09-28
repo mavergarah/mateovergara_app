@@ -24,4 +24,8 @@ urlpatterns = [
     path("grounding_result", views.grounding_result, name = "grounding_result"),
     path("electrode_cable", views.electrode_cable, name = "electrode_cable"),
     path("electrode_result", views.electrode_result, name = "electrode_result"),
+    path("cable_choosing", views.cable_choosing, name = "cable_choosing"),
+    path("cable_choosing_result", views.cable_choosing_result, name = "cable_choosing_result"),
+    path("cable_motor_result", views.cable_motor_result, name = "cable_motor_result"),
+    path("cable_motorntc_result", views.cable_motorntc_result, name = "cable_motorntc_result"),
 ]

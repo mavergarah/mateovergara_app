@@ -1,0 +1,26 @@
+{% extends "calculations/index.html" %}
+
+{% block title %}Cálculo de condutores{% endblock %}
+
+{% block content %}
+<br>
+<form class="" action="cable_choosing_result" method="post">
+{% csrf_token %}
+<fieldset class="fieldset">
+  <!-- Se selecciona el tipo de carga que se tiene para realizar el cálculo posteriormente -->
+  <h5 class="h5-fieldset">Cálculo de Conductores Eléctricos</h5>
+  <select class="select-form" name="ca_calculate_choosing">
+      <option value="carga">¿Qué tipo de carga tienes?</option>
+      <option value="M">Tengo un motor, su eficiencia y su factor de potencia</option>
+      <option value="M-NTC2050">Un motor de acuerdo a la NTC 2050</option>
+      <option value="CV">Es una carga general</option>
+  </select>
+  <input class="button-form" type="submit" name="ca_calculate" value="Calcular">
+
+  <label class="label-form-error" for="ca_calculate">{{ error }}</label>
+
+</fieldset>
+
+</form>
+
+{% endblock %}
