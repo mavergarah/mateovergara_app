@@ -2017,19 +2017,14 @@ def cable_calculation(P, U, Ph, PF, V, L, T = 75, T_amb = 25, CL = 'y', K = 'Cu'
     # 1. Calcular la corriente nominal del conductor a partir de la Potencia
     I = current_load(P, U, Ph, PF, V, n)
 
-    print('Corriente nominal: ', I)
-
     # 2. Multiplicar las cargas continuas por 125%
     if CL == 'y':
         I_continuous = I * 1.25
     else:
         I_continuous = I
 
-    print('Corriente de carga continua: ', I_continuous)
-
     # 3. Seleccionar la corriente nominal del conductor de acuerdo a la temperatura ambiente.
     correction_factor = temperature_correction_factor(T_amb, T)
-    print('Factor de corrección por temperatura: ', correction_factor)
 
     # 4. Si no se puede seleccionar ningún factor de corrección entonces se asignará el valor de 1
     # a la variable correction_factor.
@@ -2046,19 +2041,23 @@ def cable_calculation(P, U, Ph, PF, V, L, T = 75, T_amb = 25, CL = 'y', K = 'Cu'
         adjustment_factor = 1
     else:
         adjustment_factor = adjustment_correction_factor(NC)
-    print('Factor de ajuste: ', adjustment_factor)
 
-    # 6. Evaluar si la corriente nominal ajustada del conductor es superior a la corriente nominal de la carga
+    # 6. Seleccionar el número de conductores por fase. Si la corriente es superior a 455 A (1000 MCM de Cu)
+    conductors_per_fase = 1
+
+    while I_continuous > 455:
+        conductors_per_fase = conductors_per_fase + 1
+        I_continuous = I_continuous / conductors_per_fase
+
+    # 6. Seleccionar el calibre del conductor
     gauge, nominal_current = conductor_gauge((I_continuous / (correction_factor * adjustment_factor)), V, T, K)
-    print('La corriente nominal del conductor de calibre %s es %.1f A' % (gauge, nominal_current))
 
     # 7. Ajustar la corriente nominal del conductor seleccionado de acuerdo al factor de correcciónote
     # y de acuerdo al valor de ajuste
     I_adjust = nominal_current * correction_factor * adjustment_factor
-    print('Corriente ajustada: ', I_adjust)
 
     # 8. Calculo de la regulación de tensión
-    Vdrop, Vdrop_percent, R, X = drop_voltage_calculation(Ph, V, L, I, PF, gauge, KC, K)
+    Vdrop, Vdrop_percent, R, X = drop_voltage_calculation(Ph, V, L, (I / conductors_per_fase), PF, gauge, KC, K)
 
     # 9. Si la caída de tensión es superior al 3% se debe seleccionar un conductor con una caída de tensión
     # inferior a esta.
@@ -2076,11 +2075,10 @@ def cable_calculation(P, U, Ph, PF, V, L, T = 75, T_amb = 25, CL = 'y', K = 'Cu'
     protective = protective_device(nominal_current * correction_factor * adjustment_factor, I_continuous)
 
     if protective == '-':
-        protective = protective_device(nominal_current * correction_factor * adjustment_factor, I)
-    print('El dispositivo de protección es: ', protective)
+        protective = protective_device(nominal_current * correction_factor * adjustment_factor, I * conductors_per_fase)
 
     # 12. Selección del conductor de protección de equipos (o de puesta a tierra) de equipos
     earth = earth_conductor(protective, K)
 
     # 13. Imprimir los resultados del cálculo
-    return gauge, neutral_conductor, earth, Vdrop_percent, protective, correction_factor
+    return gauge, neutral_conductor, earth, Vdrop_percent, protective, correction_factor, conductors_per_fase

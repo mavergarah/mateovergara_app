@@ -74,9 +74,9 @@ def cable_motor_result(request):
         NC = float(request.POST['mo_numero-conductores'])
         C = request.POST['mo_conduit']
 
-        ph, n, g, V_drop, pd, fa_corr = Cable_Calculations.cable_calculation(P, 'HP', Ph, FP, V, L, T_cond, T_amb, CL, K, NC, C, n)
+        ph, n, g, V_drop, pd, fa_corr, nf = Cable_Calculations.cable_calculation(P, 'HP', Ph, FP, V, L, T_cond, T_amb, CL, K, NC, C, n)
         return render(request, 'calculations/cable_result.html', {'phase':ph, 'neutral':n,'ground':g, 'Vdrop':round(V_drop,2),
-        'protective':pd, 'corrective_factor':fa_corr})
+        'protective':pd, 'corrective_factor':fa_corr, 'conductors_per_fase':nf, 'numb_phases':ph})
     else:
         return render(request, 'calculations/cable_motor_calculations.html', {'error':'El formulario contiene errores'})
 
@@ -89,7 +89,7 @@ def cable_motorntc_result(request):
     P = Cable_Calculations.is_choice(request.POST['mon_power'],'potencia')
     Ph = Cable_Calculations.is_choice(request.POST['mon_fases'],'fases')
     S = Cable_Calculations.is_choice(request.POST['mon_sinchronous'],'sincrono')
-    V = Cable_Calculations.is_choice(request.POST['mon_tension'],'tension')
+    V = Cable_Calculations.is_choice(request.POST['mon_voltage'],'tension')
     L = Cable_Calculations.is_number(request.POST['mon_longitud'])
     T_amb = Cable_Calculations.is_number(request.POST['mon_temperature'])
     T_cond = Cable_Calculations.is_choice(request.POST['mon_temp-conductor'],'temperatura')
@@ -107,7 +107,7 @@ def cable_motorntc_result(request):
         elif float(request.POST['mon_fases']) == 2:
             # Preguntar por el nivel de tensión
             min = 1/2
-            if (float(request.POST['mon_tension'])) == 115:
+            if (float(request.POST['mon_voltage'])) == 115:
                 max = 2
             else:
                 max = 200
@@ -116,11 +116,11 @@ def cable_motorntc_result(request):
             if request.POST['mon_sinchronous'] == 'NTC2050-As':
                 # Preguntar por el nivel de tensión
                 min = 1/2
-                if (float(request.POST['mon_tension'])) == 115:
+                if (float(request.POST['mon_voltage'])) == 115:
                     max = 2
-                elif float(request.POST['mon_tension']) == 200 or float(request.POST['mon_tension']) == 208 or (float(request.POST['mon_tension'])) == 230:
+                elif float(request.POST['mon_voltage']) == 200 or float(request.POST['mon_voltage']) == 208 or (float(request.POST['mon_voltage'])) == 230:
                     max = 200
-                elif float(request.POST['mon_tension']) == 460 or float(request.POST['mon_tension']) == 575:
+                elif float(request.POST['mon_voltage']) == 460 or float(request.POST['mon_voltage']) == 575:
                     max = 500
                 else:
                     min = 60
@@ -128,9 +128,9 @@ def cable_motorntc_result(request):
             else:
                 # Preguntar por el nivel de tensión
                 min = 25
-                if (float(request.POST['mon_tension'])) == 230:
+                if (float(request.POST['mon_voltage'])) == 230:
                     max = 200
-                elif float(request.POST['mon_tension']) == 460 or float(request.POST['mon_tension']) == 575:
+                elif float(request.POST['mon_voltage']) == 460 or float(request.POST['mon_voltage']) == 575:
                     max = 200
                 else:
                     min = 60
@@ -144,7 +144,7 @@ def cable_motorntc_result(request):
         P = float(request.POST['mon_power'])
         Ph = float(request.POST['mon_fases'])
         S = request.POST['mon_sinchronous']
-        V = float(request.POST['mon_tension'])
+        V = float(request.POST['mon_voltage'])
         L = float(request.POST['mon_longitud'])
         T_amb = float(request.POST['mon_temperature'])
         T_cond = float(request.POST['mon_temp-conductor'])
@@ -153,9 +153,9 @@ def cable_motorntc_result(request):
         NC = float(request.POST['mon_numero-conductores'])
         C = request.POST['mon_conduit']
 
-        ph, n, g, V_drop, pd, fa_corr = Cable_Calculations.cable_calculation(P, 'HP', Ph, 0.85, V, L, T_cond, T_amb, CL, K, NC, C, S)
+        ph, n, g, V_drop, pd, fa_corr, nf = Cable_Calculations.cable_calculation(P, 'HP', Ph, 0.85, V, L, T_cond, T_amb, CL, K, NC, C, S)
         return render(request, 'calculations/cable_result.html', {'phase':ph, 'neutral':n,'ground':g, 'Vdrop':round(V_drop,2),
-        'protective':pd, 'corrective_factor':fa_corr})
+        'protective':pd, 'corrective_factor':fa_corr, 'conductors_per_fase':nf, 'numb_phases':ph})
     else:
         return render(request, 'calculations/cable_motor_calculations.html', {'error':'El formulario contiene errores'})
 
@@ -192,9 +192,9 @@ def cable_result(request):
         NC = float(request.POST['ca_numero-conductores'])
         C = request.POST['ca_conduit']
 
-        ph, n, g, V_drop, pd, fa_corr = Cable_Calculations.cable_calculation(P, U, Ph, FP, V, L, T_cond, T_amb, CL, K, NC, C)
+        ph, n, g, V_drop, pd, fa_corr, nf = Cable_Calculations.cable_calculation(P, U, Ph, FP, V, L, T_cond, T_amb, CL, K, NC, C)
         return render(request, 'calculations/cable_result.html', {'phase':ph, 'neutral':n,'ground':g, 'Vdrop':round(V_drop,2),
-        'protective':pd, 'corrective_factor':fa_corr})
+        'protective':pd, 'corrective_factor':fa_corr,'conductors_per_fase':nf, 'numb_phases':Ph})
     else:
         return render(request, 'calculations/cable_calculations.html', {'error':'El formulario contiene errores'})
 
@@ -213,8 +213,15 @@ def drop_voltage_result(request):
     KC = Cable_Calculations.is_choice(request.POST['dro_cable_kind'],'material')
     K = Cable_Calculations.is_choice(request.POST['dro_conduit_kind'],'conduit')
 
-    print(Ph, gauge, KC, K)
-    if (V and L and I and FP and Ph and gauge and KC and K):
+    # Validrar que para conductores de aluminio no se pueda seleccionar el calibre #14AWG no se pueda seleccionar
+    if request.POST['dro_cable_kind'] == 'Al' and request.POST['dro_cable_gauge'] == '14 AWG':
+        gauge2 = False
+    else:
+        gauge2 = True
+
+    print(gauge2)
+
+    if (V and L and I and FP and Ph and gauge and gauge2 and KC and K):
         # Capturar los datos del formulario HTML para realizar el cálculo
         V = float(request.POST['dro_voltage'])
         L = float(request.POST['dro_length'])

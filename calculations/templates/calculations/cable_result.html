@@ -7,6 +7,8 @@
 <table class="table" border = "1">
 <caption class="caption-result">Tabla de resultados.</caption>
   <tr>
+    <th class="th">No. Fases</th>
+    <th class="th">Cond. por Fase</th>
     <th class="th">Fase</th>
     <th class="th">Neutro</th>
     <th class="th">Tierra</th>
@@ -14,6 +16,8 @@
     <th class="th"><b>Caída de tensión (%)</b></td>
   </tr>
   <tr>
+    <td class="td">{{ numb_phases }}</td>
+    <td class="td">{{ conductors_per_fase}}</td>
     <td class="td">{{ phase }}</td>
     <td class="td">{{ neutral }}</td>
     <td class="td">{{ ground }}</td>
