@@ -1,9 +1,30 @@
+def is_positive(value):
+    """ Esta función valida si el valor ingresado es positivo o no. Si es dispositivo
+    devuelve True y si no devuelve False. """
+    try:
+        if float(value) >= 0:
+            return True
+    except ValueError:
+            return False
+
+
 def is_number(value):
+    """ Esta función se encarga de validar si el valor enviado corresponde a un número o no.
+    Devuelve True si es un número y False si no lo es. """
     try:
         float(value)
         return True
     except ValueError:
         return False
+
+def is_choice(value, option):
+    """ Esta función verifica se haya seleccionado una opción de un formulario
+    """
+
+    if value == option:
+        return False
+    else:
+        return True
 
 def safety_validation(V, S):
     """ Esta función se encarga de validar los datos ingresados por el usuario para

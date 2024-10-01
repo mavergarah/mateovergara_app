@@ -234,3 +234,52 @@ a:hover {
   text-align:center;
   font-weight: bold;
 }
+
+/* RESULTADO ARCO ELÉCTRICO */
+
+.arc_flash {
+  /* Estilos para el logo */
+  color: #333;
+  width: 500px;
+  height: 700px;
+  margin-left: 400px;
+}
+
+.a-underline {
+  text-decoration: underline;
+  color: #007bff;
+  font-size: 16px; /* Ajusta el tamaño de la fuente */
+  font-family: Helvetica, Sans-Serif;
+}
+
+.image-gallery {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.image {
+  width: 100%;
+}
+
+.indicatorsspan {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #ddd;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.indicators .active {
+  background-color: #333;
+}
+
+/* TABLA DE CALIBRES Y DIAMETROS */
+.table_cables {
+  /* Estilos para el logo */
+  color: #333;
+  width: 600px;
+  height: 600px;
+  margin-left: 350px;
+}

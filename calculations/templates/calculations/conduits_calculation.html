@@ -9,15 +9,16 @@
 <fieldset class="fieldset">
   <!-- Ingreso de variables para el cálculo del diámetro de la tubería eléctrica -->
   <h5 class="h5-fieldset">Cálculo de Conduits</h5>
-  <label class="label-form" for="wc_voltage">Tensión (V):</label>
+  <br>
+  <label class="label-form" for="wc_voltage"><a href="http://127.0.0.1:8000/calculations/conduits_cable_table" class="a-underline">Muestrame una tabla con diámetros y áreas</a></label>
   <select class="select-form" name="co_diametro">
-      <option value="DoA">Diámetro o área?</option>
+      <option value="DoA">¿Diámetro o área?</option>
       <option value="d">Diámetro</option>
       <option value="a">Área</option>
   </select>
   <input class="input" type="text" name="co_ingreso" value="mm o mm2">
   <select class="select-form" name="co_conduit_kind">
-      <option value="KoC">Tipo de conduit?</option>
+      <option value="KoC">¿Tipo de conduit?</option>
       <option value="pvc-80">PVC-80</option>
       <option value="pvc-40">PVC-40</option>
       <option value="pvc-A">PVC-A</option>

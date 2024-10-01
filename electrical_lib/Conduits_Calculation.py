@@ -216,28 +216,32 @@ def is_number(value):
 
 def data_validation(DA, diameter_or_area, kind_of_conduit):
     """ Esta función se encarga de validar los datos ingresados por el usuario para
-    el cálculo de arco eléctrico. En caso de que alguno no sea valido se pondrá un
+    el cálculo del área de conduits. En caso de que alguno no sea valido se pondrá un
     error en el HTML en el <input> respectivo.
 
     """
     validation = 'No error'
 
-    # Se valida que la tensión sea un número entero o de coma flotante
+    # Se divide la cadena de texto ingresada por el usuario
     try:
         DA = DA.split(",")
     except ValueError:
         pass
 
-    print(isinstance(DA,list))
-
+    # Se valida que el usuario haya ingresado una tupla y que cada dato de la tupla
+    # sea mayor que cero.
     if isinstance(DA,list):
         for data in DA:
             if not is_number(data):
                 validation = 'Error'
-                print(validation)
+            elif float(data) < 0:
+                validation = 'Error'
     elif not is_number(DA):
+        # Sino se ingresó una tupla se valida que se haya ingresado un número mayor que cero.
         validation = 'Error'
-        print(DA)
+    elif is_number(DA):
+        if float(DA) < 0:
+            validation = 'Error'
 
     if diameter_or_area == 'DoA':
         validation = 'Error'
@@ -248,6 +252,7 @@ def data_validation(DA, diameter_or_area, kind_of_conduit):
     return validation
 
 def convert2list(list):
+    # Esta función se encarga de convertir la cadena ingresada por el usuario en una lista.
     try:
         list = list.split(',')
         float_list = []
@@ -259,6 +264,8 @@ def convert2list(list):
         return False
 
 def convert2list_or_value(list_or_value):
+    # Esta función se encarga de convertir la cadena ingresada por el usuario en el formulario
+    # en una lista o en un valor dependiendo de lo que haya ingresado el usuario.
 
     list = convert2list(list_or_value)
 
