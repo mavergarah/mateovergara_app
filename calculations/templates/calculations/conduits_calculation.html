@@ -7,10 +7,10 @@
 <form class="" action="conduits_result" method="post">
 {% csrf_token %}
 <fieldset class="fieldset">
-  <!-- Ingreso de variables para el cálculo del diámetro de la tubería eléctrica -->
+  <!-- Ingreso de variables para el cálculo del diámetro de la tubería eléctrica   <label class="label-form-help" for="wc_voltage"><a href="http://127.0.0.1:8000/calculations/conduits_cable_table"></a></label> -->
   <h5 class="h5-fieldset">Cálculo de Conduits</h5>
   <br>
-  <label class="label-form" for="wc_voltage"><a href="http://127.0.0.1:8000/calculations/conduits_cable_table" class="a-underline">Muestrame una tabla con diámetros y áreas</a></label>
+  <label class="label-form-help" for="wc_voltage"><a class="a-forms" href="http://127.0.0.1:8000/calculations/conduits_cable_table">(Muestrame una tabla con diámetros y áreas)</a></label>
   <select class="select-form" name="co_diametro">
       <option value="DoA">¿Diámetro o área?</option>
       <option value="d">Diámetro</option>

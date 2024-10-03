@@ -169,6 +169,27 @@ a:hover {
   font-weight: bold;
 }
 
+.a-forms {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 12px; /* Ajusta el tamaño de la fuente */
+  font-family: Helvetica, Sans-Serif;
+}
+
+.label-form-help {
+  font-size: 12px;
+  font-family: Helvetica, Sans-Serif;
+  text-align:right;
+  width: 200px;
+}
+
+.gtable {
+  color: #333;
+  width: 400px;
+  height: 450px;
+  margin-left: 420px;
+}
+
 /* 2- RESULTADOS (TABLAS Y NOTAS) */
 
 .table {
@@ -238,7 +259,6 @@ a:hover {
 /* RESULTADO ARCO ELÉCTRICO */
 
 .arc_flash {
-  /* Estilos para el logo */
   color: #333;
   width: 500px;
   height: 700px;
@@ -248,7 +268,6 @@ a:hover {
 .a-underline {
   text-decoration: underline;
   color: #007bff;
-  font-size: 16px; /* Ajusta el tamaño de la fuente */
   font-family: Helvetica, Sans-Serif;
 }
 

@@ -22,6 +22,7 @@ urlpatterns = [
     path("arcflash_calculation", views.arcflash_calculation, name = "arcflash_calculation"),
     path("arcflash_result", views.arcflash_result, name = "arcflash_result"),
     path("arcflash_epps", views.arcflash_epps, name = "arcflash_epps"),
+    path("arcflash_gtable", views.arcflash_gtable, name = "arcflash_gtable"),
     path("grounding_cable", views.grounding_cable, name = "grounding_cable"),
     path("grounding_result", views.grounding_result, name = "grounding_result"),
     path("electrode_cable", views.electrode_cable, name = "electrode_cable"),

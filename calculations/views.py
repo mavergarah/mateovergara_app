@@ -472,3 +472,6 @@ def arcflash_result(request):
 
 def arcflash_epps(request):
     return render(request, 'calculations/arcflash_epps.html')
+
+def arcflash_gtable(request):
+    return render(request, 'calculations/arcflash_gtable.html')
