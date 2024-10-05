@@ -1,13 +1,16 @@
 {% extends "calculations/index.html" %}
 
-{% block title %}Cálculo de condutores{% endblock %}
+{% block title %}Conductores{% endblock %}
 
 {% block content %}
+<!-- Esta plantilla le permite al usuario ingresar los datos
+para el cálculo del conductor de un motor basado en el artículo
+430 de la NTC 2050 -->
 <br>
 <form class="" action="cable_motorntc_result" method="post">
 {% csrf_token %}
 <fieldset class="fieldset">
-  <!-- Entering of the variables for arc flase calculations -->
+  <!-- Ingreso de datos por parte del usuario para el cálculo -->
   <h5 class="h5-fieldset">Cálculo de Conductores Eléctricos</h5>
   <select class="select-form" name="mon_power">
       <option value="potencia">¿Potencia del motor (HP)?</option>
@@ -95,7 +98,7 @@
 </fieldset>
 
 </form>
-
+<!-- Notas para que el usuario pueda hacer uso de la aplicación -->
 <br>
 <h6 class="h6-instrucciones">Instrucciones de uso:</h6>
 <div class="instrucciones">

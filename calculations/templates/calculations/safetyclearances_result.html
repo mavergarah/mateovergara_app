@@ -1,8 +1,10 @@
 {% extends "calculations/index.html" %}
 
-{% block title %}Work Clearances{% endblock %}
+{% block title %}Distancias de seguridad{% endblock %}
 
 {% block content %}
+<!-- Esta vista muestra el resultado del cálculo de las distancias
+de seguridad -->
 <br>
   <table class="table" border="1">
     <caption class="caption-result">Tabla de resultados.</caption>
@@ -19,6 +21,8 @@
       <td class="td">{{ voltage }}</td>
     </tr>
   </table>
+<!-- Aquí se muestran las notas que le permiten al usuario entender el resultado
+del cálculo de las distancias de seguridad -->
   <br>
   <div class="result-notes">
     <h6 class = "h6-result">Notas:</h6>

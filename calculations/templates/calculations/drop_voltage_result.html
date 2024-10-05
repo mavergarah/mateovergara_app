@@ -1,8 +1,9 @@
 {% extends "calculations/index.html" %}
 
-{% block title %}Cálculo de Conduits{% endblock %}
+{% block title %}Caída de Tensión{% endblock %}
 
 {% block content %}
+<!-- Esta plantilla muestra el resultado del cálculo de la caida de tensión -->
 <br>
   <table class="table" border="1">
   <caption class="caption-result">Tabla de resultados.</caption>
@@ -15,6 +16,7 @@
       <td class="td">{{ drop_voltage_percentage }}</td>
     </tr>
   </table>
+<!-- Estas notas son una explicación al usuario para que entienda cómo se realizó el cálculo -->
   <br>
   <h6 class="h6-result">Notas:</h6>
   <div class="instrucciones">

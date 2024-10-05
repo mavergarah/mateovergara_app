@@ -1,8 +1,9 @@
 {% extends "calculations/index.html" %}
 
-{% block title %}Cálculo de condutores{% endblock %}
+{% block title %}Conductores{% endblock %}
 
 {% block content %}
+<!-- Esta plantilla le permite seleccionar al usuario el tipo de cable a calcular -->
 <br>
 <form class="" action="cable_choosing_result" method="post">
 {% csrf_token %}

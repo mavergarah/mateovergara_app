@@ -7,7 +7,8 @@
 <form class="" action="protective_result" method="post">
 {% csrf_token %}
 <fieldset class="fieldset">
-  <!-- Entering of the variables for arc flase calculations -->
+<!-- Se ingresan las variables para el cálculo del dispositivo de protección
+por parte del usuario -->
   <h5 class="h5-fieldset">Selección del Dispositivo de Protección</h5>
   <label class="label-form" for="pro_current_ad">Corriente Ajustada (A):</label>
   <input class="input" type="text" name="pro_current_ad" value="16">
@@ -18,7 +19,7 @@
   <label class="label-form-error" for="ca_calcular">{{ error }}</label>
 </fieldset>
 </form>
-
+<!-- Estas notas le permiten al usuario entender como ser realizó el cálculo -->
 <br>
 <h6 class="h6-result">Instrucciones de uso:</h6>
 <div class="result-notes">

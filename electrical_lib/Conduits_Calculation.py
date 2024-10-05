@@ -317,21 +317,21 @@ def conduit_sizing(areas_or_diameters, conduit_type = 'pvc', variable = 'd'):
 
     # Selección del conduit
     print(conduit_type)
-    if conduit_type == 'emt':
+    if conduit_type == 'EMT':
         conduit_gauge = emtselecction(A_conduit)
-    elif conduit_type == 'ent':
+    elif conduit_type == 'ENT':
         conduit_gauge = entselecction(A_conduit)
-    elif conduit_type == 'fmc':
+    elif conduit_type == 'FMC':
         conduit_gauge = fmcselecction(A_conduit)
-    elif conduit_type == 'imc':
+    elif conduit_type == 'IMC':
         conduit_gauge = imcselecction(A_conduit)
-    elif conduit_type == 'pvc-80':
+    elif conduit_type == 'PVC-80':
         conduit_gauge = pvc80selecction(A_conduit)
-    elif conduit_type == 'pvc-40':
+    elif conduit_type == 'PVC-40':
         conduit_gauge = pvc40selecction(A_conduit)
-    elif conduit_type == 'pvc-A':
+    elif conduit_type == 'PVC-A':
         conduit_gauge = pvcAselecction(A_conduit)
-    elif conduit_type == 'rmc':
+    elif conduit_type == 'RMC':
         conduit_gauge = rmcselecction(A_conduit)
     else:
         conduit_gauge = 'No conduit gauge'

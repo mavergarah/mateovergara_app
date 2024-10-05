@@ -1,9 +1,11 @@
 {% extends "calculations/index.html" %}
 {% load static %}
 
-{% block title %}Arc Flash EPPs{% endblock %}
+{% block title %}Arc Flash{% endblock %}
 
 {% block content %}
+<!-- En esta plantilla se carga la tabal de epps para que el usuario pueda consultarla -->
+<!-- después de haber realizado un cálculo de arco eléctrico. -->
 <br>
   <h6 class="h6-result">Tabla tomada de la NFPA 70E.</h6>
     <img src="{% static 'img/Tabla_130-7_1.png' %}" class = "arc_flash" alt="Tabla tomada de la NFPA 70E">

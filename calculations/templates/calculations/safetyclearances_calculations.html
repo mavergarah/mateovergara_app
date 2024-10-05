@@ -3,6 +3,8 @@
 {% block title %}Distancias de Seguridad{% endblock %}
 
 {% block content %}
+<!-- Se muestra el formulario al usuario para que ingrese los valores
+que le permiten realizar la selección de las distancias de seguridad -->
 <br>
 <form class="" action="safety_clearances_result" method="post">
 {% csrf_token %}
@@ -23,7 +25,8 @@
 </fieldset>
 
 </form>
-
+<!-- Estas notas le permiten al usuario entender cómo debe utilizar esta parte de la
+aplicación -->
 <br>
 <h6 class="h6-instrucciones">Instrucciones de uso:</h6>
 <div class="instrucciones">

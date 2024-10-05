@@ -1,13 +1,15 @@
 {% extends "calculations/index.html" %}
 
-{% block title %}Cálculo de Conduits{% endblock %}
+{% block title %}Conduits{% endblock %}
 
 {% block content %}
+<!-- Esta vista le permite al usuario ingresar los valores para la realización del cálculo
+de Conduits -->
 <br>
 <form class="" action="conduits_result" method="post">
 {% csrf_token %}
 <fieldset class="fieldset">
-  <!-- Ingreso de variables para el cálculo del diámetro de la tubería eléctrica   <label class="label-form-help" for="wc_voltage"><a href="http://127.0.0.1:8000/calculations/conduits_cable_table"></a></label> -->
+  <!-- Ingreso de datos para el cálculo de conduits-->
   <h5 class="h5-fieldset">Cálculo de Conduits</h5>
   <br>
   <label class="label-form-help" for="wc_voltage"><a class="a-forms" href="http://127.0.0.1:8000/calculations/conduits_cable_table">(Muestrame una tabla con diámetros y áreas)</a></label>
@@ -19,14 +21,14 @@
   <input class="input" type="text" name="co_ingreso" value="mm o mm2">
   <select class="select-form" name="co_conduit_kind">
       <option value="KoC">¿Tipo de conduit?</option>
-      <option value="pvc-80">PVC-80</option>
-      <option value="pvc-40">PVC-40</option>
-      <option value="pvc-A">PVC-A</option>
-      <option value="emt">EMT</option>
-      <option value="imc">IMC</option>
-      <option value="rmc">RMC</option>
-      <option value="ent">ENT</option>
-      <option value="fmc">FMC</option>
+      <option value="PVC-80">PVC-80</option>
+      <option value="PVC-40">PVC-40</option>
+      <option value="PVC-A">PVC-A</option>
+      <option value="EMT">EMT</option>
+      <option value="IMC">IMC</option>
+      <option value="RMC">RMC</option>
+      <option value="ENT">ENT</option>
+      <option value="FMC">FMC</option>
   </select>
   <input class="button-form" type="submit" name="co_calculate" value="Calcular">
 
@@ -35,7 +37,7 @@
 </fieldset>
 
 </form>
-
+<!-- Estas notas son una ayuda para el usuario en la realización del cálculo -->
 <br>
 <h6 class="h6-instrucciones">Instrucciones de uso:</h6>
 <div class="instrucciones">

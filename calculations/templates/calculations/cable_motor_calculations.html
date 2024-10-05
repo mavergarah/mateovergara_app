@@ -1,13 +1,15 @@
 {% extends "calculations/index.html" %}
 
-{% block title %}Cálculo de condutores{% endblock %}
+{% block title %}Conductores{% endblock %}
 
 {% block content %}
+<!-- Esta parte le permite al usuario ingresar los datos para el cálculo
+del conductor del motor teniendo en cuenta la eficiencia y el factor de potencia -->
 <br>
 <form class="" action="cable_motor_result" method="post">
 {% csrf_token %}
 <fieldset class="fieldset">
-  <!-- Entering of the variables for arc flase calculations -->
+  <!-- Aquí se muestran los botones que permiten al usuario ingresar los valores para el cálculo -->
   <h5 class="h5-fieldset">Cálculo de Conductores Eléctricos</h5>
   <label class="label-form" for="mo_power">Potencia (HP):</label>
   <input class="input" type="text" name="mo_power" value="1">

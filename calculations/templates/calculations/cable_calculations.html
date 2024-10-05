@@ -1,13 +1,14 @@
 {% extends "calculations/index.html" %}
 
-{% block title %}Cálculo de condutores{% endblock %}
+{% block title %}Conductores{% endblock %}
 
 {% block content %}
+<!-- Esta plantailla le muestra al usuario el formulario para el ingreso de datos -->
 <br>
 <form class="" action="cable_result" method="post">
 {% csrf_token %}
 <fieldset class="fieldset">
-  <!-- Entering of the variables for arc flase calculations -->
+  <!-- Se ingresan los valores necesarios para el cálculo de conductores de cargas generales -->
   <h5 class="h5-fieldset">Cálculo de Conductores Eléctricos</h5>
   <label class="label-form" for="ca_potencia">Potencia:</label>
   <input class="input" type="text" name="ca_potencia" value="1">
@@ -62,7 +63,7 @@
 </fieldset>
 
 </form>
-
+<!-- Estas notas son una ayuda para que el usuario entienda el resultado -->
 <br>
 <h6 class="h6-instrucciones">Instrucciones de uso:</h6>
 <div class="instrucciones">

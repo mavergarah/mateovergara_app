@@ -2062,8 +2062,11 @@ def cable_calculation(P, U, Ph, PF, V, L, T = 75, T_amb = 25, CL = 'y', K = 'Cu'
     # 9. Si la caída de tensión es superior al 3% se debe seleccionar un conductor con una caída de tensión
     # inferior a esta.
     while Vdrop_percent > 3:
+        print(gauge)
         gauge = find_next_gauge(gauge)
-        Vdrop_percent = drop_voltage_calculation(Ph, V, L, I, PF, gauge, KC, K)
+        Vdrop, Vdrop_percent, R, X = drop_voltage_calculation(Ph, V, L, I, PF, gauge, KC, K)
+        print(Vdrop_percent)
+    print(gauge)
 
     # 10. Calcular el conductor de neutro
     if Ph == 1:

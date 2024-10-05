@@ -3,12 +3,14 @@
 {% block title %}Espacios de Trabajo{% endblock %}
 
 {% block content %}
+<!-- Esta plantilla le permite al usuario ingresar los valores necesarios
+para la realización del cálculo de los espacios de trabajo -->
 <br>
 <form class="" action="work_clearances_result" method="post">
 {% csrf_token %}
 <fieldset class="fieldset">
   <h5 class="h5-fieldset">Cálculo de Espacios de Trabajo</h5>
-  <!-- Entering of the variables for arc flase calculations -->
+  <!-- Ingreso de variables para el cálculo de los espacios de trabajo -->
   <label class="label-form" for="wc_voltage">Tensión (V):</label>
   <input class="input" type="text" name="wc_voltage" value="208">
   <label class="label-form" for="wc_height">Altura (m):</label>
@@ -37,6 +39,8 @@
   <label class="label-form-error" for="method">{{ error }}</label>
 
 </fieldset>
+<!-- Estas notas son una ayuda para el usuario para que entienda los resultados
+arrojados por la aplicación -->
 <br>
 <h6 class="h6-instrucciones">Instrucciones de uso:</h6>
 <div class="instrucciones">

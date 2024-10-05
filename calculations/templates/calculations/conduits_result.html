@@ -1,12 +1,12 @@
 {% extends "calculations/index.html" %}
 
-{% block title %}Cálculo de Conduits{% endblock %}
+{% block title %}Conduits{% endblock %}
 
 {% block content %}
+<!-- Esta vista muestra el resultado del cálculo de conduits -->
 <br>
   <table class="table" border="1">
     <caption class="caption-result">Tabla de resultados.</caption>
-    <tr>
     <tr>
       <th class="th">Conduit</th>
       <th class="th">Calibre (pulg)</th>
@@ -16,6 +16,7 @@
       <td class="td">{{ conduit }}</td>
     </tr>
   </table>
+<!-- Estas notas son para explicarle al usuario como ha sido realizado el cálculo -->
   <br>
   <h6 class="h6-result">Notas:</h6>
   <div class="result-notes">
