@@ -234,8 +234,8 @@ def drop_voltage_result(request):
         FP = float(request.POST['dro_pf'])
         Ph = float(request.POST['dro_system'])
         gauge = request.POST['dro_cable_gauge']
-        KC = request.POST['dro_cable_kind']
-        K = request.POST['dro_conduit_kind']
+        KC = request.POST['dro_conduit_kind']
+        K = request.POST['dro_cable_kind']
 
         VDrop, VDrop100, R, X = Cable_Calculations.drop_voltage_calculation(Ph, V, L, I, FP, gauge, KC, K)
         return render(request, 'calculations/drop_voltage_result.html',{'drop_voltage':round(VDrop,2),

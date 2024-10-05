@@ -374,6 +374,7 @@ def resistance_and_reactance(gauge, KC, K):
     """ Selecciona la resisencia y la reactancia del calibre de un conductor determinado dependiendo del calibre
     del conductor y del tipo de material del conduit del circuito ramal"""
     # 1. Preguntar si el conductor es de Al o Cu para seleccionar la resistencia en c.a.
+    print(gauge,KC,K)
     if K == 'Cu':
         # 2. Preguntar si el material del conduito es Acero o PVC
         if KC == 'st':
