@@ -6,55 +6,75 @@
 <!-- Esta plantilla es para el ingreso datos del usuario
 para la selección del conductor del electrodo de puesta a tierra -->
 <br>
-<form class="" action="electrode_result" method="post">
-{% csrf_token %}
-<fieldset class="fieldset">
-  <!-- Ingreso de variables para cálculo del conductor del electrodo de puesta a tierra -->
-  <h5 class="h5-fieldset">Conductor del Electrodo de Puesta a Tierra</h5>
-  <select class="select-form" name="ele_cable_gauge">
-      <option value="calibre">¿Calibre?</option>
-      <option value="14 AWG">14 AWG</option>
-      <option value="12 AWG">12 AWG</option>
-      <option value="10 AWG">10 AWG</option>
-      <option value="8 AWG">8 AWG</option>
-      <option value="6 AWG">6 AWG</option>
-      <option value="4 AWG">4 AWG</option>
-      <option value="3 AWG">3 AWG</option>
-      <option value="2 AWG">2 AWG</option>
-      <option value="1 AWG">1 AWG</option>
-      <option value="1/0 AWG">1/0 AWG</option>
-      <option value="2/0 AWG">2/0 AWG</option>
-      <option value="3/0 AWG">3/0 AWG</option>
-      <option value="4/0 AWG">4/0 AWG</option>
-      <option value="250 MCM">250 MCM</option>
-      <option value="300 MCM">300 MCM</option>
-      <option value="350 MCM">350 MCM</option>
-      <option value="400 MCM">400 MCM</option>
-      <option value="500 MCM">500 MCM</option>
-      <option value="600 MCM">600 MCM</option>
-      <option value="750 MCM">750 MCM</option>
-      <option value="1000 MCM">1000 MCM</option>
-  </select>
-  <select class="select-form" name="ele_material">
-      <option value="material">¿Material del conductor?</option>
-      <option value="Cu">Cu</option>
-      <option value="Al">Al</option>
-  </select>
-  <input class="button-form" type="submit" name="gro_calculate" value="Calcular">
-
-  <label class="label-form-error" for="method">{{ error }}</label>
-
-</fieldset>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="section-heading">
+        <h2>Cálculo del Conductor del Electrodo de Puesta a Tierra</h2>
+        <!-- Ingreso de variables para cálculo del conductor del electrodo de puesta a tierra -->
+        <form class="" action="electrode_result" method="post">
+        {% csrf_token %}
+          <div class="row">
+            <div class="col-lg-5">
+              <fieldset>
+                <label for="ele_cable_gauge">¿Calibre del Conductor de Fase?</label>
+                <select name="ele_cable_gauge">
+                    <option value="calibre">- </option>
+                    <option value="14 AWG">14 AWG</option>
+                    <option value="12 AWG">12 AWG</option>
+                    <option value="10 AWG">10 AWG</option>
+                    <option value="8 AWG">8 AWG</option>
+                    <option value="6 AWG">6 AWG</option>
+                    <option value="4 AWG">4 AWG</option>
+                    <option value="3 AWG">3 AWG</option>
+                    <option value="2 AWG">2 AWG</option>
+                    <option value="1 AWG">1 AWG</option>
+                    <option value="1/0 AWG">1/0 AWG</option>
+                    <option value="2/0 AWG">2/0 AWG</option>
+                    <option value="3/0 AWG">3/0 AWG</option>
+                    <option value="4/0 AWG">4/0 AWG</option>
+                    <option value="250 MCM">250 MCM</option>
+                    <option value="300 MCM">300 MCM</option>
+                    <option value="350 MCM">350 MCM</option>
+                    <option value="400 MCM">400 MCM</option>
+                    <option value="500 MCM">500 MCM</option>
+                    <option value="600 MCM">600 MCM</option>
+                    <option value="750 MCM">750 MCM</option>
+                    <option value="1000 MCM">1000 MCM</option>
+                </select>
+              </fieldset>
+            </div>
+            <div class="col-lg-5">
+              <fieldset>
+                <label for="ele_material">¿Material del conductor?</label>
+                <select name="ele_material">
+                    <option value="material">- </option>
+                    <option value="Cu">Cu</option>
+                    <option value="Al">Al</option>
+                </select>
+              </fieldset>
+            </div>
+            <div class="col-lg-10">
+              <fieldset>
+                <input type="submit" name="gro_calculate" value="Calcular">
+              </fieldset>
+            </div>
+            <div class="col-lg-10">
+              <fieldset>
+                <label for="method">{{ error }}</label>
+              </fieldset>
+            </div>
+          </div>
+          <div class="col-log-10">
+            <fieldset>
+              <h6><a href="#">¿Necesitas ayuda?</a></h6>
+            </fieldset>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <br>
-<h6 class="h6-instrucciones">Instrucciones de uso:</h6>
-<div class="instrucciones">
-<ol>
-  <li>Para realizar el cálculo es necesario que ingreses el calibre del mayor conductor
-    no puesto a tierra (es decir la FASE) de la acometida o área equivalente para conductores en paralelo.</li>
-  <li>La selección del conductor se realiza de acuerdo a la tabla 250.66 de la NTC 2050 del 2020.</li>
-</ol>
-</div>
-</form>
-
 {% endblock %}

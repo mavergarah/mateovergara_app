@@ -6,47 +6,67 @@
 <!-- Esta vista le permite al usuario ingresar los valores para la realización del cálculo
 de Conduits -->
 <br>
-<form class="" action="conduits_result" method="post">
-{% csrf_token %}
-<fieldset class="fieldset">
-  <!-- Ingreso de datos para el cálculo de conduits-->
-  <h5 class="h5-fieldset">Cálculo de Conduits</h5>
-  <br>
-  <label class="label-form-help" for="wc_voltage"><a class="a-forms" href="http://127.0.0.1:8000/calculations/conduits_cable_table">(Muestrame una tabla con diámetros y áreas)</a></label>
-  <select class="select-form" name="co_diametro">
-      <option value="DoA">¿Diámetro o área?</option>
-      <option value="d">Diámetro</option>
-      <option value="a">Área</option>
-  </select>
-  <input class="input" type="text" name="co_ingreso" value="mm o mm2">
-  <select class="select-form" name="co_conduit_kind">
-      <option value="KoC">¿Tipo de conduit?</option>
-      <option value="PVC-80">PVC-80</option>
-      <option value="PVC-40">PVC-40</option>
-      <option value="PVC-A">PVC-A</option>
-      <option value="EMT">EMT</option>
-      <option value="IMC">IMC</option>
-      <option value="RMC">RMC</option>
-      <option value="ENT">ENT</option>
-      <option value="FMC">FMC</option>
-  </select>
-  <input class="button-form" type="submit" name="co_calculate" value="Calcular">
-
-  <label class="label-form-error" for="method">{{ error }}</label>
-
-</fieldset>
-
-</form>
-<!-- Estas notas son una ayuda para el usuario en la realización del cálculo -->
-<br>
-<h6 class="h6-instrucciones">Instrucciones de uso:</h6>
-<div class="instrucciones">
-<ol>
-  <li>Primero debes seleccionar si tienes las áreas o los diámetros de los conductores.</li>
-  <li>Luego debes ingresar cada uno separado por comas. No hacerlo de esta manera puede hacer
-  que el programa presente errores.</li>
-  <li>Muchas gracias por utilizar esta aplicación!</li>
-</ol>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10">
+      <div class="section-heading">
+        <h2>Cálculo de Conduits</h2>
+        <form class="" action="conduits_result" method="post">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-lg-5">
+            <fieldset>
+              <select class="select-form" name="co_diametro">
+                  <option value="DoA">¿Diámetro o área?</option>
+                  <option value="d">Diámetro</option>
+                  <option value="a">Área</option>
+              </select>
+            </fieldset>
+          </div>
+          <div class="col-lg-5">
+            <fieldset>
+              <input class="input" type="text" name="co_ingreso" value="mm o mm2">
+            </fieldset>
+          </div>
+          <div class="col-lg-5">
+            <fieldset>
+              <select class="select-form" name="co_conduit_kind">
+                  <option value="KoC">¿Tipo de conduit?</option>
+                  <option value="PVC-80">PVC-80</option>
+                  <option value="PVC-40">PVC-40</option>
+                  <option value="PVC-A">PVC-A</option>
+                  <option value="EMT">EMT</option>
+                  <option value="IMC">IMC</option>
+                  <option value="RMC">RMC</option>
+                  <option value="ENT">ENT</option>
+                  <option value="FMC">FMC</option>
+              </select>
+            </fieldset>
+          </div>
+          <div class="col-lg-10">
+            <fieldset>
+              <input type="submit" name="co_calculate" value="Calcular">
+            </fieldset>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-10">
+            <fieldset>
+              <label class="label-form-help" for="wc_voltage"><a class="a-forms" href="http://127.0.0.1:8000/calculations/conduits_cable_table">(Muestrame una tabla con diámetros y áreas)</a></label>
+            </fieldset>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-10">
+            <fieldset>
+              <h6><a href="#">¿Necesitas ayuda?</a></h6>
+            </fieldset>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}

@@ -4,69 +4,119 @@
 
 {% block content %}
 <br>
-<form class="" action="drop_voltage_result" method="post">
-{% csrf_token %}
-<fieldset class="fieldset">
-  <!-- Ingreso de variables por parte del usuario para el cálculo de regulación de tensión -->
-  <label class="label-form" for="dro_voltage">Tensión (V):</label>
-  <input class="input" type="text" name="dro_voltage" value="120">
-  <label class="label-form" for="dro_length">Longitud (m):</label>
-  <input class="input" type="text" name="dro_length" value="10">
-  <label class="label-form" for="dro_current">Corriente (A):</label>
-  <input class="input" type="text" name="dro_current" value="15">
-  <label class="label-form" for="dro_pf">Factor de Potencia (0 - 1):</label>
-  <input class="input" type="text" name="dro_pf" value="0.85">
-  <select class="select-form" name="dro_system">
-      <option value="sistema">¿Tipo de sistema?</option>
-      <option value="1">Monofásico</option>
-      <option value="2">Bifásico</option>
-      <option value="3">Trifásico</option>
-  </select>
-  <select class="select-form" name="dro_conduit_kind">
-      <option value="conduit">¿Tipo de conduit?</option>
-      <option value="PVC">PVC</option>
-      <option value="st">Acero</option>
-  </select>
-  <select class="select-form" name="dro_cable_kind">
-      <option value="material">¿Material del Conductor?</option>
-      <option value="Cu">Cu</option>
-      <option value="Al">Al</option>
-  </select>
-  <select class="select-form" name="dro_cable_gauge">
-      <option value="calibre">¿Calibre?</option>
-      <option value="14 AWG">14 AWG</option>
-      <option value="12 AWG">12 AWG</option>
-      <option value="10 AWG">10 AWG</option>
-      <option value="8 AWG">8 AWG</option>
-      <option value="6 AWG">6 AWG</option>
-      <option value="4 AWG">4 AWG</option>
-      <option value="3 AWG">3 AWG</option>
-      <option value="2 AWG">2 AWG</option>
-      <option value="1 AWG">1 AWG</option>
-      <option value="1/0 AWG">1/0 AWG</option>
-      <option value="2/0 AWG">2/0 AWG</option>
-      <option value="3/0 AWG">3/0 AWG</option>
-      <option value="4/0 AWG">4/0 AWG</option>
-      <option value="250 MCM">250 MCM</option>
-      <option value="300 MCM">300 MCM</option>
-      <option value="350 MCM">350 MCM</option>
-      <option value="400 MCM">400 MCM</option>
-      <option value="500 MCM">500 MCM</option>
-      <option value="600 MCM">600 MCM</option>
-      <option value="750 MCM">750 MCM</option>
-      <option value="1000 MCM">1000 MCM</option>
-  </select>
-  <input class="button-form" type="submit" name="ca_calcular" value="Calcular">
-
-  <label class="label-form-error" for="method">{{ error }}</label>
-</fieldset>
-</form>
-<!-- Estas notas son un ayuda para el usuario -->
-<br>
-<h6 class="h6-instrucciones">Nota Importante:</h6>
-<div class="instrucciones">
-<ol>
-  <li>Recuerda que la corriente ajustada debe ser mayor a la continua.</li>
-</ol>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="section-heading">
+        <h2>Cálculo de caída de tensión en c.a.</h2>
+        <!-- Ingreso de variables por parte del usuario para el cálculo de regulación de tensión -->
+        <form class="" action="drop_voltage_result" method="post">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-lg-5">
+            <fieldset>
+              <label for="dro_voltage">Tensión (V):</label>
+              <input type="text" name="dro_voltage" value="120">
+            </fieldset>
+          </div>
+          <div class="col-lg-5">
+            <fieldset>
+              <label for="dro_length">Longitud (m):</label>
+              <input type="text" name="dro_length" value="10">
+            </fieldset>
+          </div>
+          <div class="col-lg-5">
+            <fieldset>
+              <label for="dro_current">Corriente (A):</label>
+              <input type="text" name="dro_current" value="15">
+            </fieldset>
+          </div>
+          <div class="col-lg-5">
+            <fieldset>
+              <label for="dro_pf">Factor de Potencia (0 - 1):</label>
+              <input type="text" name="dro_pf" value="0.85">
+            </fieldset>
+          </div>
+          <div class="col-lg-5">
+            <fieldset>
+              <label for="select-form">¿Tipo de sistema?</label>
+              <select class="select-form" name="dro_system">
+                  <option value="sistema">- </option>
+                  <option value="1">Monofásico</option>
+                  <option value="2">Bifásico</option>
+                  <option value="3">Trifásico</option>
+              </select>
+            </fieldset>
+          </div>
+          <div class="col-lg-5">
+            <fieldset>
+              <label for="dro_conduit_kind">¿Tipo de conduit?</label>
+              <select name="dro_conduit_kind">
+                  <option value="conduit">- </option>
+                  <option value="PVC">PVC</option>
+                  <option value="st">Acero</option>
+              </select>
+            </fieldset>
+          </div>
+          <div class="col-lg-5">
+            <fieldset>
+              <label for="dro_cable_kind">¿Material del Conductor?</label>
+              <select name="dro_cable_kind">
+                  <option value="material">- </option>
+                  <option value="Cu">Cu</option>
+                  <option value="Al">Al</option>
+              </select>
+            </fieldset>
+          </div>
+          <div class="col-lg-5">
+            <fieldset>
+              <label for="dro_cable_gauge">¿Calibre?</label>
+              <select class="select-form" name="dro_cable_gauge">
+                  <option value="calibre">- </option>
+                  <option value="14 AWG">14 AWG</option>
+                  <option value="12 AWG">12 AWG</option>
+                  <option value="10 AWG">10 AWG</option>
+                  <option value="8 AWG">8 AWG</option>
+                  <option value="6 AWG">6 AWG</option>
+                  <option value="4 AWG">4 AWG</option>
+                  <option value="3 AWG">3 AWG</option>
+                  <option value="2 AWG">2 AWG</option>
+                  <option value="1 AWG">1 AWG</option>
+                  <option value="1/0 AWG">1/0 AWG</option>
+                  <option value="2/0 AWG">2/0 AWG</option>
+                  <option value="3/0 AWG">3/0 AWG</option>
+                  <option value="4/0 AWG">4/0 AWG</option>
+                  <option value="250 MCM">250 MCM</option>
+                  <option value="300 MCM">300 MCM</option>
+                  <option value="350 MCM">350 MCM</option>
+                  <option value="400 MCM">400 MCM</option>
+                  <option value="500 MCM">500 MCM</option>
+                  <option value="600 MCM">600 MCM</option>
+                  <option value="750 MCM">750 MCM</option>
+                  <option value="1000 MCM">1000 MCM</option>
+              </select>
+            </fieldset>
+          </div>
+          <div class="col-lg-10">
+            <fieldset>
+              <input type="submit" name="ca_calcular" value="Calcular">
+            </fieldset>
+          </div>
+          <div class="col-lg-10">
+            <fieldset>
+              <label class="label-form-error" for="method">{{ error }}</label>
+            </fieldset>
+          </div>
+        </div>
+        <div class="row">
+          <fieldset>
+            <h6><a href="#">¿Necesitas ayuda?</a></h6>
+          </fieldset>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
+
 {% endblock %}

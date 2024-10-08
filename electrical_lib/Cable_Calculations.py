@@ -1978,7 +1978,7 @@ def current_load(P, U, Ph, PF, V, n):
         elif U == 'kVA':
             I = (P * 1000) / (V * (3 ** 0.5))
         else:
-            if n == 'NTC2050-As' or n == 'NTC2050-Sin':
+            if n == 'NTC2050-As' or n == 'NTC2050-Si':
                 I = Motor_Current_Calculation(P, V, n, Ph)
             else:
                 I = (P * 746) / (V * PF * n * (3 ** 0.5))
@@ -1989,7 +1989,7 @@ def current_load(P, U, Ph, PF, V, n):
         elif U == 'kVA':
             I = (P * 1000) / V
         else:
-            if n == 'NTC2050-As' or n == 'NTC2050-Sin':
+            if n == 'NTC2050-As' or n == 'NTC2050-Si':
                 I = Motor_Current_Calculation(P, V, n, Ph)
             else:
                 I = (P * 746) / (V * PF * n)
@@ -2017,6 +2017,7 @@ def cable_calculation(P, U, Ph, PF, V, L, T = 75, T_amb = 25, CL = 'y', K = 'Cu'
 
     # 1. Calcular la corriente nominal del conductor a partir de la Potencia
     I = current_load(P, U, Ph, PF, V, n)
+    print(I)
 
     # 2. Multiplicar las cargas continuas por 125%
     if CL == 'y':

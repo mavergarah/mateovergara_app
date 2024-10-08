@@ -238,6 +238,7 @@ def drop_voltage_result(request):
         K = request.POST['dro_cable_kind']
 
         VDrop, VDrop100, R, X = Cable_Calculations.drop_voltage_calculation(Ph, V, L, I, FP, gauge, KC, K)
+        print('R= %f y X= %f' %(R,X))
         return render(request, 'calculations/drop_voltage_result.html',{'drop_voltage':round(VDrop,2),
         'drop_voltage_percentage':round(VDrop100,2), 'resistance':R, 'reactance':X})
     else:
