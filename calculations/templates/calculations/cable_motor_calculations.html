@@ -7,6 +7,7 @@
 <!-- Esta parte le permite al usuario ingresar los datos para el cálculo
 del conductor del motor teniendo en cuenta la eficiencia y el factor de potencia -->
 <br>
+<div class="subscribe">
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
@@ -122,21 +123,15 @@ del conductor del motor teniendo en cuenta la eficiencia y el factor de potencia
             <label class="label-form-error" for="mo_numero-conductores">{{ error }}</label>
           </fieldset>
         </div>
+        <div class="col-log-10">
+          <fieldset>
+            <h6><a href="#">¿Necesitas ayuda?</a></h6>
+          </fieldset>
+        </div>
         </form>
       </div>
     </div>
   </div>
 </div>
-
-<br>
-<h6 class="h6-instrucciones">Instrucciones de uso:</h6>
-<div class="instrucciones">
-  <ol>
-    <li>Solo debes ingresar los datos indicados en el formulario y darle al botón CALCULAR.</li>
-    <li>El cálculo NO tiene en cuenta el efecto de la temperatura de las terminales de conexión
-      a los conductores eléctricos.</li>
-    <li>Muchas gracias por utilizar esta aplicación!</li>
-  </ol>
 </div>
-
 {% endblock %}

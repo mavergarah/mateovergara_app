@@ -472,7 +472,11 @@ def arcflash_result(request):
         return render(request, 'calculations/arcflash_calculations.html', {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
 
 def arcflash_epps(request):
+    # Esta vista le muestra al usuario la tabla de elementos de protección personal
+    # para que él pueda elegir cuales le aplican basado en la categoría del riesgo.
     return render(request, 'calculations/arcflash_epps.html')
 
 def arcflash_gtable(request):
+    # Esta vista se encarga de mostrarle al usuario las distancias de separación
+    # típicas entre conductores de acuerdo al anexo D de la NFPA 70E.
     return render(request, 'calculations/arcflash_gtable.html')
