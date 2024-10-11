@@ -1,0 +1,23 @@
+{% extends "calculations/index.html" %}
+{% load static %}
+
+{% block title %}Conductores{% endblock %}
+
+{% block content %}
+  <br>
+    <section class="section" id="explore">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="left-content">
+                      {% for about in abouts %}
+                        <h2>{{ about.title }}</h2>
+                        <p>{{ about.description }}</p>
+                        <br>
+                      {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

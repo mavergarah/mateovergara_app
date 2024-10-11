@@ -6,6 +6,7 @@ from electrical_lib import Cable_Calculations
 from electrical_lib import Arc_Flash_Calculation
 from electrical_lib import Conduits_Calculation
 from electrical_lib import Safety_Calculations
+from .models import AboutApp
 
 # Create your views here.
 def cable_choosing(request):
@@ -480,3 +481,8 @@ def arcflash_gtable(request):
     # Esta vista se encarga de mostrarle al usuario las distancias de separación
     # típicas entre conductores de acuerdo al anexo D de la NFPA 70E.
     return render(request, 'calculations/arcflash_gtable.html')
+
+def about(request):
+    # Se carga en esta vista la plantilla que muestra lo correspondiente a esta vista
+    about_items = AboutApp.objects.order_by('id')
+    return render(request, 'calculations/about.html', {'abouts':about_items})

@@ -1,0 +1,51 @@
+{% extends "calculations/index.html" %}
+{% load static %}
+
+{% block title %}Conductores{% endblock %}
+
+{% block content %}
+    <section class="section" id="explore">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="left-content">
+                      {% for about in abouts %}
+                        <h2>{{ about.title }}</h2>
+                        <p>{{ about.description }}</p>
+                        <br>
+                      {% endfor %}
+                    </div>
+                        <p><a href="https://www.youtube.com/@mateovergarah"><i class="fa fa-youtube"></i></a> YouTube</p>
+                        <p><a href="https://www.linkedin.com/in/mateovergarahidalgo"><i class="fa fa-linkedin"></i></a> LinkedIn</p>
+                        <p><a href="https://github.com/mavergarah"><i class="fa fa-github"></i></a> GitHub</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="right-content">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="first-image">
+                                    <img src="{% static 'img/baner-right-image-01.jpeg' %}" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="second-image">
+                                    <img src="{% static 'img/baner-right-image-02.jpeg' %}" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="second-image">
+                                    <img src="{% static 'img/baner-right-image-03.jpeg' %}" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="second-image">
+                                    <img src="{% static 'img/baner-right-image-04.jpeg' %}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

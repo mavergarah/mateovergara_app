@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'electrical_lib',
     'calculations',
+    'about',
     'mateovergara_app', # Hay que instalar esta app para que Django reconozca las plantillas que están aquí
 ]
 

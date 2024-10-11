@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class AboutApp(models.Model):
+class AboutMV(models.Model):
     title = models.CharField(
         max_length=35,
         verbose_name='Title',
@@ -18,6 +18,6 @@ class AboutApp(models.Model):
         return self.title
 
     class Meta:
-        verbose_name = 'App_About'
-        verbose_name_plural = 'App_Abouts'
+        verbose_name = 'MV_About'
+        verbose_name_plural = 'MV_Abouts'
         ordering = ('id',)

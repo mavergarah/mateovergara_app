@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/templatemo-hexashop.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/owl-carousel.css' %}">
 
-    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}"> <!-- Aquí se agregar el favicon del sitio web -->
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}"> <!-- Aquí se agregar el favicon del sitio web -->
   </head>
 
   <body>
@@ -35,7 +35,7 @@
             <!-- BARRA DE NAVEGACIÓN -->
             <nav class="main-nav">
               <!-- LOGO-->
-              <a href="#" class="logo">
+              <a href="http://127.0.0.1:8000" class="logo">
                 <img src="{% static 'img/Logo_MV-4.png' %}" alt="Logo MateoVergara">
               </a>
               <ul class="nav">
@@ -43,8 +43,8 @@
                 <li class="submenu">
                   <a href="javascript:;">Acerca de</a>
                   <ul>
-                    <li><a href="#">Esta aplicación</a></li>
-                    <li><a href="#">Mateo Vergara</a></li>
+                    <li><a href="http://127.0.0.1:8000/calculations/about">Esta aplicación</a></li>
+                    <li><a href="http://127.0.0.1:8000/about/mateo_vergara">Mateo Vergara</a></li>
                   </ul>
                 </li>
                 <li class="submenu">
@@ -75,7 +75,7 @@
         </div>
       </div>
     </header>
-    
+
       {% block content %}{% endblock %}
 
     <!-- PIE DE PÁGINA -->

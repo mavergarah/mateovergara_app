@@ -1,11 +1,11 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import AboutApp
+from .models import AboutMV
 
 
-@admin.register(AboutApp)
-class AboutAppAdmin(admin.ModelAdmin):
+@admin.register(AboutMV)
+class AboutMVAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return True
 
