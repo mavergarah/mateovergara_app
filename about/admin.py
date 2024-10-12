@@ -1,8 +1,9 @@
 from django.contrib import admin
+from django.db import models
 
 # Register your models here.
 from .models import AboutMV
-
+from mdeditor.widgets import MDEditorWidget
 
 @admin.register(AboutMV)
 class AboutMVAdmin(admin.ModelAdmin):
@@ -17,6 +18,10 @@ class AboutMVAdmin(admin.ModelAdmin):
         if 'delete_selected' in actions:
             del actions['delete_selected']
         return actions
+
+    description = {
+        models.TextField:{'widget': MDEditorWidget}
+    }
 
     list_display = (
         'title',

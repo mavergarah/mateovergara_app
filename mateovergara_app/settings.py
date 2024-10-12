@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'electrical_lib',
     'calculations',
     'about',
+    'mdeditor',
     'mateovergara_app', # Hay que instalar esta app para que Django reconozca las plantillas que están aquí
 ]
 
@@ -72,6 +73,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mateovergara_app.wsgi.application'
+
+# Estas líneas han sido agregas para la aplicación de marcado del admin
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/media/'
 
 
 # Database
