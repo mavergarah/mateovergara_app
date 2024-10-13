@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+# from django.conf.urls import url: esta fue removida a partir de Django 3.0
 from . import views
+
+from django.conf import settings
+
+# Esto es para que en el título de pestaña salga este nombre
+admin.site.site_title = 'Mateo Vergara'
+# Esto es para que en la parte superior izquierda salga este nombre
+admin.site.site_header = 'Mateo Vergara - Administrator'
 
 urlpatterns = [
     path('', views.home, name = 'home'),
@@ -24,3 +32,20 @@ urlpatterns = [
     path('calculations/', include('calculations.urls')),
     path('admin/', admin.site.urls),
 ]
+
+# Dado que, en el model los campos IMAGE generan una url para cada imagen
+# se hace necesario incluir estas urls en este archivo. Esto para cuando
+# DEBUG esté activo.
+if settings.DEBUG:
+    from django.urls import re_path
+    from django.conf.urls.static import static
+    import debug_toolbar
+
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
+
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT
+    )

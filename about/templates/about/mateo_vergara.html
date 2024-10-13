@@ -16,33 +16,21 @@
                         <br>
                       {% endfor %}
                     </div>
-                        <p><a href="https://www.youtube.com/@mateovergarah"><i class="fa fa-youtube"></i></a> YouTube</p>
-                        <p><a href="https://www.linkedin.com/in/mateovergarahidalgo"><i class="fa fa-linkedin"></i></a> LinkedIn</p>
-                        <p><a href="https://github.com/mavergarah"><i class="fa fa-github"></i></a> GitHub</p>
+                        <p><a href="https://www.youtube.com/@mateovergarah"><i class="fa fa-youtube"></i> Canal de YouTube </a></p>
+                        <p><a href="https://www.linkedin.com/in/mateovergarahidalgo"><i class="fa fa-linkedin"></i> Perfil de LinkedIn</a></p>
+                        <p><a href="https://github.com/mavergarah"><i class="fa fa-github"></i> Usuario de GitHub</a></p>
+                        <p><i class="fa fa-envelope"></i> consultoriaelectrica@mateovergara.com</p>
                 </div>
                 <div class="col-lg-6">
                     <div class="right-content">
                         <div class="row">
+                          {% for about in about_gallery %}
                             <div class="col-lg-6">
                                 <div class="first-image">
-                                    <img src="{% static 'img/baner-right-image-01.jpeg' %}" alt="">
+                                    <img src="{{ about.photo.url }}" alt="">
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="second-image">
-                                    <img src="{% static 'img/baner-right-image-02.jpeg' %}" alt="">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="second-image">
-                                    <img src="{% static 'img/baner-right-image-03.jpeg' %}" alt="">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="second-image">
-                                    <img src="{% static 'img/baner-right-image-04.jpeg' %}" alt="">
-                                </div>
-                            </div>
+                          {% endfor %}
                         </div>
                     </div>
                 </div>

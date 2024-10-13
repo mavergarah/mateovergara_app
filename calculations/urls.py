@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 app_name = "calculations"
@@ -15,9 +15,9 @@ urlpatterns = [
     path("conduits_calculation", views.conduit_calculation, name = "conduit_calculation"),
     path("conduits_result", views.conduit_result, name = "conduit_result"),
     path("conduits_cable_table", views.conduit_cable_table, name = "conduit_cable_table"),
-    path("work_clearances_calculation", views.work_clearances_calculation, name = "work_clearances_calculation"),
+    path("work_clearances_calculation", views.work_clearances_calculation, name = "work_clearances"),
     path("work_clearances_result", views.work_clearances_result, name = "work_clearances_result"),
-    path("safety_clearances_calculation", views.safety_clearances_calculation, name = "safety_clearances_calculation"),
+    path("safety_clearances_calculation", views.safety_clearances_calculation, name = "safety_clearances"),
     path("safety_clearances_result", views.safety_clearances_result, name = "safety_clearances_result"),
     path("arcflash_calculation", views.arcflash_calculation, name = "arcflash_calculation"),
     path("arcflash_result", views.arcflash_result, name = "arcflash_result"),
@@ -31,5 +31,5 @@ urlpatterns = [
     path("cable_choosing_result", views.cable_choosing_result, name = "cable_choosing_result"),
     path("cable_motor_result", views.cable_motor_result, name = "cable_motor_result"),
     path("cable_motorntc_result", views.cable_motorntc_result, name = "cable_motorntc_result"),
-    path("about", views.about, name = "about"),
+    path('about', views.about, name = 'about'),
 ]

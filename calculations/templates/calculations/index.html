@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/templatemo-hexashop.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/owl-carousel.css' %}">
 
-    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}"> <!-- Aquí se agregar el favicon del sitio web -->
+    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}"> <!-- Aquí se agregar el favicon del sitio web http://127.0.0.1:8000/calculations/about -->
   </head>
 
   <body>
@@ -43,29 +43,29 @@
                 <li class="submenu">
                   <a href="javascript:;">Acerca de</a>
                   <ul>
-                    <li><a href="http://127.0.0.1:8000/calculations/about">Esta aplicación</a></li>
-                    <li><a href="http://127.0.0.1:8000/about/mateo_vergara">Mateo Vergara</a></li>
+                    <li><a href="{% url 'calculations:about' %}">Esta aplicación</a></li>
+                    <li><a href="{% url 'about:mateo_vergara' %}">Mateo Vergara</a></li>
                   </ul>
                 </li>
                 <li class="submenu">
                   <a href="javascript:;">Conductores</a>
                   <ul>
-                    <li><a href="http://127.0.0.1:8000/calculations/cable_choosing">Fase, neutro y tierra</a></li>
-                    <li><a href="http://127.0.0.1:8000/calculations/grounding_cable">De protección (tierra)</a></li>
-                    <li><a href="http://127.0.0.1:8000/calculations/electrode_cable">Del electrodo de puesta a tierra</a></li>
-                    <li><a href="http://127.0.0.1:8000/calculations/drop_voltage">Caída de tensión</a></li>
-                    <li><a href="http://127.0.0.1:8000/calculations/protective_device">Disp. de protección</a></li>
+                    <li><a href="{% url 'calculations:cable_choosing' %}">Fase, neutro y tierra</a></li>
+                    <li><a href="{% url 'calculations:grounding_cable' %}">De protección (tierra)</a></li>
+                    <li><a href="{% url 'calculations:electrode_cable' %}">Del electrodo de puesta a tierra</a></li>
+                    <li><a href="{% url 'calculations:drop_voltage' %}">Caída de tensión</a></li>
+                    <li><a href="{% url 'calculations:protective_device' %}">Disp. de protección</a></li>
                   </ul>
                 </li>
                 <li class="submenu">
                   <a href="javascript:;">Distancias</a>
                   <ul>
-                    <li><a href="http://127.0.0.1:8000/calculations/work_clearances_calculation">Espacios de trabajo</a></li>
-                    <li><a href="http://127.0.0.1:8000/calculations/safety_clearances_calculation">Dist. de Seguridad</a></li>
+                    <li><a href="{% url 'calculations:work_clearances' %}">Espacios de trabajo</a></li>
+                    <li><a href="{% url 'calculations:safety_clearances' %}">Dist. de Seguridad</a></li>
                   </ul>
                 </li>
-                <li class="scroll-to-section"><a href="http://127.0.0.1:8000/calculations/conduits_calculation">Conduits</a></li>
-                <li class="scroll-to-section"><a href="http://127.0.0.1:8000/calculations/arcflash_calculation">Arco</a></li>
+                <li class="scroll-to-section"><a href="{% url 'calculations:conduit_calculation' %}">Conduits</a></li>
+                <li class="scroll-to-section"><a href="{% url 'calculations:arcflash_calculation' %}">Arco</a></li>
               </ul>
               <a class='menu-trigger'>
                   <span>Menu</span>
@@ -83,16 +83,34 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-3">
-            <h4>SDAS-Research Group</h4>
+            <h4><a href="https://sdas-group.com/" target="_blank">SDAS-Research Group</a></h4>
+            <ul>
+              <li><a href="https://www.youtube.com/@sdas-group" target="_blank"><i class="fa fa-youtube"></i> Youtube Channel</a></li>
+              <li><a href="https://www.facebook.com/SDASResearchGroup" target="_blank"><i class="fa fa-facebook"></i> Facebook Page</a></li>
+              <li><a href="https://twitter.com/sdas_group" target="_blank"><i class="fa fa-twitter"></i> Twitter</a></li>
+            </ul>
           </div>
           <div class="col-lg-3">
-            <h4>Vlessim</h4>
+            <h4><a href="https://www.vlesim.com/">Vlesim</a></h4>
+            <ul>
+              <li><a href="https://www.youtube.com/@sdas-group" target="_blank"><i class="fa fa-linkedin"></i> Perfil de LinkedIn</a></li>
+              <li><a href="https://www.facebook.com/SDASResearchGroup" target="_blank"><i class="fa fa-envelope"></i> support@vlesim.com</a></li>
+              <li><a href="https://twitter.com/sdas_group" target="_blank"><i class="fa fa-whatsapp"></i> (+57)3163747465</a></li>
+            </ul>
           </div>
           <div class="col-lg-3">
             <h4>Idenar</h4>
+            <div class="logo">
+              <img src="img/Cendecyt-Logo.png" alt="hexashop ecommerce templatemo">
+            </div>
           </div>
           <div class="col-lg-3">
-            <h4>Cendecyt</h4>
+            <h4>Mateo Vergara SAS</h4>
+            <ul>
+              <li><a href="https://github.com/mavergarah"><i class="fa fa-github"></i> Usuario de GitHub</a></li>
+              <li><a href="https://www.youtube.com/@mateovergarah"><i class="fa fa-youtube"></i> Canal de YouTube </a></li>
+              <li><a href="https://www.linkedin.com/in/mateovergarahidalgo"><i class="fa fa-linkedin"></i> Perfil de LinkedIn</a></li>
+            </ul>
           </div>
           <div class="col-lg-12">
             <div class="under-footer">

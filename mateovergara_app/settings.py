@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'about',
     'mdeditor',
     'mateovergara_app', # Hay que instalar esta app para que Django reconozca las plantillas que están aquí
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'mateovergara_app.urls'
@@ -134,7 +136,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
