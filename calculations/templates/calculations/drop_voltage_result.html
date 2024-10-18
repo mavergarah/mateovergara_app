@@ -5,6 +5,8 @@
 {% block content %}
 <!-- Esta plantilla muestra el resultado del cálculo de la caida de tensión -->
 <br>
+<div class="subscribe">
+<div class="container">
   <table class="table" border="1">
   <caption class="caption-result">Tabla de resultados.</caption>
     <tr>
@@ -27,6 +29,10 @@
     <li>Recuerda que la corriente ajustada debe ser mayor a la continua.</li>
     <li>Los valores de Resistencia y de Reactancia para el calibre {{ gauge }} tomados de la tabla 9 de la NTC 2050 son:
     {{ resistance }}, {{ reactance }}(Ohm/km)</li>
+    <li>Si encuentras un error en los cálculos realizados puedes escribirnos a:
+    <b>consultoriaelectrica@mateovergara.com</b>.</li>
   </ol>
   </div>
+</div>
+</div>
 {% endblock %}

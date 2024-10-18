@@ -45,8 +45,7 @@ def cable_motor_result(request):
     # Esta función realiza el cálculo de conductores para un motor del cual se conocen
     # la eficiencia y el factor de potencia.
 
-    # Validar los datos de ingreso al formulario del HTML
-    print(request.POST)
+    # Validar los datos de ingreso al formulario del HTML2
     P = Cable_Calculations.is_number(request.POST['mo_power'])
     n = Cable_Calculations.is_number(request.POST['mo_efficiency'])
     n2 = Cable_Calculations.isin_range(request.POST['mo_efficiency'],0,1) # Validación de eficiencia entre 0 y 1
@@ -77,9 +76,11 @@ def cable_motor_result(request):
         NC = float(request.POST['mo_numero-conductores'])
         C = request.POST['mo_conduit']
 
-        ph, n, g, V_drop, pd, fa_corr, nf = Cable_Calculations.cable_calculation(P, 'HP', Ph, FP, V, L, T_cond, T_amb, CL, K, NC, C, n)
-        return render(request, 'calculations/cable_result.html', {'phase':ph, 'neutral':n,'ground':g, 'Vdrop':round(V_drop,2),
-        'protective':pd, 'corrective_factor':fa_corr, 'conductors_per_fase':nf, 'numb_phases':ph})
+        ph, n, g, V_drop, pd, fa_corr, ad_corr, nf = Cable_Calculations.cable_calculation(P, 'HP', Ph, FP, V, L, T_cond, T_amb, CL, K, NC, C, n)
+        return render(request, 'calculations/cable_result.html', {'phase':ph,
+        'neutral':n,'ground':g, 'Vdrop':round(V_drop,2),
+        'protective':pd, 'corrective_factor':fa_corr, 'conductors_per_fase':nf,
+        'numb_phases':Ph, 'adjust_factor':ad_corr})
     else:
         return render(request, 'calculations/cable_motor_calculations.html', {'error':'El formulario contiene errores'})
 
@@ -156,9 +157,10 @@ def cable_motorntc_result(request):
         NC = float(request.POST['mon_numero-conductores'])
         C = request.POST['mon_conduit']
 
-        ph, n, g, V_drop, pd, fa_corr, nf = Cable_Calculations.cable_calculation(P, 'HP', Ph, 0.85, V, L, T_cond, T_amb, CL, K, NC, C, S)
-        return render(request, 'calculations/cable_result.html', {'phase':ph, 'neutral':n,'ground':g, 'Vdrop':round(V_drop,2),
-        'protective':pd, 'corrective_factor':fa_corr, 'conductors_per_fase':nf, 'numb_phases':ph})
+        ph, n, g, V_drop, pd, fa_corr, ad_corr, nf = Cable_Calculations.cable_calculation(P, 'HP', Ph, 0.85, V, L, T_cond, T_amb, CL, K, NC, C, S)
+        return render(request, 'calculations/cable_result.html', {'phase':ph, 'neutral':n,'ground':g,
+        'Vdrop':round(V_drop,2), 'protective':pd, 'corrective_factor':fa_corr,
+        'conductors_per_fase':nf, 'numb_phases':ph, 'adjust_factor':ad_corr})
     else:
         return render(request, 'calculations/cable_motor_calculations.html', {'error':'El formulario contiene errores'})
 
@@ -194,9 +196,11 @@ def cable_result(request):
         NC = float(request.POST['ca_numero-conductores'])
         C = request.POST['ca_conduit']
 
-        ph, n, g, V_drop, pd, fa_corr, nf = Cable_Calculations.cable_calculation(P, U, Ph, FP, V, L, T_cond, T_amb, CL, K, NC, C)
-        return render(request, 'calculations/cable_result.html', {'phase':ph, 'neutral':n,'ground':g, 'Vdrop':round(V_drop,2),
-        'protective':pd, 'corrective_factor':fa_corr,'conductors_per_fase':nf, 'numb_phases':Ph})
+        ph, n, g, V_drop, pd, fa_corr, ad_corr, nf = Cable_Calculations.cable_calculation(P, U, Ph, FP, V, L, T_cond, T_amb, CL, K, NC, C)
+        return render(request, 'calculations/cable_result.html', {'phase':ph,
+        'neutral':n,'ground':g, 'Vdrop':round(V_drop,2),
+        'protective':pd, 'corrective_factor':fa_corr,
+        'conductors_per_fase':nf, 'numb_phases':Ph, 'adjust_factor':ad_corr})
     else:
         return render(request, 'calculations/cable_calculations.html', {'error':'El formulario contiene errores'})
 
@@ -407,10 +411,11 @@ def safety_clearances_result(request):
     # indicado.
 
     # Validar los datos ingresados por el usuario.
+    R = Safety_Calculations.isin_range(request.POST['sc_voltage'],50,550000)
     V = Safety_Calculations.is_number(request.POST['sc_voltage'])
     S = Safety_Calculations.is_choice(request.POST['sc_voltage_system'],'¿Tipo de Sistema?')
 
-    if V and S:
+    if V and S and R:
         # Importar las variables del formulario
         V = float(request.POST['sc_voltage'])
         S = request.POST['sc_voltage_system'] # Sistema monofásico, bifásico o trifásico

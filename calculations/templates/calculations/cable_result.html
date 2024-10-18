@@ -5,6 +5,8 @@
 {% block content %}
 <!-- Esta tabla muestra el resultado del cálculo de conductores -->
 <br>
+<div class="subscribe">
+<div class="container">
 <table class="table" border = "1">
 <caption class="caption-result">Tabla de resultados.</caption>
   <tr>
@@ -34,8 +36,13 @@ cuenta para la realización del cálculo -->
   <div class="instrucciones">
   <ol>
     <li>El cálculo se ha realizado de acuerdo a la NTC 2050 de 2021 (Código eléctrico colombiano).</li>
-    <li>El factor de corrección por temperatura considerado es: {{ corrective_factor }}</li>
+    <li>El factor de corrección por temperatura considerado es: {{ corrective_factor }}. </li>
+    <li>El factor de ajuste para más de tres conductores portadores de corriente en una misma canalización es: {{ adjust_factor }}.</li>
+    <li>Este cálculo no tiene en cuenta la temperatura de las terminales de conexión al cableado.</li>
+    <li>Si encuentras un error en los cálculos realizados puedes escribirnos a:
+    <b>consultoriaelectrica@mateovergara.com</b>.</li>
   </ol>
   </div>
-
+</div>
+</div>
 {% endblock %}

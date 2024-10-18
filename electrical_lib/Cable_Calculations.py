@@ -2024,6 +2024,7 @@ def cable_calculation(P, U, Ph, PF, V, L, T = 75, T_amb = 25, CL = 'y', K = 'Cu'
         I_continuous = I * 1.25
     else:
         I_continuous = I
+    print(I_continuous)
 
     # 3. Seleccionar la corriente nominal del conductor de acuerdo a la temperatura ambiente.
     correction_factor = temperature_correction_factor(T_amb, T)
@@ -2057,6 +2058,7 @@ def cable_calculation(P, U, Ph, PF, V, L, T = 75, T_amb = 25, CL = 'y', K = 'Cu'
     # 7. Ajustar la corriente nominal del conductor seleccionado de acuerdo al factor de correcciónote
     # y de acuerdo al valor de ajuste
     I_adjust = nominal_current * correction_factor * adjustment_factor
+    print(I_adjust)
 
     # 8. Calculo de la regulación de tensión
     Vdrop, Vdrop_percent, R, X = drop_voltage_calculation(Ph, V, L, (I / conductors_per_fase), PF, gauge, KC, K)
@@ -2078,12 +2080,14 @@ def cable_calculation(P, U, Ph, PF, V, L, T = 75, T_amb = 25, CL = 'y', K = 'Cu'
 
     # 11. Calcular la protección del circuito
     protective = protective_device(nominal_current * correction_factor * adjustment_factor, I_continuous)
+    print(protective)
 
     if protective == '-':
         protective = protective_device(nominal_current * correction_factor * adjustment_factor, I * conductors_per_fase)
 
+    print(protective)
     # 12. Selección del conductor de protección de equipos (o de puesta a tierra) de equipos
     earth = earth_conductor(protective, K)
 
     # 13. Imprimir los resultados del cálculo
-    return gauge, neutral_conductor, earth, Vdrop_percent, protective, correction_factor, conductors_per_fase
+    return gauge, neutral_conductor, earth, Vdrop_percent, protective, correction_factor, adjustment_factor, conductors_per_fase

@@ -1,3 +1,13 @@
+def isin_range(value, min, max):
+    """ Esta función verifica que un valor ingresado sea un número entero positivo
+    """
+
+    try:
+        if min <= float(value) <= max:
+            return True
+    except ValueError:
+        return False
+
 def is_positive(value):
     """ Esta función valida si el valor ingresado es positivo o no. Si es dispositivo
     devuelve True y si no devuelve False. """
@@ -6,7 +16,6 @@ def is_positive(value):
             return True
     except ValueError:
             return False
-
 
 def is_number(value):
     """ Esta función se encarga de validar si el valor enviado corresponde a un número o no.
