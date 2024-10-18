@@ -338,12 +338,10 @@ def conduit_result(request):
     # Validar los datos de ingreso al formulario del HTML
     validation = Conduits_Calculation.data_validation(request.POST['co_ingreso'],
     request.POST['co_diametro'], request.POST['co_conduit_kind'])
-    print(validation)
 
     # Realizar cálculo de conduits si el formulario no tiene errores
     if not validation == 'Error':
         DoA = Conduits_Calculation.convert2list_or_value(request.POST['co_ingreso']) # Variable de Diámetro o Área
-        print(DoA)
 
         SDA = request.POST['co_diametro'] # Variable de selección de diámetro o área
         CK = request.POST['co_conduit_kind'] # Tipo de tubería

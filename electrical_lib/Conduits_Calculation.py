@@ -24,7 +24,7 @@ def emtselecction(A_conduit):
     elif A_conduit <= 9521:
         return '4'
     else:
-        return 'no conduit'
+        return '-'
 
 def entselecction(A_conduit):
     """ Función para seleccionar el calibre de un conduit tipo ENT """
@@ -41,7 +41,7 @@ def entselecction(A_conduit):
     elif A_conduit <= 2123:
         return '2'
     else:
-        return 'no conduit'
+        return '-'
 
 def fmcselecction(A_conduit):
     """ Función para seleccionar el calibre de un conduit tipo FMC """
@@ -66,7 +66,7 @@ def fmcselecction(A_conduit):
     elif A_conduit <= 8107:
         return '4'
     else:
-        return 'no conduit'
+        return '-'
 
 def imcselecction(A_conduit):
     """ Función para seleccionar el calibre de un conduit tipo IMC """
@@ -91,7 +91,7 @@ def imcselecction(A_conduit):
     elif A_conduit <= 8725:
         return '4'
     else:
-        return 'no conduit'
+        return '-'
 
 def pvc80selecction(A_conduit):
     """ Función para seleccionar el calibre de un conduit tipo PVC Schedule 80.
@@ -122,7 +122,7 @@ def pvc80selecction(A_conduit):
     elif A_conduit <= 16513:
         return '6'
     else:
-        return 'no conduit'
+        return '-'
 
 def pvc40selecction(A_conduit):
     """ Función para seleccionar el calibre de un conduit tipo PVC Schedule 40.
@@ -153,7 +153,7 @@ def pvc40selecction(A_conduit):
     elif A_conduit <= 18433:
         return '6'
     else:
-        return 'no conduit'
+        return '-'
 
 def pvcAselecction(A_conduit):
     """ Función para seleccionar el calibre de un conduit tipo PVC tipo A.
@@ -180,7 +180,7 @@ def pvcAselecction(A_conduit):
     elif A_conduit <= 8858:
         return '4'
     else:
-        return 'no conduit'
+        return '-'
 
 def rmcselecction(A_conduit):
     """ Función para seleccionar el calibre de un conduit tipo RMC """
@@ -205,7 +205,7 @@ def rmcselecction(A_conduit):
     elif A_conduit <= 8316:
         return '4'
     else:
-        return 'no conduit'
+        return '-'
 
 def is_number(value):
     try:
@@ -334,5 +334,5 @@ def conduit_sizing(areas_or_diameters, conduit_type = 'pvc', variable = 'd'):
     elif conduit_type == 'RMC':
         conduit_gauge = rmcselecction(A_conduit)
     else:
-        conduit_gauge = 'No conduit gauge'
+        conduit_gauge = '-'
     return conduit_gauge
