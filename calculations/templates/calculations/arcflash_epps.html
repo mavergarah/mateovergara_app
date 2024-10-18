@@ -7,9 +7,33 @@
 <!-- En esta plantilla se carga la tabal de epps para que el usuario pueda consultarla -->
 <!-- después de haber realizado un cálculo de arco eléctrico. -->
 <br>
-  <h6 class="h6-result">Tabla tomada de la NFPA 70E.</h6>
-    <img src="{% static 'img/Tabla_130-7_1.png' %}" class = "arc_flash" alt="Tabla tomada de la NFPA 70E">
-    <img src="{% static 'img/Tabla_130-7_2.png' %}" class = "arc_flash" alt="Tabla tomada de la NFPA 70E">
-    <img src="{% static 'img/Tabla_130-7_3.png' %}" class = "arc_flash" alt="Tabla tomada de la NFPA 70E">
+<div class="subscribe">
+<div class="container">
+  <h4 class="h6-result">Tabla tomada de la NFPA 70E.</h4>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="right-first-image">
+        <div class="thumb">
+          <img src="{% static 'img/Tabla_130-7_1.png' %}" class = "arc_flash" alt="Tabla tomada de la NFPA 70E">
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="right-first-image">
+            <div class="thumb">
+                <img src="{% static 'img/Tabla_130-7_2.png' %}" class = "arc_flash" alt="Tabla tomada de la NFPA 70E">
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="right-first-image">
+            <div class="thumb">
+              <img src="{% static 'img/Tabla_130-7_3.png' %}" class = "arc_flash" alt="Tabla tomada de la NFPA 70E">
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+</div>
 
 {% endblock %}
