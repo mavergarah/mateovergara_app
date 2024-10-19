@@ -17,6 +17,16 @@ def is_choice(value, option):
     else:
         return True
 
+def is_positive(value):
+    """ Esta función verifica que un valor ingresado sea un número positivo
+    """
+
+    try:
+        if float(value) > 0:
+            return True
+    except ValueError:
+        return False
+
 def is_number(value):
     """ Esta función verifica que un valor ingresado sea un número entero positivo
     """
@@ -748,6 +758,46 @@ def temperature_correction_factor(T_amb = '25', T = '60'):
             return 0.29
         else:
             return 'no temp. correc. factor'
+
+def gauge_nominal_current(gauge, T, K):
+    """ Esta función permite seleccionar la corriente nominal de un conductor basado en la temperatura,
+    el calibre y el tipo de conductor (Cobre o Alumino). """
+
+    # Se definen estrings con las ampacidades para cada uno de los tipos de conductores y para cada una
+    # de las temperaturas.
+    I_nom_60_Cu = [15,20,30,40,55,70,85,95,110,125,145,165,195,215,240,260,280,320,350,385,400,410,435,455,495,525,545,555]
+    I_nom_60_Al = ['-',15,25,35,40,55,65,75,85,100,115,130,150,170,195,210,225,260,285,315,320,330,355,375,405,435,455,470]
+    I_nom_75_Cu = [20,25,35,50,65,85,100,115,130,150,175,200,230,255,285,310,335,380,420,460,475,490,520,545,590,625,650,665]
+    I_nom_75_Al = ['-',20,30,40,50,65,75,90,100,120,135,155,180,205,230,250,270,310,340,375,385,395,425,445,485,520,545,560]
+    I_nom_90_Cu = [25,30,40,55,75,95,115,130,145,170,195,225,260,290,320,350,380,430,475,520,535,555,585,615,665,705,735,750]
+    I_nom_90_Al = ['-',25,35,45,55,75,85,100,115,135,150,175,205,230,260,280,305,350,385,425,435,445,480,500,545,585,615,630]
+
+    # Se busca en un arreglo que contiene los calibres de los conductores
+    # a cual corresponde el ingresado por el usuario
+    all_gauges = ['14 AWG','12 AWG','10 AWG','8 AWG','6 AWG','4 AWG','3 AWG','2 AWG','1 AWG','1/0 AWG','2/0 AWG','3/0 AWG','4/0 AWG','250 MCM','300 MCM','350 MCM','400 MCM','500 MCM','600 MCM','700 MCM','750 MCM','800 MCM','900 MCM','1000 MCM']
+    i = 1
+
+    while not gauge == all_gauges[i-1]:
+        i = i + 1
+
+    # Una vez que encuentre el índice va al arreglo conrrespondiente y selecciona la corriente
+    if T == 60:
+        if K == 'Cu':
+            nominal_current = I_nom_60_Cu[i]
+        else:
+            nominal_current = I_nom_60_Al[i]
+    elif T == 75:
+        if K == 'Cu':
+            nominal_current = I_nom_75_Cu[i]
+        else:
+            nominal_current = I_nom_75_Al[i]
+    else:
+        if K == 'Cu':
+            nominal_current = I_nom_90_Cu[i]
+        else:
+            nominal_current = I_nom_90_Al[i]
+
+    return nominal_current
 
 def conductor_gauge(I, V, T, K):
     """ Esta función realiza la selección del calibre del conductor de fase de acuerdo a la corriente (I),
@@ -2066,28 +2116,44 @@ def cable_calculation(P, U, Ph, PF, V, L, T = 75, T_amb = 25, CL = 'y', K = 'Cu'
     # 9. Si la caída de tensión es superior al 3% se debe seleccionar un conductor con una caída de tensión
     # inferior a esta.
     while Vdrop_percent > 3:
-        print(gauge)
         gauge = find_next_gauge(gauge)
-        Vdrop, Vdrop_percent, R, X = drop_voltage_calculation(Ph, V, L, I, PF, gauge, KC, K)
-        print(Vdrop_percent)
-    print(gauge)
 
-    # 10. Calcular el conductor de neutro
+        if gauge == '1000 MCM':
+            conductors_per_fase = conductors_per_fase + 1
+            I= I / conductors_per_fase
+            gauge = '1/0 AWG'
+
+        Vdrop, Vdrop_percent, R, X = drop_voltage_calculation(Ph, V, L, I, PF, gauge, KC, K)
+
+    # 10. Calcular la protección del circuito
+    protective = protective_device(nominal_current * correction_factor * adjustment_factor, I_continuous)
+    print(protective)
+
+    # Si no puede seleccionar una protección debido a que no hay un dispositivo de protección que esté
+    # entre la corriente continua y la corriente ajustada se procederá a seleccionar uno que esté entre
+    # la corriente nominal y la corriente ajustada.
+    if protective == '-':
+        protective = protective_device(nominal_current * correction_factor * adjustment_factor, I * conductors_per_fase)
+
+    # Si no se encuentra una protección que esté entre la corriente nominal y la corriente ajustada
+    # se selecciona un conductor de calibre superior y se vuelve a realizar la selección del dispositivo
+    # de protección.
+
+    while protective == '-':
+        gauge = find_next_gauge(gauge)
+        nominal_current = gauge_nominal_current(gauge, T, K)
+        protective = protective_device(nominal_current * correction_factor * adjustment_factor, I_continuous)
+        Vdrop, Vdrop_percent, R, X = drop_voltage_calculation(Ph, V, L, I, PF, gauge, KC, K)
+    print(protective)
+
+    # 11. Calcular el conductor de neutro
     if Ph == 1:
         neutral_conductor = gauge
     else:
         neutral_conductor = '-'
 
-    # 11. Calcular la protección del circuito
-    protective = protective_device(nominal_current * correction_factor * adjustment_factor, I_continuous)
-    print(protective)
-
-    if protective == '-':
-        protective = protective_device(nominal_current * correction_factor * adjustment_factor, I * conductors_per_fase)
-
-    print(protective)
     # 12. Selección del conductor de protección de equipos (o de puesta a tierra) de equipos
     earth = earth_conductor(protective, K)
 
-    # 13. Imprimir los resultados del cálculo
+    # 13. Retornar los resultados del cálculo
     return gauge, neutral_conductor, earth, Vdrop_percent, protective, correction_factor, adjustment_factor, conductors_per_fase

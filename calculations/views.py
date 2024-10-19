@@ -48,12 +48,14 @@ def cable_motor_result(request):
     # Validar los datos de ingreso al formulario del HTML2
     P = Cable_Calculations.is_number(request.POST['mo_power'])
     n = Cable_Calculations.is_number(request.POST['mo_efficiency'])
-    n2 = Cable_Calculations.isin_range(request.POST['mo_efficiency'],0,1) # Validación de eficiencia entre 0 y 1
+    n2 = Cable_Calculations.isin_range(request.POST['mo_efficiency'],0.01,1) # Validación de eficiencia entre 0 y 1
     Ph = Cable_Calculations.is_choice(request.POST['mo_fases'],'fases')
     FP = Cable_Calculations.is_number(request.POST['mo_fp'])
-    FP2 = Cable_Calculations.isin_range(request.POST['mo_fp'],0,1) # Validación de factor de potencia entre 0 y 1
+    FP2 = Cable_Calculations.isin_range(request.POST['mo_fp'],0.01,1) # Validación de factor de potencia entre 0 y 1
     V = Cable_Calculations.is_number(request.POST['mo_tension'])
+    V2 = Cable_Calculations.is_positive(request.POST['mo_tension']) # Validación de que la tensión es mayor a cero
     L = Cable_Calculations.is_number(request.POST['mo_longitud'])
+    L2 = Cable_Calculations.is_positive(request.POST['mo_longitud']) # Validación de que la longitud es mayor a cero
     T_amb = Cable_Calculations.is_number(request.POST['mo_temperature'])
     T_cond = Cable_Calculations.is_choice(request.POST['mo_temp-conductor'],'temperatura')
     CL = Cable_Calculations.is_choice(request.POST['mo_carga_continua'],'carga continua')
@@ -62,7 +64,7 @@ def cable_motor_result(request):
     C = Cable_Calculations.is_choice(request.POST['mo_conduit'],'conduit')
 
     # Realizar cálculo de los conductores si el formulario no tiene errores
-    if P and n and n2 and Ph and FP and FP2 and V and L and T_amb and T_cond and CL and K and NC and C:
+    if P and n and n2 and Ph and FP and FP2 and V and V2 and L and L2 and T_amb and T_cond and CL and K and NC and C:
         P = float(request.POST['mo_power'])
         n = float(request.POST['mo_efficiency'])
         Ph = float(request.POST['mo_fases'])
@@ -173,7 +175,9 @@ def cable_result(request):
     FP2 = Cable_Calculations.isin_range(request.POST['ca_fp'],0,1) # Se valida que el factor de potencia esté entre 0 y 1
     FP = Cable_Calculations.is_number(request.POST['ca_fp'])
     V = Cable_Calculations.is_number(request.POST['ca_tension'])
+    V2 = Cable_Calculations.is_positive(request.POST['ca_tension']) # Se valida que la tensión sea mayor que cero
     L = Cable_Calculations.is_number(request.POST['ca_longitud'])
+    L2 = Cable_Calculations.is_positive(request.POST['ca_longitud']) # Se valida que la longitud sea mayor que cero
     T_amb = Cable_Calculations.is_number(request.POST['ca_temperature'])
     T_cond = Cable_Calculations.is_choice(request.POST['ca_temp-conductor'],'temperatura')
     CL = Cable_Calculations.is_choice(request.POST['ca_carga_continua'],'carga continua')
@@ -182,7 +186,7 @@ def cable_result(request):
     C = Cable_Calculations.is_choice(request.POST['ca_conduit'],'conduit')
 
     # Realizar cálculo de los conductores si el formulario no tiene errores
-    if P and U and Ph and FP and FP2 and V and L and T_amb and T_cond and CL and K and NC and C:
+    if P and U and Ph and FP and FP2 and V and V2 and L and L2 and T_amb and T_cond and CL and K and NC and C:
         P = float(request.POST['ca_potencia'])
         U = request.POST['ca_unidades']
         Ph = float(request.POST['ca_fases'])
@@ -215,7 +219,9 @@ def drop_voltage_result(request):
 
     # Validar datos de ingreso del usuario. Las funciones retornan True or False
     V = Cable_Calculations.is_number(request.POST['dro_voltage'])
+    V2 = Cable_Calculations.is_positive(request.POST['dro_voltage']) # Se valida que la caída de tensión sea mayor que cero
     L = Cable_Calculations.is_number(request.POST['dro_length'])
+    L2 = Cable_Calculations.is_positive(request.POST['dro_length'])
     I = Cable_Calculations.is_number(request.POST['dro_current'])
     FP = Cable_Calculations.is_number(request.POST['dro_pf'])
     Ph = Cable_Calculations.is_choice(request.POST['dro_system'],'sistema')
@@ -229,9 +235,7 @@ def drop_voltage_result(request):
     else:
         gauge2 = True
 
-    print(gauge2)
-
-    if (V and L and I and FP and Ph and gauge and gauge2 and KC and K):
+    if (V and V2 and L and L2 and I and FP and Ph and gauge and gauge2 and KC and K):
         # Capturar los datos del formulario HTML para realizar el cálculo
         V = float(request.POST['dro_voltage'])
         L = float(request.POST['dro_length'])
