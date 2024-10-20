@@ -39,7 +39,7 @@ def cable_choosing_result(request):
 def cable_calculation(request):
     # Aquí se carga el formulario correspondiente a el cálculo de conductores eléctricos para
     # cargas generales.
-    return render(request, 'calculations/cable_calculations.html')
+    return render(request, 'calculations/cable_calculations.html',{'form':Form})
 
 def cable_motor_result(request):
     # Esta función realiza el cálculo de conductores para un motor del cual se conocen
