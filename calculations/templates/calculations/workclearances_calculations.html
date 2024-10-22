@@ -18,25 +18,25 @@ para la realización del cálculo de los espacios de trabajo -->
           <div class="col-lg-5">
             <fieldset>
               <label for="wc_voltage">Tensión (V):</label>
-              <input type="text" name="wc_voltage" value="208">
+              <input type="text" name="wc_voltage" value="208" title="Solo valores positivos mayores que cero.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="wc_height">Altura (m):</label>
-              <input type="text" name="wc_height" value="2.0">
+              <input type="text" name="wc_height" value="2.0" title="Altura del tablero eléctrico al que le quieres calcular el espacio de trabajo.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="wc_width">Ancho (m):</label>
-              <input type="text" name="wc_width" value="0.76">
+              <input type="text" name="wc_width" value="0.76" title="Ancho del espacio del tablero eléctrico al que le quieres calcular el espacio de trabajo.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="wc_voltage_system">¿Sistema?</label>
-              <select name="wc_voltage_system">
+              <select name="wc_voltage_system" title="¿Monofásico, bifásico o trifásico?">
                   <option value="Sistema">- </option>
                   <option value="1">Monofásico</option>
                   <option value="2">Bifásico</option>
@@ -47,7 +47,7 @@ para la realización del cálculo de los espacios de trabajo -->
           <div class="col-lg-5">
             <fieldset>
               <label for="wc_condition">¿Condición?</label>
-              <select name="wc_condition">
+              <select name="wc_condition" title="¿Qué tiene en frente el tablero? ¿Elementos puestos a tierra? ¿Otro tablero?">
                   <option value="Condicion?">- </option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -58,7 +58,7 @@ para la realización del cálculo de los espacios de trabajo -->
           <div class="col-lg-5">
             <fieldset>
               <label for="wc_backspace">¿Acceso posterior?</label>
-              <select name="wc_backspace">
+              <select name="wc_backspace" title="¿Hay elementos desenergizados a los que se tenga que acceder por la parte posterior del tablero para realizar actividades de mantenimiento?">
                   <option value="Acceso posterior?">- </option>
                   <option value="Si">Sí</option>
                   <option value="No">No</option>

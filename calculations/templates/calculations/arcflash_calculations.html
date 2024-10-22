@@ -16,31 +16,31 @@
           <div class="col-lg-5">
             <fieldset>
               <label for="ar_voltage">Tensión (V):</label>
-              <input type="text" name="ar_voltage" value="220">
+              <input type="text" name="ar_voltage" value="220" title="Solo números mayores que cero">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="ar_short_circuit_current">Corriente de cortocircuito trifáisco - F (kA):</label>
-              <input type="text" name="ar_short_circuit_current" value="0.7">
+              <input type="text" name="ar_short_circuit_current" value="0.7" title="Separa los decimales con punto.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="ar_time">Tiempo de despeje de falla - t (s):</label>
-              <input type="text" name="ar_time" value="0.01">
+              <input type="text" name="ar_time" value="0.01" title="Separa los decimales con punto.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="ar_conductors_separation">Distancia del arco a la persona - D (m):</label>
-              <input type="text" name="ar_distance" value="0.9">
+              <input type="text" name="ar_distance" value="0.9" title="Ejemplo: límite de aproximación seguro, límite de aproximación restringido, etc.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="ar_panel_kind">¿Tipo de Tablero?</label>
-              <select name="ar_panel_kind">
+              <select name="ar_panel_kind" title="CCM es solo para valores de tensión menores o iguales a 1 kV.">
                   <option value="tablero">- </option>
                   <option value="CCM">CCM</option>
                   <option value="PP">Panel de Potencia</option>
@@ -50,7 +50,7 @@
           <div class="col-lg-5">
             <fieldset>
               <label for="ar_arc_kind">¿Tipo de arco?</label>
-              <select name="ar_arc_kind">
+              <select name="ar_arc_kind" title="Cerrado es ideal para arcos que provienen de adentro de tableros de potencia, CCM u otros envolventes eléctricos.">
                   <option value="arco">- </option>
                   <option value="O">Abierto</option>
                   <option value="C">Cerrado</option>
@@ -60,7 +60,7 @@
           <div class="col-lg-5">
             <fieldset>
               <label for="ar_arc_kind">¿Conexión a tierra?</label>
-              <select name="ar_earth_kind">
+              <select name="ar_earth_kind" title="¿La conexión a tierra del sistema eléctrico se realiza por medio de una resistencia? El sistema TN-C-S NO se conecta a tierra por medio de ALTA RESISTENCIA.">
                   <option value="tierra">- </option>
                   <option value="HR">Alta resistencia</option>
                   <option value="WR">Sin resistencia</option>
@@ -70,13 +70,13 @@
           <div class="col-lg-5">
             <fieldset>
               <label for="ar_conductors_separation">Separación de conductores - G (mm):</label>
-              <input type="text" name="ar_conductors_separation" value="13">
+              <input type="text" name="ar_conductors_separation" value="13" title="La separación entre conductores está entre 10 mm y 153 mm.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="ar_arc_kind">¿Método de cálculo?</label>
-              <select name="method">
+              <select name="method" title="NFPA 70E: ideal para. IEEE1584: ideal para niveles de tensión que estén entre 0.208 kV y 15 kV, y niveles de corriente de corto entre 0.7 y 106 kA.">
                   <option value="metodo">- </option>
                   <option value="IE15">IEEE1584</option>
                   <option value="NFPA70E">NFPA 70E</option>

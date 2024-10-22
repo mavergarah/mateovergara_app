@@ -20,43 +20,43 @@ del conductor del motor teniendo en cuenta la eficiencia y el factor de potencia
           <div class="col-lg-5">
             <fieldset>
               <label for="mo_power">Potencia (HP):</label>
-              <input type="text" name="mo_power" value="1">
+              <input type="text" name="mo_power" value="1" title="Separa los decimales con punto.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="mo_efficiency">Eficiencia (0 - 1):</label>
-              <input type="text" name="mo_efficiency" value="0.65">
+              <input type="text" name="mo_efficiency" value="0.65" title="Separa los decimales con punto.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="mo_fp">Factor de Potencia (0 - 1):</label>
-              <input type="text" name="mo_fp" value="0.85">
+              <input type="text" name="mo_fp" value="0.85" title="Separa los decimales con punto.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="mo_tension">Tensión (V):</label>
-              <input type="text" name="mo_tension" value="208">
+              <input type="text" name="mo_tension" value="208" title="Solo valores positivos mayores que cero.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="mo_longitud">Longitud (m):</label>
-              <input type="text" name="mo_longitud" value="15">
+              <input type="text" name="mo_longitud" value="15" title="Solo valores positivos mayores que cero.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="mo_temperature">Temp. Ambiente (ºC):</label>
-              <input type="text" name="mo_temperature" value="25">
+              <input type="text" name="mo_temperature" value="25" title="Temperatura del área donde se va a instalar el conductor eléctrico. Solo temperaturas hasta 85 ºC.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="mo_numero-conductores">Número de conductores energizados en una misma canalización:</label>
-              <input type="text" name="mo_numero-conductores" value="3">
+              <input type="text" name="mo_numero-conductores" value="3" title="Esto es para tener en cuenta el ajuste para más de tres conductores portadores de corriente. Recuerda que el conductor de puesta a tierra no se tiene en cuenta en el conteo.">
             </fieldset>
           </div>
           <div class="col-lg-5">
@@ -73,7 +73,7 @@ del conductor del motor teniendo en cuenta la eficiencia y el factor de potencia
           <div class="col-lg-5">
             <fieldset>
               <label for="mo_temp-conductor">¿Temp. Conductor (ºC)?</label>
-              <select name="mo_temp-conductor">
+              <select name="mo_temp-conductor" title="Temperatura del aislamiento del conductor. Esta aplicación no tiene en cuenta el efecto de las terminales de conexión.">
                   <option value="temperatura"></option>
                   <option value="60">60</option>
                   <option value="75">75</option>
@@ -84,7 +84,7 @@ del conductor del motor teniendo en cuenta la eficiencia y el factor de potencia
           <div class="col-lg-5">
             <fieldset>
               <label for="mo_carga_continua">¿Carga continua?</label>
-              <select class="select-form" name="mo_carga_continua">
+              <select class="select-form" name="mo_carga_continua" title="Una carga continua es aquella cuya corriente máxima se prevé que opere durante tres horas o más.">
                   <option value="carga continua">- </option>
                   <option value="y">Sí</option>
                   <option value="n">No</option>
@@ -105,7 +105,7 @@ del conductor del motor teniendo en cuenta la eficiencia y el factor de potencia
           <div class="col-lg-5">
             <fieldset>
               <label for="mo_conduit">¿Tipo de Conduit?</label>
-              <select class="select-form" name="mo_conduit">
+              <select class="select-form" name="mo_conduit" title="Esto es para la selección de la Reactancia y la Resistencia">
                   <option value="conduit">- </option>
                   <option value="PVC">PVC</option>
                   <option value="St">Acero</option>

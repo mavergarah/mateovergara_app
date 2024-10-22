@@ -21,6 +21,7 @@ Table of contents
 10. preloader
 11. search
 12. portfolio
+13. personal styles
 
 --------------------------------------------- */
 /*
@@ -2401,4 +2402,34 @@ responsive
   100% {
     opacity: 0;
   }
+}
+
+/*
+---------------------------------------------
+personal styles
+---------------------------------------------
+*/
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  width: 140px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Muestra el tooltip arriba del elemento */
+  left: 50%;
+  margin-left: -75px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }

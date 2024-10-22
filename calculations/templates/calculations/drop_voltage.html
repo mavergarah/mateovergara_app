@@ -17,31 +17,31 @@
           <div class="col-lg-5">
             <fieldset>
               <label for="dro_voltage">Tensión (V):</label>
-              <input type="text" name="dro_voltage" value="120">
+              <input type="text" name="dro_voltage" value="120" title="Solo valores positivos mayores que cero.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="dro_length">Longitud (m):</label>
-              <input type="text" name="dro_length" value="10">
+              <input type="text" name="dro_length" value="10" title="Solo valores positivos mayores que cero.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="dro_current">Corriente (A):</label>
-              <input type="text" name="dro_current" value="15">
+              <input type="text" name="dro_current" value="15" title="Solo valores positivos mayores que cero.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="dro_pf">Factor de Potencia (0 - 1):</label>
-              <input type="text" name="dro_pf" value="0.85">
+              <input type="text" name="dro_pf" value="0.85" title="Separa los decimales con punto.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="select-form">¿Tipo de sistema?</label>
-              <select class="select-form" name="dro_system">
+              <select class="select-form" name="dro_system" title="¿Sistema monofásico, bifásico o trifásico?">
                   <option value="sistema">- </option>
                   <option value="1">Monofásico</option>
                   <option value="2">Bifásico</option>
@@ -52,7 +52,7 @@
           <div class="col-lg-5">
             <fieldset>
               <label for="dro_conduit_kind">¿Tipo de conduit?</label>
-              <select name="dro_conduit_kind">
+              <select name="dro_conduit_kind" title="Esto es para la selección de la Reactancia y la Resistencia.">
                   <option value="conduit">- </option>
                   <option value="PVC">PVC</option>
                   <option value="st">Acero</option>

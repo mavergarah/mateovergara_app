@@ -89,19 +89,19 @@ para el cálculo del conductor de un motor basado en el artículo
           <div class="col-lg-5">
             <fieldset>
               <label for="mon_longitud">Longitud (m):</label>
-              <input type="text" name="mon_longitud" value="15">
+              <input type="text" name="mon_longitud" value="15" title="Solo valores positivos mayores que cero.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="mon_temperature">Temp. Ambiente (ºC):</label>
-              <input type="text" name="mon_temperature" value="25">
+              <input type="text" name="mon_temperature" value="25" title="Temperatura del área donde se va a instalar el conductor eléctrico. Solo temperaturas hasta 85 ºC.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="mon_fases">¿Temp. Conductor (ºC)?</label>
-              <select class="select-form" name="mon_temp-conductor">
+              <select class="select-form" name="mon_temp-conductor" title="Temperatura del aislamiento del conductor. Esta aplicación no tiene en cuenta el efecto de las terminales de conexión.">
                   <option value="temperatura">- </option>
                   <option value="60">60</option>
                   <option value="75">75</option>
@@ -112,7 +112,7 @@ para el cálculo del conductor de un motor basado en el artículo
           <div class="col-lg-5">
             <fieldset>
               <label for="mon_carga_continua">¿Carga continua?</label>
-              <select name="mon_carga_continua">
+              <select name="mon_carga_continua" title="Una carga continua es aquella cuya corriente máxima se prevé que opere durante tres horas o más.">
                   <option value="carga continua">- </option>
                   <option value="y">Sí</option>
                   <option value="n">No</option>
@@ -133,13 +133,13 @@ para el cálculo del conductor de un motor basado en el artículo
           <div class="col-lg-5">
             <fieldset>
               <label for="mon_numero-conductores">Número de conductores energizados en una misma canalización:</label>
-              <input type="text" name="mon_numero-conductores" value="3">
+              <input type="text" name="mon_numero-conductores" value="3" title="Esto es para tener en cuenta el ajuste para más de tres conductores portadores de corriente. Recuerda que el conductor de puesta a tierra no se tiene en cuenta en el conteo.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label for="mon_conduit">¿Tipo de Conduit?</label>
-              <select name="mon_conduit">
+              <select name="mon_conduit" title="Esto es para realizar el cálculo de caída de tensión.">
                   <option value="conduit">- </option>
                   <option value="PVC">PVC</option>
                   <option value="St">Acero</option>

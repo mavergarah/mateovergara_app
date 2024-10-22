@@ -18,7 +18,7 @@
           <div class="col-lg-5">
             <fieldset>
               <label class="label-form" for="ca_potencia">Potencia:</label>
-              <input type="text" name="ca_potencia" value="1">
+              <input type="text" name="ca_potencia" value="1" title="Separa los decimales con punto.">
             </fieldset>
           </div>
           <div class="col-lg-5">
@@ -34,32 +34,32 @@
           <div class="col-lg-5">
             <fieldset>
               <label class="label-form" for="ca_fp">Factor de Potencia (0 - 1):</label>
-              <input type="text" name="ca_fp" value="0.85">
+              <input type="text" name="ca_fp" value="0.85" title="Separa los decimales con punto.">
             </fieldset>
           </div>
           <br>
           <div class="col-lg-5">
             <fieldset>
               <label class="label-form" for="ca_tension">Tensión (V):</label>
-              <input type="text" name="ca_tension" value="208">
+              <input type="text" name="ca_tension" value="208" title="Solo valores positivos mayores que cero.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label class="label-form" for="ca_longitud">Longitud (m):</label>
-              <input type="text" name="ca_longitud" value="20">
+              <input type="text" name="ca_longitud" value="20" title="Solo valores positivos mayores que cero.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label class="label-form" for="ca_temperature">Temp. Ambiente (ºC):</label>
-              <input type="text" name="ca_temperature" value="25">
+              <input type="text" name="ca_temperature" value="25" title="Temperatura del área donde se va a instalar el conductor eléctrico. Solo temperaturas hasta 85 ºC.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
               <label class="label-form" for="ca_numero-conductores">Número de conductores energizados en una misma canalización:</label>
-              <input type="text" name="ca_numero-conductores" value="3">
+              <input type="text" name="ca_numero-conductores" value="3" title="Esto es para tener en cuenta el ajuste para más de tres conductores portadores de corriente. Recuerda que el conductor de puesta a tierra no se tiene en cuenta en el conteo.">
             </fieldset>
           </div>
           <div class="col-lg-5">
@@ -76,7 +76,7 @@
           <div class="col-lg-5">
             <fieldset>
               <label class="label-form" for="ca_temp-conductor">¿Temp. Conductor (ºC)?</label>
-              <select class="select-form" name="ca_temp-conductor">
+              <select class="select-form" name="ca_temp-conductor" title="Temperatura del aislamiento del conductor. Esta aplicación no tiene en cuenta el efecto de las terminales de conexión.">
                   <option value="temperatura">- </option>
                   <option value="60">60</option>
                   <option value="75">75</option>
@@ -87,7 +87,7 @@
           <div class="col-lg-5">
             <fieldset>
               <label class="label-form" for="ca_carga_continua">¿Carga continua?</label>
-              <select class="select-form" name="ca_carga_continua">
+              <select class="select-form" name="ca_carga_continua" title="Una carga continua es aquella cuya corriente máxima se prevé que opere durante tres horas o más.">
                   <option value="carga continua">- </option>
                   <option value="y">Sí</option>
                   <option value="n">No</option>
@@ -108,7 +108,7 @@
           <div class="col-lg-5">
             <fieldset>
               <label class="label-form" for="ca_conduit">¿Tipo de Conduit?</label>
-              <select class="select-form" name="ca_conduit">
+              <select class="select-form" name="ca_conduit" title="Esto es para realizar el cálculo de caída de tensión.">
                   <option value="conduit">- </option>
                   <option value="PVC">PVC</option>
                   <option value="St">Acero</option>

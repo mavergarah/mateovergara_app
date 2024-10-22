@@ -651,15 +651,17 @@ def adjustment_correction_factor(NC):
     """ Selecciona el factor de ajuste para más de tres conductores portadores de corriente en una misma canalización.
     Para eso se debe ingresar en número de conductores eléctricos que van por la misma canalización que el
     conductor al cual se le está calculando el calibre """
-    if NC < 6:
+    if NC < 4:
+        return 1
+    elif NC <= 6:
         return 0.8
-    elif NC < 9:
+    elif NC <= 9:
         return 0.7
-    elif NC < 20:
+    elif NC <= 20:
         return 0.5
-    elif NC < 30:
+    elif NC <= 30:
         return 0.45
-    elif NC < 40:
+    elif NC <= 40:
         return 0.4
     else:
         return 0.35
@@ -672,92 +674,92 @@ def temperature_correction_factor(T_amb = '25', T = '60'):
     # 1. Veriricar que temperatura tiene el aislamiento (variable T)
     if T == 60:
         # 2. Evaluar que temperatura ambiente tiene el conductor
-        if T_amb < 10:
+        if T_amb <= 10:
             return 1.29
-        elif T_amb < 15:
+        elif T_amb <= 15:
             return 1.22
-        elif T_amb < 20:
+        elif T_amb <= 20:
             return 1.15
-        elif T_amb < 25:
+        elif T_amb <= 25:
             return 1.08
-        elif T_amb < 30:
+        elif T_amb <= 30:
             return 1.00
-        elif T_amb < 35:
+        elif T_amb <= 35:
             return 0.91
-        elif T_amb < 40:
+        elif T_amb <= 40:
             return 0.82
-        elif T_amb < 45:
+        elif T_amb <= 45:
             return 0.71
-        elif T_amb < 50:
+        elif T_amb <= 50:
             return 0.58
-        elif T_amb < 55:
+        elif T_amb <= 55:
             return 0.41
         else:
-            return 'no temp. correc. factor'
+            return '-'
     elif T == 75:
-        if T_amb < 10:
+        if T_amb <= 10:
             return 1.20
-        elif T_amb < 15:
+        elif T_amb <= 15:
             return 1.15
-        elif T_amb < 20:
+        elif T_amb <= 20:
             return 1.11
-        elif T_amb < 25:
+        elif T_amb <= 25:
             return 1.05
-        elif T_amb < 30:
+        elif T_amb <= 30:
             return 1.00
-        elif T_amb < 35:
+        elif T_amb <= 35:
             return 0.94
-        elif T_amb < 40:
+        elif T_amb <= 40:
             return 0.88
-        elif T_amb < 45:
+        elif T_amb <= 45:
             return 0.82
-        elif T_amb < 50:
+        elif T_amb <= 50:
             return 0.75
-        elif T_amb < 55:
+        elif T_amb <= 55:
             return 0.67
-        elif T_amb < 60:
+        elif T_amb <= 60:
             return 0.58
-        elif T_amb < 65:
+        elif T_amb <= 65:
             return 0.47
-        elif T_amb < 70:
+        elif T_amb <= 70:
             return 0.33
         else:
-            return 'no temp. correc. factor'
+            return '-'
     else:
-        if T_amb < 10:
+        if T_amb <= 10:
             return 1.15
-        elif T_amb < 15:
+        elif T_amb <= 15:
             return 1.12
-        elif T_amb < 20:
+        elif T_amb <= 20:
             return 1.08
-        elif T_amb < 25:
+        elif T_amb <= 25:
             return 1.04
-        elif T_amb < 30:
+        elif T_amb <= 30:
             return 1.00
-        elif T_amb < 35:
+        elif T_amb <= 35:
             return 0.96
-        elif T_amb < 40:
+        elif T_amb <= 40:
             return 0.91
-        elif T_amb < 45:
+        elif T_amb <= 45:
             return 0.87
-        elif T_amb < 50:
+        elif T_amb <= 50:
             return 0.82
-        elif T_amb < 55:
+        elif T_amb <= 55:
             return 0.76
-        elif T_amb < 60:
+        elif T_amb <= 60:
             return 0.71
-        elif T_amb < 65:
+        elif T_amb <= 65:
             return 0.65
-        elif T_amb < 70:
+        elif T_amb <= 70:
             return 0.58
-        elif T_amb < 75:
+        elif T_amb <= 75:
             return 0.50
-        elif T_amb < 80:
+        elif T_amb <= 80:
             return 0.41
-        elif T_amb < 85:
+        elif T_amb <= 85:
             return 0.29
         else:
-            return 'no temp. correc. factor'
+            return '-'
 
 def gauge_nominal_current(gauge, T, K):
     """ Esta función permite seleccionar la corriente nominal de un conductor basado en la temperatura,

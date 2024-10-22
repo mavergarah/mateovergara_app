@@ -18,13 +18,13 @@
           <div class="col-lg-5">
             <fieldset>
               <label for="pro_current_ad">Corriente Ajustada (A):</label>
-              <input type="text" name="pro_current_ad" value="16">
+              <input type="text" name="pro_current_ad" value="16" title="Esta corriente es la que se obtiene después de aplicar factor de corrección por temperatura y factor de ajuste para más de tres conductores energizados en una misma canalización. Debe ser mayor que la corriente continua.">
             </fieldset>
           </div>
           <div class="col-lg-5">
             <fieldset>
-              <label for="pro_current_cont">Corriente Continua (A):</label>
-              <input type="text" name="pro_current_cont" value="13">
+              <label for="pro_current_cont">Corriente Continua / No Continua (A):</label>
+              <input type="text" name="pro_current_cont" value="13" title="Si la corriente corresponde a una carga continua, entonces ingresa la corriente multiplicada por el 125%. De lo contrario ingresa solo la corriente nominal de la carga.">
             </fieldset>
           </div>
           <div class="col-lg-10">
