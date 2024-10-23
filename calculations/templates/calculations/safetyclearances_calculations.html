@@ -12,32 +12,47 @@ que le permiten realizar la selección de las distancias de seguridad -->
     <div class="col-lg-12">
       <div class="section-heading">
         <h2>Cálculo Distancias de Seguridad</h2>
-        <form class="" action="safety_clearances_result" method="post">
+        <form action="safety_clearances_result" method="post" id="form">
         {% csrf_token %}
         <div class="row">
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset class="group_form" id="field_sc_voltage">
               <label class="label-form" for="sc_voltage">Tensión entre líneas (V):</label>
-              <input class="input" type="text" name="sc_voltage" value="220" title="Tensión fase a fase del equipo eléctrico al que se le quieran calcular las distancias de seguridad.">
+              <div class="form_volage-input">
+                <input class="input" type="text" name="sc_voltage" id="sc_voltage" placeholder="220" title="Tensión fase a fase del equipo eléctrico al que se le quieran calcular las distancias de seguridad.">
+                <p class="paragraph_input-error" id="voltage_error_paragraph">Debes ingresar un valor positivo mayor que cero y menor que 550 kV.</p>
+              </div>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
-              <label class="label-form" for="sc_voltage">¿Sistema?</label>
-              <select class="select-form" name="sc_voltage_system"  title="¿Monofásico, bifásico o trifásico?">
+            <fieldset class="group_form" id="field_sc_system">
+              <label class="label-form" for="sc_voltage_system">¿Sistema?</label>
+              <div class="form_system-input">
+              <select class="select-form" name="sc_voltage_system" id="sc_voltage_system" title="¿Monofásico, bifásico o trifásico?">
                   <option value="¿Tipo de Sistema?">- </option>
                   <option value="AC">AC</option>
                   <option value="DC">DC</option>
               </select>
+              <p class="paragraph_input-error" id="system_error_paragraph">Debes seleccionar si el sistema eléctrico es AC o DC.</p>
+              </div>
+            </fieldset>
+          </div>
+          <!--
+          <div class="col-lg-10">
+            <fieldset class="group_form">
+              <label class="label-form">
+                <input class="checkbox-form" type="checkbox" name="sc_terms" id="sc_terms"">
+                Acepto los términos y condiciones
+              </label>
+            </fieldset>
+          </div> -->
+          <div class="col-lg-10">
+            <fieldset>
+              <input class="button-form" type="submit" name="sc_calculate" value="Calcular" id="sc_calculate">
             </fieldset>
           </div>
           <div class="col-lg-10">
-            <fieldset>
-              <input class="button-form" type="submit" name="sc_calculate" value="Calcular">
-            </fieldset>
-          </div>
-          <div class="col-lg-10">
-            <fieldset>
+            <fieldset class="error_message" id="error-message">
               <label class="label-form-error" for="method">{{ error }}</label>
             </fieldset>
           </div>
@@ -53,4 +68,35 @@ que le permiten realizar la selección de las distancias de seguridad -->
   </div>
 </div>
 </div>
+
+<!-- Esta parte del código es para realizar la validación desde el frontend de los datos ingresados
+por el usuario. Mostrará un mensaje de error si no se ingresan correctamente los datos. -->
+
+<script>
+  const form = document.getElementById('form');
+  const voltage = document.getElementById('sc_voltage');
+  const voltage_system = document.getElementById('sc_voltage_system');
+  console.log('Ya se recogieron las variables');
+
+  form.addEventListener('submit',(event) => {
+    console.log('Estamos dentro del evento del submit');
+    event.preventDefault();
+
+    let voltage_value = parseInt(voltage.value);
+    console.log(voltage_value);
+
+    if (isNaN(voltage_value) || voltage_value < 0 || voltage_value > 550000) {
+      document.getElementById('field_sc_voltage').classList.add('group_form-mistaken');
+      document.getElementById('voltage_error_paragraph').classList.add('paragraph_input-error-active');
+      console.log('voltage_value tiene errores');
+    } else if (voltage_system.value === '¿Tipo de Sistema?') {
+      document.getElementById('field_sc_system').classList.add('group_form-mistaken');
+      document.getElementById('system_error_paragraph').classList.add('paragraph_input-error-active');
+      console.log('Ya está finalizando el elseif');
+    } else {
+      form.submit();
+      console.log('Ya está finalizando el elseif');
+    }
+  });
+</script>
 {% endblock %}

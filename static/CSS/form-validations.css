@@ -1,0 +1,39 @@
+/* Clases para párrafos de error (debago de los inputs)*/
+.paragraph_input-error {
+  font-size: 12px;
+  margin-bottom: 0;
+  display: none;
+  color: #bb2929;
+}
+
+.paragraph_input-error-active {
+  display: block;
+}
+
+.input:focus {
+  border: 2px solid #0075FF;
+  outline: none;
+  box-shadow: 3px 0px 30px rgba(163,163,163,0.4);
+}
+
+.checkbox-form {
+  scale: 0.3;
+  margin-right: 10px;
+}
+
+.label-form-error {
+  height: 45px;
+  line-height: 45px;
+  color: #f66060;
+  padding: 0;
+  margin: 0;
+  display: none;
+}
+
+.label-form-error-active .input {
+  display: block;
+}
+
+.group_form-mistaken .input {
+  border: 2px solid #bb2929;
+}
