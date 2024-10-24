@@ -443,32 +443,32 @@ def arcflash_result(request):
 
     # Validar los datos ingresados en el formulario HTML
     V = Arc_Flash_Calculation.is_number(request.POST['ar_voltage'])
-    I = Arc_Flash_Calculation.is_number(request.POST['ar_short_circuit_current'])
+    I = Arc_Flash_Calculation.is_number(request.POST['ar_current'])
     t = Arc_Flash_Calculation.is_number(request.POST['ar_time'])
     D = Arc_Flash_Calculation.is_number(request.POST['ar_distance'])
     G = Arc_Flash_Calculation.is_number(request.POST['ar_conductors_separation'])
     V2 = Arc_Flash_Calculation.is_positive(request.POST['ar_voltage'])
-    I2 = Arc_Flash_Calculation.is_positive(request.POST['ar_short_circuit_current'])
+    I2 = Arc_Flash_Calculation.is_positive(request.POST['ar_current'])
     t2 = Arc_Flash_Calculation.is_positive(request.POST['ar_time'])
     D2 = Arc_Flash_Calculation.is_positive(request.POST['ar_distance'])
     G2 = Arc_Flash_Calculation.is_positive(request.POST['ar_conductors_separation'])
     KP = Arc_Flash_Calculation.is_choice(request.POST['ar_panel_kind'],'tablero')
     KA = Arc_Flash_Calculation.is_choice(request.POST['ar_arc_kind'],'arco')
     KE = Arc_Flash_Calculation.is_choice(request.POST['ar_earth_kind'],'tierra')
-    KM = Arc_Flash_Calculation.is_choice(request.POST['method'],'metodo')
+    KM = Arc_Flash_Calculation.is_choice(request.POST['ar_method'],'metodo')
 
     # Se realiza el cálculo si todos los valores ingresados por el usuario son correctos
     if V and V2 and I and I2 and t and t2 and D and D2 and G and G2 and KP and KA and KE and KM:
         # Importar las variables del formulario
         V = float(request.POST['ar_voltage'])
-        I = float(request.POST['ar_short_circuit_current'])
+        I = float(request.POST['ar_current'])
         t = float(request.POST['ar_time'])
         D = float(request.POST['ar_distance'])
         G = float(request.POST['ar_conductors_separation'])
         KP = request.POST['ar_panel_kind'] # Kind of Panel (CCM o PP)
         KA = request.POST['ar_arc_kind'] # Kind of arc flash (O - Opened, C - Closed)
         KE = request.POST['ar_earth_kind'] # Kind of earth (HR - High Resistance or WR - Without Resistance)
-        KM = request.POST['method'] # Method of calculation
+        KM = request.POST['ar_method'] # Method of calculation
 
         IE, EPPs = Arc_Flash_Calculation.incident_energy(V, I, t, D, G, KP, KA, KE, KM)
         print(IE)

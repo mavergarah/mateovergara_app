@@ -9,78 +9,87 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="section-heading">
-        <form class="" action="arcflash_result" method="post">
+        <form class="" action="arcflash_result" method="post" id="form">
         {% csrf_token %}
         <h2>Cálculo de Energía Incidente</h2>
         <div class="row">
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset class="group_form" id="field_ar_voltage">
               <label for="ar_voltage">Tensión (V):</label>
-              <input type="text" name="ar_voltage" value="220" title="Solo números mayores que cero">
+              <input type="text" name="ar_voltage" placeholder="220" title="Solo números mayores que cero">
+              <p class="paragraph_input-error" id="voltage_error_paragraph">Debes ingresar un valor positivo mayor que cero y menor que 550 kV.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
-              <label for="ar_short_circuit_current">Corriente de cortocircuito trifáisco - F (kA):</label>
-              <input type="text" name="ar_short_circuit_current" value="0.7" title="Separa los decimales con punto.">
+            <fieldset class="group_form" id="field_ar_current">
+              <label for="ar_current">Corriente de cortocircuito trifáisco - F (kA):</label>
+              <input type="text" id="ar_current" name="ar_current" placeholder="0.7" title="Separa los decimales con punto.">
+              <p class="paragraph_input-error" id="current_error_paragraph">Debes ingresar un valor positivo mayor que cero y separando los decimales con punto.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset class="group_form" id="field_ar_time">
               <label for="ar_time">Tiempo de despeje de falla - t (s):</label>
-              <input type="text" name="ar_time" value="0.01" title="Separa los decimales con punto.">
+              <input type="text" id="ar_time" name="ar_time" placeholder="0.01" title="Separa los decimales con punto.">
+              <p class="paragraph_input-error" id="time_error_paragraph">Debes ingresar un valor positivo mayor que cero y separando los decimales con punto.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
-              <label for="ar_conductors_separation">Distancia del arco a la persona - D (m):</label>
-              <input type="text" name="ar_distance" value="0.9" title="Ejemplo: límite de aproximación seguro, límite de aproximación restringido, etc.">
+            <fieldset class="group_form" id="field_ar_distance">
+              <label for="ar_distance">Distancia del arco a la persona - D (m):</label>
+              <input type="text" id="ar_distance" name="ar_distance" placeholder="0.9" title="Ejemplo: límite de aproximación seguro, límite de aproximación restringido, etc.">
+              <p class="paragraph_input-error" id="distance_error_paragraph">Debes ingresar un valor positivo mayor que cero. Puede ser el límite de aproximación seguro o el restringido.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset class="group_form" id="field_ar_panel_kind">
               <label for="ar_panel_kind">¿Tipo de Tablero?</label>
-              <select name="ar_panel_kind" title="CCM es solo para valores de tensión menores o iguales a 1 kV.">
+              <select id="ar_panel_kind" name="ar_panel_kind" title="CCM es solo para valores de tensión menores o iguales a 1 kV.">
                   <option value="tablero">- </option>
                   <option value="CCM">CCM</option>
                   <option value="PP">Panel de Potencia</option>
               </select>
+              <p class="paragraph_input-error" id="panel_error_paragraph">Debes seleccionar un tipo de tablero. CCM para valores menores a 1 kV. Panel de potencia para cualquier nivel de tensión.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset class="group_form" id="field_ar_arc_kind">
               <label for="ar_arc_kind">¿Tipo de arco?</label>
-              <select name="ar_arc_kind" title="Cerrado es ideal para arcos que provienen de adentro de tableros de potencia, CCM u otros envolventes eléctricos.">
+              <select id="ar_arc_kind" name="ar_arc_kind" title="Cerrado es ideal para arcos que provienen de adentro de tableros de potencia, CCM u otros envolventes eléctricos.">
                   <option value="arco">- </option>
                   <option value="O">Abierto</option>
                   <option value="C">Cerrado</option>
               </select>
+              <p class="paragraph_input-error" id="arc_error_paragraph">Debes seleccionar el tipo de arco. Abierto para arcos que provienen de adentro de tablero de potencia, CCM u otros envolventes.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
-              <label for="ar_arc_kind">¿Conexión a tierra?</label>
-              <select name="ar_earth_kind" title="¿La conexión a tierra del sistema eléctrico se realiza por medio de una resistencia? El sistema TN-C-S NO se conecta a tierra por medio de ALTA RESISTENCIA.">
+            <fieldset class="group_form" id="field_ar_earth_kind">
+              <label for="ar_earth_kind">¿Conexión a tierra?</label>
+              <select id="ar_earth_kind" name="ar_earth_kind" title="¿La conexión a tierra del sistema eléctrico se realiza por medio de una resistencia? El sistema TN-C-S NO se conecta a tierra por medio de ALTA RESISTENCIA.">
                   <option value="tierra">- </option>
                   <option value="HR">Alta resistencia</option>
                   <option value="WR">Sin resistencia</option>
               </select>
+              <p class="paragraph_input-error" id="earth_error_paragraph">Debes seleccionar el tipo de conexión a tierra. Ejemplo: el sistema TN-C-S NO se conecta a tierra por medio de alta resistencia.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset class="group_form" id="field_ar_conductors_separation">
               <label for="ar_conductors_separation">Separación de conductores - G (mm):</label>
-              <input type="text" name="ar_conductors_separation" value="13" title="La separación entre conductores está entre 10 mm y 153 mm.">
+              <input type="text" id="ar_conductors_separation" name="ar_conductors_separation" placeholder="13" title="La separación entre conductores está entre 10 mm y 153 mm.">
+              <p class="paragraph_input-error" id="separation_error_paragraph">Debes ingresar un valor mayor que 10 y menor que 153.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
-              <label for="ar_arc_kind">¿Método de cálculo?</label>
-              <select name="method" title="NFPA 70E: ideal para. IEEE1584: ideal para niveles de tensión que estén entre 0.208 kV y 15 kV, y niveles de corriente de corto entre 0.7 y 106 kA.">
+            <fieldset class="group_form" id="field_ar_method">
+              <label for="ar_method">¿Método de cálculo?</label>
+              <select id="ar_method" name="ar_method" title="NFPA 70E: ideal para. IEEE1584: ideal para niveles de tensión que estén entre 0.208 kV y 15 kV, y niveles de corriente de corto entre 0.7 y 106 kA.">
                   <option value="metodo">- </option>
                   <option value="IE15">IEEE1584</option>
                   <option value="NFPA70E">NFPA 70E</option>
               </select>
+              <p class="paragraph_input-error" id="standard_error_paragraph">Debes seleccionar un método de cálculo.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
@@ -91,9 +100,11 @@
           <div class="col-lg-10">
             <fieldset>
               <input type="submit" name="ar_calculate" value="Calcular">
+              <p>Al presionar el botón CALCULAR aceptas los <a href="#">términos y condiciones</a> de uso de esta aplicación.</p>
             </fieldset>
           </div>
         </div>
+        <br>
         <div class="row">
           <div class="col-lg-10">
             <fieldset>
@@ -107,4 +118,92 @@
   </div>
 </div>
 </div>
+
+<!-- Esta parte del código es para realizar la validación desde el frontend de los datos ingresados
+por el usuario. Mostrará un mensaje de error si no se ingresan correctamente los datos. -->
+
+<script>
+  const form = document.getElementById('form');
+  const voltage = document.getElementById('ar_voltage');
+  const current = document.getElementById('ar_current');
+  const time = document.getElementById('ar_time');
+  const distance = document.getElementById('ar_distance');
+  const separation = document.getElementById('ar_conductors_separation');
+  const method = document.getElementById('ar_method');
+  const kind_panel = document.getElementById('ar_panel_kind');
+  const kind_arc = document.getElementById('ar_arc_kind');
+  const earth = document.getElementById('ar_earth_kind');
+  var error = 'False';
+  console.log('Ya estamos dentro del script');
+
+  form.addEventListener('submit',(event) => {
+    event.preventDefault();
+    voltage_value = parseInt('voltage');
+    current_value = parseInt('current');
+    time_value = parseInt('time');
+    distance_value = parseInt('distance');
+    separation_value = parseInt('separation');
+
+    console.log('Ya estamos dentro del sbumit');
+
+    if (isNaN(voltage_value) || voltage_value < 0) {
+      document.getElementById('field_ar_voltage').classList.add('group_form-mistaken');
+      document.getElementById('voltage_error_paragraph').classList.add('paragraph_input-error-active');
+      error = 'True';
+    }
+
+    if (isNaN(current_value) || current_value < 0) {
+      document.getElementById('field_ar_current').classList.add('group_form-mistaken');
+      document.getElementById('current_error_paragraph').classList.add('paragraph_input-error-active');
+      error = 'True';
+    }
+
+    if (isNaN(time_value) || time_value < 0) {
+      document.getElementById('field_ar_time').classList.add('group_form-mistaken');
+      document.getElementById('time_error_paragraph').classList.add('paragraph_input-error-active');
+      error = 'True';
+    }
+
+    if (isNaN(distance_value) || distance_value < 0) {
+      document.getElementById('field_ar_distance').classList.add('group_form-mistaken');
+      document.getElementById('distance_error_paragraph').classList.add('paragraph_input-error-active');
+      error = 'True';
+    }
+
+    if (isNaN(separation_value) || separation_value) < 10 || separation_value > 153) {
+      document.getElementById('field_ar_conductors_separation').classList.add('group_form-mistaken');
+      document.getElementById('separation_error_paragraph').classList.add('paragraph_input-error-active');
+      error = 'True';
+    }
+
+    if (method.value === 'metodo') {
+      document.getElementById('field_ar_method').classList.add('group_form-mistaken');
+      document.getElementById('standard_error_paragraph').classList.add('paragraph_input-error-active');
+      error = 'True';
+    }
+
+    if (kind_panel.value === 'tablero') {
+      document.getElementById('field_ar_panel_kind').classList.add('group_form-mistaken');
+      document.getElementById('panel_error_paragraph').classList.add('paragraph_input-error-active');
+      error = 'True';
+    }
+
+    if (earth.value === 'tierra') {
+      document.getElementById('field_ar_earth_kind').classList.add('group_form-mistaken');
+      document.getElementById('earth_error_paragraph').classList.add('paragraph_input-error-active');
+      error = 'True';
+    }
+
+    if (kind_arc.value === 'arco') {
+      document.getElementById('field_ar_arc_kind').classList.add('group_form-mistaken');
+      document.getElementById('arc_error_paragraph').classList.add('paragraph_input-error-active');
+      error = 'True';
+    }
+
+    if (error === 'False') {
+      form.submit();
+    }
+
+  });
+</script>
 {% endblock %}
