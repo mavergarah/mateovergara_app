@@ -37,18 +37,10 @@ que le permiten realizar la selección de las distancias de seguridad -->
               </div>
             </fieldset>
           </div>
-          <!--
-          <div class="col-lg-10">
-            <fieldset class="group_form">
-              <label class="label-form">
-                <input class="checkbox-form" type="checkbox" name="sc_terms" id="sc_terms"">
-                Acepto los términos y condiciones
-              </label>
-            </fieldset>
-          </div> -->
           <div class="col-lg-10">
             <fieldset>
               <input class="button-form" type="submit" name="sc_calculate" value="Calcular" id="sc_calculate">
+              <p>Al presionar el botón CALCULAR aceptas los <a href="#">términos y condiciones</a> de uso de esta aplicación.</p>
             </fieldset>
           </div>
           <div class="col-lg-10">
@@ -57,6 +49,7 @@ que le permiten realizar la selección de las distancias de seguridad -->
             </fieldset>
           </div>
         </div>
+        <br>
         <div class="row">
           <fieldset>
             <h6><a href="#">¿Necesitas ayuda?</a></h6>
@@ -76,10 +69,9 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
   const form = document.getElementById('form');
   const voltage = document.getElementById('sc_voltage');
   const voltage_system = document.getElementById('sc_voltage_system');
-  console.log('Ya se recogieron las variables');
+  var error = 'False';
 
   form.addEventListener('submit',(event) => {
-    console.log('Estamos dentro del evento del submit');
     event.preventDefault();
 
     let voltage_value = parseInt(voltage.value);
@@ -88,15 +80,20 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
     if (isNaN(voltage_value) || voltage_value < 0 || voltage_value > 550000) {
       document.getElementById('field_sc_voltage').classList.add('group_form-mistaken');
       document.getElementById('voltage_error_paragraph').classList.add('paragraph_input-error-active');
-      console.log('voltage_value tiene errores');
-    } else if (voltage_system.value === '¿Tipo de Sistema?') {
+      error = 'True';
+    }
+
+    if (voltage_system.value === '¿Tipo de Sistema?') {
       document.getElementById('field_sc_system').classList.add('group_form-mistaken');
       document.getElementById('system_error_paragraph').classList.add('paragraph_input-error-active');
-      console.log('Ya está finalizando el elseif');
-    } else {
-      form.submit();
-      console.log('Ya está finalizando el elseif');
+      console.log('Voltage system tiene errores');
+      error = 'True';
     }
+
+    if (error === 'False') {
+      form.submit();
+    }
+
   });
 </script>
 {% endblock %}

@@ -12,62 +12,69 @@ para la realización del cálculo de los espacios de trabajo -->
     <div class="col-lg-12">
       <div class="section-heading">
         <h2>Cálculo de Espacios de Trabajo</h2>
-        <form class="" action="work_clearances_result" method="post">
+        <form class="" action="work_clearances_result" method="post" id="form">
         {% csrf_token %}
         <div class="row">
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_wc_voltage">
               <label for="wc_voltage">Tensión (V):</label>
-              <input type="text" name="wc_voltage" value="208" title="Solo valores positivos mayores que cero.">
+              <input class="input" id="wc_voltage" type="text" name="wc_voltage" placeholder="208" title="Solo valores positivos mayores que cero.">
+              <p class="paragraph_input-error" id="voltage_error_paragraph">Debes ingresar un valor positivo mayor que cero.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_wc_height">
               <label for="wc_height">Altura (m):</label>
-              <input type="text" name="wc_height" value="2.0" title="Altura del tablero eléctrico al que le quieres calcular el espacio de trabajo.">
+              <input class="input" id="wc_height" type="text" name="wc_height" placeholder="2.0" title="Altura del tablero eléctrico al que le quieres calcular el espacio de trabajo.">
+              <p class="paragraph_input-error" id="height_error_paragraph">Debes ingresar un valor positivo mayor que cero para la altura del tablero eléctrico.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_wc_width">
               <label for="wc_width">Ancho (m):</label>
-              <input type="text" name="wc_width" value="0.76" title="Ancho del espacio del tablero eléctrico al que le quieres calcular el espacio de trabajo.">
+              <input class="input" id="wc_width" type="text" name="wc_width" placeholder="0.76" title="Ancho del espacio del tablero eléctrico al que le quieres calcular el espacio de trabajo.">
+              <p class="paragraph_input-error" id="width_error_paragraph">Debes ingresar un valor positivo mayor que cero para el ancho del tablero eléctrico.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_wc_system">
               <label for="wc_voltage_system">¿Sistema?</label>
-              <select name="wc_voltage_system" title="¿Monofásico, bifásico o trifásico?">
+              <select class="select-form" id="wc_voltage_system" name="wc_voltage_system" title="¿Monofásico, bifásico o trifásico?">
                   <option value="Sistema">- </option>
                   <option value="1">Monofásico</option>
                   <option value="2">Bifásico</option>
                   <option value="3">Trifásico</option>
               </select>
+              <p class="paragraph_input-error" id="system_error_paragraph">Debes indicar si el sistema es monofásico, bifásico o trifásico.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_wc_condition">
               <label for="wc_condition">¿Condición?</label>
-              <select name="wc_condition" title="¿Qué tiene en frente el tablero? ¿Elementos puestos a tierra? ¿Otro tablero?">
+              <select class="select-form" id="wc_condition" name="wc_condition" title="¿Qué tiene en frente el tablero? ¿Elementos puestos a tierra? ¿Otro tablero?">
                   <option value="Condicion?">- </option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
               </select>
+              <p class="paragraph_input-error" id="condition_error_paragraph">Debes seleccionar el tipo de condición en el que se encuentra el tablero.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_wc_backspace">
               <label for="wc_backspace">¿Acceso posterior?</label>
-              <select name="wc_backspace" title="¿Hay elementos desenergizados a los que se tenga que acceder por la parte posterior del tablero para realizar actividades de mantenimiento?">
+              <select class="select-form" id="wc_backspace" name="wc_backspace" title="¿Hay elementos desenergizados a los que se tenga que acceder por la parte posterior del tablero para realizar actividades de mantenimiento?">
                   <option value="Acceso posterior?">- </option>
                   <option value="Si">Sí</option>
                   <option value="No">No</option>
               </select>
+              <p class="paragraph_input-error" id="back_error_paragraph">Debes seleccionar si es necesario acceder a la parte posterior del equipo.</p>
             </fieldset>
           </div>
           <div class="col-lg-10">
             <fieldset>
               <input type="submit" name="wc_calculate" value="Calcular">
+              <p>Al presionar el botón CALCULAR aceptas los <a href="#">términos y condiciones</a> de uso de esta aplicación.</p>
             </fieldset>
           </div>
           <div class="">
@@ -76,6 +83,7 @@ para la realización del cálculo de los espacios de trabajo -->
             </fieldset>
           </div>
         </div>
+        <br>
         <div class="row">
           <fieldset>
             <h6><a href="#">¿Necesitas ayuda?</a></h6>
@@ -87,4 +95,75 @@ para la realización del cálculo de los espacios de trabajo -->
   </div>
 </div>
 </div>
+
+<!-- Esta parte del código es para realizar la validación desde el frontend de los datos ingresados
+por el usuario. Mostrará un mensaje de error si no se ingresan correctamente los datos. -->
+
+<script>
+  const form = document.getElementById('form');
+  const voltage = document.getElementById('wc_voltage');
+  const height = document.getElementById('wc_height');
+  const width = document.getElementById('wc_width');
+  const voltage_system = document.getElementById('wc_voltage_system');
+  const condition = document.getElementById('wc_condition');
+  const back = document.getElementById('wc_backspace');
+  var error = 'False';
+
+  form.addEventListener('submit',(event) => {
+    event.preventDefault();
+
+    let voltage_value = parseInt(voltage.value);
+    let height_value = parseInt(height.value);
+    let width_value = parseInt(width.value);
+    console.log(voltage_value);
+
+    if (isNaN(voltage_value) || voltage_value < 0) {
+      document.getElementById('field_wc_voltage').classList.add('group_form-mistaken');
+      document.getElementById('voltage_error_paragraph').classList.add('paragraph_input-error-active');
+      error = 'True';
+      console.log('Voltage system tiene errores');
+    }
+
+    if (isNaN(height_value) || height_value < 0) {
+      document.getElementById('field_wc_height').classList.add('group_form-mistaken');
+      document.getElementById('height_error_paragraph').classList.add('paragraph_input-error-active');
+      error = 'True';
+      console.log('Height tiene errores');
+    }
+
+    if (isNaN(width_value) || width_value < 0) {
+      document.getElementById('field_wc_width').classList.add('group_form-mistaken');
+      document.getElementById('width_error_paragraph').classList.add('paragraph_input-error-active');
+      error = 'True';
+      console.log('width tiene errores');
+    }
+
+    if (voltage_system.value === 'Sistema') {
+      document.getElementById('field_wc_system').classList.add('group_form-mistaken');
+      document.getElementById('system_error_paragraph').classList.add('paragraph_input-error-active');
+      console.log('Voltage system tiene errores');
+      error = 'True';
+    }
+
+    if (condition.value === 'Condicion?') {
+      document.getElementById('field_wc_condition').classList.add('group_form-mistaken');
+      document.getElementById('condition_error_paragraph').classList.add('paragraph_input-error-active');
+      console.log('Voltage system tiene errores');
+      error = 'True';
+    }
+
+    if (back.value === 'Acceso posterior?') {
+      document.getElementById('field_wc_backspace').classList.add('group_form-mistaken');
+      document.getElementById('back_error_paragraph').classList.add('paragraph_input-error-active');
+      console.log('Voltage system tiene errores');
+      error = 'True';
+    }
+
+    if (error === 'False') {
+      form.submit();
+      console.log('el formulario se envió con éxito');
+    }
+
+  });
+</script>
 {% endblock %}
