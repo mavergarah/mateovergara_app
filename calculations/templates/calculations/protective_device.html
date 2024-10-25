@@ -10,32 +10,36 @@
     <div class="col-lg-12">
       <div class="section-heading">
         <h2>Selección del Dispositivo de Protección</h2>
-        <form action="protective_result" method="post">
+        <form action="protective_result" method="post" id='form'>
         {% csrf_token %}
         <!-- Se ingresan las variables para el cálculo del dispositivo de protección
         por parte del usuario -->
         <div class="row">
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_pro_current_ad">
               <label for="pro_current_ad">Corriente Ajustada (A):</label>
-              <input type="text" name="pro_current_ad" value="16" title="Esta corriente es la que se obtiene después de aplicar factor de corrección por temperatura y factor de ajuste para más de tres conductores energizados en una misma canalización. Debe ser mayor que la corriente continua.">
+              <input type="text" id="pro_current_ad" name="pro_current_ad" placeholder="16" title="Esta corriente es la que se obtiene después de aplicar factor de corrección por temperatura y factor de ajuste para más de tres conductores energizados en una misma canalización. Debe ser mayor que la corriente continua.">
+              <p class="paragraph_input-error" id="ad_error_paragraph">Debes ingresar un valor mayor que cero para la corriente AJUSTADA. También la corriente AJUSTADA debe ser MAYOR que la corriente CONTINUA.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_pro_current_cont">
               <label for="pro_current_cont">Corriente Continua / No Continua (A):</label>
-              <input type="text" name="pro_current_cont" value="13" title="Si la corriente corresponde a una carga continua, entonces ingresa la corriente multiplicada por el 125%. De lo contrario ingresa solo la corriente nominal de la carga.">
+              <input type="text" id="pro_current_cont" name="pro_current_cont" placeholder="13" title="Si la corriente corresponde a una carga continua, entonces ingresa la corriente multiplicada por el 125%. De lo contrario ingresa solo la corriente nominal de la carga.">
+              <p class="paragraph_input-error" id="cont_error_paragraph">Debes ingresar un valor mayor que cero para la corriente CONTINUA / NO CONTINUA.</p>
             </fieldset>
           </div>
           <div class="col-lg-10">
             <fieldset>
               <input type="submit" name="ca_calcular" value="Calcular">
+              <p>Al presionar el botón CALCULAR aceptas los <a href="#">términos y condiciones</a> de uso de esta aplicación.</p>
             </fieldset>
           </div>
           <div class="col-lg-10">
             <label for="ca_calcular">{{ error }}</label>
           </div>
         </div>
+        <br>
         <div class="row">
           <fieldset>
             <h6><a href="#">¿Necesitas ayuda?</a></h6>
@@ -47,4 +51,39 @@
   </div>
 </div>
 </div>
+
+<script>
+  const form = document.getElementById('form');
+  const current_adjust = document.getElementById('pro_current_ad');
+  const current_continuous = document.getElementById('pro_current_cont');
+  var error = 'False';
+
+  form.addEventListener('submit',(event) => {
+    event.preventDefault();
+
+    let adjust_value = parseInt(current_adjust.value);
+    let continuous_value = parseInt(current_continuous.value);
+
+    if (isNaN(adjust_value) || adjust_value < 0 || adjust_value < continuous_value) {
+      document.getElementById('field_pro_current_ad').classList.add('group_form-mistaken');
+      document.getElementById('ad_error_paragraph').classList.add('paragraph_input-error-active');
+      console.log('Estamos dentro de la validación de la corriente ajustada');
+      error = 'True';
+    }
+
+    if (isNaN(continuous_value) || continuous_value < 0 || adjust_value < continuous_value) {
+      document.getElementById('field_pro_current_cont').classList.add('group_form-mistaken');
+      document.getElementById('cont_error_paragraph').classList.add('paragraph_input-error-active');
+      console.log('Estamos dentro de la validación de la corriente continua');
+      error = 'True';
+    }
+
+    if (error === 'False') {
+      form.submit();
+    }
+
+  });
+
+</script>
+
 {% endblock %}
