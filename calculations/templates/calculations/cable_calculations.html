@@ -11,119 +11,134 @@
     <div class="col-lg-12">
       <div class="section-heading">
         <h2>Cálculo de Conductor de Fase, Neutro y Tierra</h2>
-        <form id="cable-general-load" action="cable_result" method="post">
+        <form id="form" action="cable_result" method="post">
         {% csrf_token %}
         <!-- Se ingresan los valores necesarios para el cálculo de conductores de cargas generales -->
         <div class="row">
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_power">
               <label class="label-form" for="ca_potencia">Potencia:</label>
-              <input type="text" name="ca_potencia" value="1" title="Separa los decimales con punto.">
+              <input class="input" type="text" id="ca_potencia" name="ca_potencia" placeholder="1" title="Separa los decimales con punto.">
+              <p class="paragraph_input-error" id="power_error_paragraph">Debes ingresar un valor mayor que cero.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_units">
               <label class="label-form" for="ca_unidades">¿Unidades?</label>
-              <select class="select-form" name="ca_unidades">
+              <select class="select-form" id="ca_unidades" name="ca_unidades">
                 <option value="unidades">-</option>
                 <option value="kW">kW</option>
                 <option value="kVA">kVA</option>
               </select>
+              <p class="paragraph_input-error" id="units_error_paragraph">Debes seleccionar las UNIDADES de la POTENCIA.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_fp">
               <label class="label-form" for="ca_fp">Factor de Potencia (0 - 1):</label>
-              <input type="text" name="ca_fp" value="0.85" title="Separa los decimales con punto.">
+              <input class="input" type="text" id="ca_fp" name="ca_fp" placeholder="0.85" title="Separa los decimales con punto.">
+              <p class="paragraph_input-error" id="fp_error_paragraph">Debes ingresar un valor mayor que 0 y menor que 1.</p>
             </fieldset>
           </div>
           <br>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_voltage">
               <label class="label-form" for="ca_tension">Tensión (V):</label>
-              <input type="text" name="ca_tension" value="208" title="Solo valores positivos mayores que cero.">
+              <input class="input" type="text" id="ca_tension" name="ca_tension" placeholder="208" title="Solo valores positivos mayores que cero.">
+              <p class="paragraph_input-error" id="voltage_error_paragraph">Debes ingresar un valor mayor que cero.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_length">
               <label class="label-form" for="ca_longitud">Longitud (m):</label>
-              <input type="text" name="ca_longitud" value="20" title="Solo valores positivos mayores que cero.">
+              <input class="input" type="text" id="ca_longitud" name="ca_longitud" placeholder="20" title="Solo valores positivos mayores que cero.">
+              <p class="paragraph_input-error" id="length_error_paragraph">Debes ingresar un valor mayor que cero.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_temperature">
               <label class="label-form" for="ca_temperature">Temp. Ambiente (ºC):</label>
-              <input type="text" name="ca_temperature" value="25" title="Temperatura del área donde se va a instalar el conductor eléctrico. Solo temperaturas hasta 85 ºC.">
+              <input class="input" type="text" id="ca_temperature" name="ca_temperature" placeholder="25" title="Temperatura del área donde se va a instalar el conductor eléctrico. Solo temperaturas hasta 85 ºC.">
+              <p class="paragraph_input-error" id="temperature_error_paragraph">Debes ingresar un valor mayor que 0 y menor que 85 para temperatura del conductor de 90 ºC, menor que 70 para temperatura de conductor de 75 ºC y menor que 55 para temperatura de conductor de 60 ºC.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_number">
               <label class="label-form" for="ca_numero-conductores">Número de conductores energizados en una misma canalización:</label>
-              <input type="text" name="ca_numero-conductores" value="3" title="Esto es para tener en cuenta el ajuste para más de tres conductores portadores de corriente. Recuerda que el conductor de puesta a tierra no se tiene en cuenta en el conteo.">
+              <input class="input" type="text" id="ca_numero-conductores" name="ca_numero-conductores" placeholder="3" title="Esto es para tener en cuenta el ajuste para más de tres conductores portadores de corriente. Recuerda que el conductor de puesta a tierra no se tiene en cuenta en el conteo.">
+              <p class="paragraph_input-error" id="number_error_paragraph">Debes ingresar un valor mayor que cero.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_phases">
               <label class="label-form" for="ca_fases">¿Cuántas Fases?</label>
-              <select class="select-form" name="ca_fases">
+              <select class="select-form" id="ca_fases" name="ca_fases">
                   <option value="fases">-</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
               </select>
+              <p class="paragraph_input-error" id="phases_error_paragraph">Debes seleccionar si tu circuito en MONOFASICO, BIFASICO o TRIFASICO.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_tempcond">
               <label class="label-form" for="ca_temp-conductor">¿Temp. Conductor (ºC)?</label>
-              <select class="select-form" name="ca_temp-conductor" title="Temperatura del aislamiento del conductor. Esta aplicación no tiene en cuenta el efecto de las terminales de conexión.">
+              <select class="select-form" id="ca_temp-conductor" name="ca_temp-conductor" title="Temperatura del aislamiento del conductor. Esta aplicación no tiene en cuenta el efecto de las terminales de conexión.">
                   <option value="temperatura">- </option>
                   <option value="60">60</option>
                   <option value="75">75</option>
                   <option value="90">90</option>
               </select>
+              <p class="paragraph_input-error" id="tempcond_error_paragraph">Debes seleccionar si la temperatura de tu conductor es de 60 ºC, 75 ºC o 90ºC.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_load">
               <label class="label-form" for="ca_carga_continua">¿Carga continua?</label>
-              <select class="select-form" name="ca_carga_continua" title="Una carga continua es aquella cuya corriente máxima se prevé que opere durante tres horas o más.">
+              <select class="select-form" id="ca_carga_continua" name="ca_carga_continua" title="Una carga continua es aquella cuya corriente máxima se prevé que opere durante tres horas o más.">
                   <option value="carga continua">- </option>
                   <option value="y">Sí</option>
                   <option value="n">No</option>
               </select>
+              <p class="paragraph_input-error" id="load_error_paragraph">Selecciona ti tu carga es CONTINUA / NO CONTINUA o no.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_material">
               <label class="label-form" for="ca_material">¿Material del conductor?</label>
-              <select class="select-form" name="ca_material">
+              <select class="select-form" id="ca_material" name="ca_material">
                   <option value="material">- </option>
                   <option value="Cu">Cobre (Cu)</option>
                   <option value="Al">Aluminio (Al)</option>
                   <option value="Al-cu">Aluminio recubierto de cobre</option>
               </select>
+              <p class="paragraph_input-error" id="material_error_paragraph">Debes ingresar un valor mayor que cero.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_conduit">
               <label class="label-form" for="ca_conduit">¿Tipo de Conduit?</label>
-              <select class="select-form" name="ca_conduit" title="Esto es para realizar el cálculo de caída de tensión.">
+              <select class="select-form" id="ca_conduit" name="ca_conduit" title="Esto es para realizar el cálculo de caída de tensión.">
                   <option value="conduit">- </option>
                   <option value="PVC">PVC</option>
                   <option value="St">Acero</option>
               </select>
+              <p class="paragraph_input-error" id="conduit_error_paragraph">Debes ingresar un valor mayor que cero.</p>
             </fieldset>
           </div>
         </div>
         <div class="col-lg-10">
           <fieldset>
             <input class="main-dark-button" type="submit" name="ca_calculate" value="Calcular">
+            <p>Al presionar el botón CALCULAR aceptas los <a href="#">términos y condiciones</a> de uso de esta aplicación.</p>
           </fieldset>
         </div>
+        <br>
         <div class="col-lg-12">
           <label class="label-form-error" for="ca_numero-conductores">{{ error }}</label>
         </div>
+        <br>
         <div class="col-log-10">
           <fieldset>
             <h6><a href="#">¿Necesitas ayuda?</a></h6>
@@ -135,4 +150,128 @@
   </div>
 </div>
 </div>
+
+<!-- Esta parte del código es para realizar la validación desde el frontend de los datos ingresados
+por el usuario. Mostrará un mensaje de error si no se ingresan correctamente los datos. -->
+
+<script>
+  const form = document.getElementById('form');
+  const power = document.getElementById('ca_potencia');
+  const units = document.getElementById('ca_unidades');
+  const fp = document.getElementById('ca_fp');
+  const voltage = document.getElementById('ca_tension');
+  const length = document.getElementById('ca_longitud');
+  const temperature = document.getElementById('ca_temperature');
+  const number = document.getElementById('ca_numero-conductores');
+  const phases = document.getElementById('ca_fases');
+  const tempcon = document.getElementById('ca_temp-conductor');
+  const load = document.getElementById('ca_carga_continua');
+  const material = document.getElementById('ca_material');
+  const conduit = document.getElementById('ca_conduit');
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    error = false;
+
+    let power_value = parseInt(power.value);
+    let fp_value = parseInt(fp.value);
+    let voltage_value = parseInt(voltage.value);
+    let length_value = parseInt(length.value);
+    let temperature_value = parseInt(temperature.value);
+    let number_value = parseInt(number.value);
+
+    if (isNaN(power_value) || power_value < 0) {
+      document.getElementById('field_power').classList.add('group_form-mistaken');
+      document.getElementById('power_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (units.value === 'unidades') {
+      document.getElementById('field_units').classList.add('group_form-mistaken');
+      document.getElementById('units_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (isNaN(fp_value) || fp_value < 0) {
+      document.getElementById('field_fp').classList.add('group_form-mistaken');
+      document.getElementById('fp_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (isNaN(voltage_value) || voltage_value < 0) {
+      document.getElementById('field_voltage').classList.add('group_form-mistaken');
+      document.getElementById('voltage_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (isNaN(length_value) || length_value < 0) {
+      document.getElementById('field_length').classList.add('group_form-mistaken');
+      document.getElementById('length_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (isNaN(temperature_value) || temperature_value < 0) {
+      document.getElementById('field_temperature').classList.add('group_form-mistaken');
+      document.getElementById('temperature_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (isNaN(number_value) || number_value < 0) {
+      document.getElementById('field_number').classList.add('group_form-mistaken');
+      document.getElementById('number_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (phases.value === 'fases') {
+      document.getElementById('field_phases').classList.add('group_form-mistaken');
+      document.getElementById('phases_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (tempcon.value === 'temperatura') {
+      document.getElementById('field_tempcond').classList.add('group_form-mistaken');
+      document.getElementById('tempcond_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    } else if (tempcon.value === '60' && temperature_value > 55) {
+      document.getElementById('field_temperature').classList.add('group_form-mistaken');
+      document.getElementById('temperature_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    } else if (tempcon.value === '75' && temperature_value > 70) {
+      document.getElementById('field_temperature').classList.add('group_form-mistaken');
+      document.getElementById('temperature_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    } else if (tempcon.value === '90' && temperature_value > 85) {
+      document.getElementById('field_temperature').classList.add('group_form-mistaken');
+      document.getElementById('temperature_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (load.value === 'carga continua') {
+      document.getElementById('field_load').classList.add('group_form-mistaken');
+      document.getElementById('load_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+      console.log('Error en la carga continua');
+    }
+
+    if (material.value === 'material') {
+      document.getElementById('field_material').classList.add('group_form-mistaken');
+      document.getElementById('material_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+      console.log('Error en la carga continua');
+    }
+
+    if (conduit.value === 'conduit') {
+      document.getElementById('field_conduit').classList.add('group_form-mistaken');
+      document.getElementById('conduit_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+      console.log('Error en la carga continua');
+    }
+
+    if (error === false) {
+      form.submit();
+    }
+
+  });
+
+</script>
 {% endblock %}
