@@ -12,26 +12,28 @@ de Conduits -->
     <div class="col-lg-10">
       <div class="section-heading">
         <h2>Cálculo de Conduits</h2>
-        <form class="" action="conduits_result" method="post">
+        <form class="" action="conduits_result" method="post" id="form">
         {% csrf_token %}
         <div class="row">
           <div class="col-lg-5">
-            <fieldset>
-              <select class="select-form" name="co_diametro" title="¿Tienes los diámetros de los conductores? ¿O tienes las áreas?">
+            <fieldset id="field_diameter">
+              <select class="select-form" id="co_diametro" name="co_diametro" title="¿Tienes los diámetros de los conductores? ¿O tienes las áreas?">
                   <option value="DoA">¿Diámetro o área?</option>
                   <option value="d">Diámetro</option>
                   <option value="a">Área</option>
               </select>
+              <p class="paragraph_input-error" id="diameter_error_paragraph">Debes seleccionar si tienes los diámetros o las áreas de los conductores eléctricos.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
-              <input class="input" type="text" name="co_ingreso" value="mm o mm2" title="Ejemplo: 8.97,14.25,23.76 ">
+            <fieldset id="field_input">
+              <input class="input" type="text" id="co_ingreso" name="co_ingreso" placeholder="mm o mm2" title="Ejemplo: 8.97,14.25,23.76 ">
+              <p class="paragraph_input-error" id="input_error_paragraph">Debes ingresar los diámetros separando los decimales con puntos, y los diámetros con comas. Ej: 8.97,14.25,23.76.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
-              <select class="select-form" name="co_conduit_kind" title="¿Qué tipo de tubería tienes (PVC, EMT, IMC, etc.)?">
+            <fieldset id="field_conduit_kind">
+              <select class="select-form" id="co_conduit_kind" name="co_conduit_kind" title="¿Qué tipo de tubería tienes (PVC, EMT, IMC, etc.)?">
                   <option value="KoC">¿Tipo de conduit?</option>
                   <option value="PVC-80">PVC-80</option>
                   <option value="PVC-40">PVC-40</option>
@@ -42,6 +44,7 @@ de Conduits -->
                   <option value="ENT">ENT</option>
                   <option value="FMC">FMC</option>
               </select>
+              <p class="paragraph_input-error" id="conduit_error_paragraph">Debes seleccionar un tipo de tubería eléctrica en el que irán los conductores.</p>
             </fieldset>
           </div>
           <div class="col-lg-10">
@@ -62,6 +65,7 @@ de Conduits -->
             </fieldset>
           </div>
         </div>
+        <br>
         <div class="row">
           <div class="col-lg-10">
             <fieldset>
@@ -75,4 +79,62 @@ de Conduits -->
   </div>
 </div>
 </div>
+
+<!-- Esta parte del código es para realizar la validación desde el frontend de los datos ingresados
+por el usuario. Mostrará un mensaje de error si no se ingresan correctamente los datos. -->
+
+<script>
+  const form = document.getElementById('form');
+  const diameter = document.getElementById('co_diametro');
+  const input = document.getElementById('co_ingreso');
+  const conduit = document.getElementById('co_conduit_kind');
+  error = false;
+
+  form.addEventListener('submit',(event) => {
+    event.preventDefault();
+
+    if (diameter.value === 'DoA') {
+      document.getElementById('field_diameter').classList.add('group_form-mistaken');
+      document.getElementById('diameter_error_paragraph').classList.add('paragraph_input-error-active');
+      console.log('Diameter tiene errores');
+      error = true;
+    }
+
+    if (conduit.value === 'KoC') {
+      document.getElementById('field_conduit_kind').classList.add('group_form-mistaken');
+      document.getElementById('conduit_error_paragraph').classList.add('paragraph_input-error-active');
+      console.log('Conduit tiene errores');
+      error = true;
+    }
+
+    let flag = false;
+    let array = input.value;
+    let array2 = array.split(',');
+    for (let i = 0; i < array2.length; i++) {
+      let constant = array2[i];
+      let input_value = parseInt(constant);
+      if (isNaN(input_value) || input_value < 0) {
+        flag = true;
+      }
+      console.log('Estoy dentro del for');
+    }
+
+    if (input.value === '') {
+      document.getElementById('field_input').classList.add('group_form-mistaken');
+      document.getElementById('input_error_paragraph').classList.add('paragraph_input-error-active');
+      console.log('El arreglo tiene errores');
+      error = true;
+    } else if (flag === true) {
+      document.getElementById('field_input').classList.add('group_form-mistaken');
+      document.getElementById('input_error_paragraph').classList.add('paragraph_input-error-active');
+      console.log('El arreglo tiene errores');
+      error = true;
+    }
+
+    if (error === false) {
+      form.submit();
+    }
+  });
+
+</script>
 {% endblock %}
