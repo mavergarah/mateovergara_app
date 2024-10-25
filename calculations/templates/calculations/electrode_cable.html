@@ -13,13 +13,13 @@ para la selección del conductor del electrodo de puesta a tierra -->
       <div class="section-heading">
         <h2>Cálculo del Conductor del Electrodo de Puesta a Tierra</h2>
         <!-- Ingreso de variables para cálculo del conductor del electrodo de puesta a tierra -->
-        <form class="" action="electrode_result" method="post">
+        <form class="" action="electrode_result" method="post" id="form">
         {% csrf_token %}
           <div class="row">
             <div class="col-lg-5">
-              <fieldset>
+              <fieldset class="" id="field_ele_gauge">
                 <label for="ele_cable_gauge">¿Calibre del Conductor de Fase?</label>
-                <select name="ele_cable_gauge" title="O calibre del conductor EQUIVALENTE para conductores de FASE puestos en PARALELO.">
+                <select class="select-form" name="ele_cable_gauge" id="ele_cable_gauge" title="O calibre del conductor EQUIVALENTE para conductores de FASE puestos en PARALELO.">
                     <option value="calibre">- </option>
                     <option value="14 AWG">14 AWG</option>
                     <option value="12 AWG">12 AWG</option>
@@ -43,21 +43,24 @@ para la selección del conductor del electrodo de puesta a tierra -->
                     <option value="750 MCM">750 MCM</option>
                     <option value="1000 MCM">1000 MCM</option>
                 </select>
+                <p class="paragraph_input-error" id="gauge_error_paragraph">Debes seleccionar un calibre del conductor de FASE de la ACOMETIDA.</p>
               </fieldset>
             </div>
             <div class="col-lg-5">
-              <fieldset>
+              <fieldset class="" id="field_ele_material">
                 <label for="ele_material">¿Material del conductor?</label>
-                <select name="ele_material" title="Se refiere al material del conductor de FASE de la ACOMETIDA.">
+                <select class="select-form" name="ele_material" id="ele_material" title="Se refiere al material del conductor de FASE de la ACOMETIDA.">
                     <option value="material">- </option>
                     <option value="Cu">Cobre (Cu)</option>
                     <option value="Al">Aluminio (Al)</option>
                 </select>
+                <p class="paragraph_input-error" id="material_error_paragraph">Debes seleccionar un MATERIAL del conductor de FASE de la ACOMETIDA.</p>
               </fieldset>
             </div>
             <div class="col-lg-10">
               <fieldset>
                 <input type="submit" name="gro_calculate" value="Calcular">
+                <p>Al presionar el botón CALCULAR aceptas los <a href="#">términos y condiciones</a> de uso de esta aplicación.</p>
               </fieldset>
             </div>
             <div class="col-lg-10">
@@ -66,6 +69,7 @@ para la selección del conductor del electrodo de puesta a tierra -->
               </fieldset>
             </div>
           </div>
+          <br>
           <div class="col-log-10">
             <fieldset>
               <h6><a href="#">¿Necesitas ayuda?</a></h6>
@@ -77,4 +81,37 @@ para la selección del conductor del electrodo de puesta a tierra -->
   </div>
 </div>
 </div>
+
+<!-- Esta parte del código es para realizar la validación desde el frontend de los datos ingresados
+por el usuario. Mostrará un mensaje de error si no se ingresan correctamente los datos. -->
+
+<script>
+  const form = document.getElementById('form');
+  const gauge = document.getElementById('ele_cable_gauge');
+  const material = document.getElementById('ele_material');
+  var error = 'False';
+  console.log('Ya estamos dentro del script')
+
+  form.addEventListener('submit',(event) => {
+    event.preventDefault();
+
+    if (gauge.value === 'calibre') {
+      document.getElementById('field_ele_gauge').classList.add('group_form-mistaken');
+      document.getElementById('gauge_error_paragraph').classList.add('paragraph_input-error-active');
+      console.log('Voltage system tiene errores');
+      error = 'True';
+    }
+
+    if (material.value === 'material') {
+      document.getElementById('field_ele_material').classList.add('group_form-mistaken');
+      document.getElementById('material_error_paragraph').classList.add('paragraph_input-error-active');
+      console.log('Voltage system tiene errores');
+      error = 'True';
+    }
+
+    if (error === 'False') {
+      form.submit();
+    }
+  });
+</script>
 {% endblock %}

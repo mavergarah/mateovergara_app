@@ -288,13 +288,13 @@ def grounding_result(request):
     # en el dispositivo de protección que ingrese el usuario.
 
     # Validar los datos ingresados por el usuario
-    Protective = Cable_Calculations.is_number(request.POST['gro_ingreso'])
-    Material = Cable_Calculations.is_choice(request.POST['gro_diametro'],'material')
+    Protective = Cable_Calculations.is_number(request.POST['gro_protective'])
+    Material = Cable_Calculations.is_choice(request.POST['gro_material'],'material')
 
     if Protective and Material:
         # Obtener los valores ingresados por el usuario en el formulario HTML
-        Protective = float(request.POST['gro_ingreso'])
-        Material = request.POST['gro_diametro']
+        Protective = float(request.POST['gro_protective'])
+        Material = request.POST['gro_material']
 
         # Realizar la selección del conductor de puesta a tierra
         grounding_cable = Cable_Calculations.earth_conductor(Protective, Material)
