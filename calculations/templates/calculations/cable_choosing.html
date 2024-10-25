@@ -12,17 +12,18 @@
       <div class="section-heading">
         <!-- Se selecciona el tipo de carga que se tiene para realizar el cálculo posteriormente -->
         <h2>Cálculo de Conductores Eléctricos</h2>
-        <form id="cable-choosing" action="cable_choosing_result" method="post">
+        <form id="form" action="cable_choosing_result" method="post">
         {% csrf_token %}
         <div class="col-lg-8">
-          <fieldset>
+          <fieldset id="field_choosing">
             <label class="label-form" for="ca_calculate_choosing">¿Qué tipo de carga tienes?</label>
-            <select name="ca_calculate_choosing">
+            <select name="ca_calculate_choosing" id="ca_calculate_choosing" title="¿Tienes un motor o otro tipo de carga?">
                 <option value="carga">- </option>
                 <option value="M">Tengo un motor, su eficiencia y su factor de potencia</option>
                 <option value="M-NTC2050">Un motor de acuerdo a la NTC 2050</option>
                 <option value="CV">Es una carga general</option>
             </select>
+            <p class="paragraph_input-error" id="choosing_error_paragraph">Por favor selecciona una opción.</p>
           </fieldset>
         </div>
         <div class="col-lg-8">
@@ -39,4 +40,31 @@
   </div>
 </div>
 </div>
+
+<!-- Esta parte del código es para realizar la validación desde el frontend de los datos ingresados
+por el usuario. Mostrará un mensaje de error si no se ingresan correctamente los datos. -->
+
+<script>
+  const form = document.getElementById('form');
+  const choosing = document.getElementById('ca_calculate_choosing');
+  console.log('Ya recogimos los datos');
+  var error = false;
+
+  form.addEventListener('submit',(event) => {
+    event.preventDefault();
+
+    if (choosing.value === 'carga') {
+      document.getElementById('field_choosing').classList.add('group_form-mistaken');
+      document.getElementById('choosing_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+      console.log('Ya estamos dentro del condicional.');
+    }
+
+    if (error === false) {
+      form.submit();
+    }
+
+  });
+
+</script>
 {% endblock %}
