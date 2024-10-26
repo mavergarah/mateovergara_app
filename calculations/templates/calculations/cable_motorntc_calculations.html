@@ -13,13 +13,13 @@ para el cálculo del conductor de un motor basado en el artículo
     <div class="col-lg-12">
       <div class="section-heading">
         <h2>Cálculo de Conductores Eléctricos</h2>
-        <form class="" action="cable_motorntc_result" method="post">
+        <form id="form" action="cable_motorntc_result" method="post">
         {% csrf_token %}
         <div class="row">
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_power">
               <label for="mon_power">¿Potencia del motor (HP)?</label>
-              <select name="mon_power">
+              <select id="mon_power" name="mon_power">
                   <option value="potencia">- </option>
                   <option value="0.5">1/2</option>
                   <option value="0.75">3/4</option>
@@ -48,12 +48,14 @@ para el cálculo del conductor de un motor basado en el artículo
                   <option value="450">450</option>
                   <option value="500">500</option>
               </select>
+              <p class="paragraph_input-error" id="power_error_paragraph">Debes seleccionar una valor
+                para la POTENCIA.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_voltage">
               <label for="mon_voltage">¿Nivel de tensión (V)?</label>
-              <select name="mon_voltage">
+              <select id="mon_voltage" name="mon_voltage">
                   <option value="tension">- </option>
                   <option value="115">115</option>
                   <option value="200">200</option>
@@ -63,100 +65,121 @@ para el cálculo del conductor de un motor basado en el artículo
                   <option value="575">575</option>
                   <option value="2300">2300</option>
               </select>
+              <p class="paragraph_input-error" id="voltage_error_paragraph">Debes ingresar un nivel de TENSIÓN.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_sinchronous">
               <label for="mon_sinchronous">¿Síncrono o asíncrono?</label>
-              <select name="mon_sinchronous">
+              <select id="mon_sinchronous" name="mon_sinchronous">
                   <option value="sincrono">- </option>
                   <option value="NTC2050-As">Asíncrono</option>
                   <option value="NTC2050-Si">Síncrono</option>
               </select>
+              <p class="paragraph_input-error" id="sinchronous_error_paragraph">Debes seleccionar un
+                tipo de MOTOR.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_phases">
               <label for="mon_fases">¿Cuántas Fases?</label>
-              <select name="mon_fases">
+              <select id="mon_fases" name="mon_fases">
                   <option value="fases">- </option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
               </select>
+              <p class="paragraph_input-error" id="phases_error_paragraph">Debes seleccionar si tu sistema es
+                MONOFÁSICO, BIFÁSICO o TRIFÁSICO.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_length">
               <label for="mon_longitud">Longitud (m):</label>
-              <input type="text" name="mon_longitud" value="15" title="Solo valores positivos mayores que cero.">
+              <input class="input" type="text" id="mon_longitud" name="mon_longitud" placeholder="15" title="Solo valores positivos mayores que cero.">
             </fieldset>
+            <p class="paragraph_input-error" id="length_error_paragraph">Debes ingresar un valor de LONGITUD
+              mayor que cero.</p>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_temperature">
               <label for="mon_temperature">Temp. Ambiente (ºC):</label>
-              <input type="text" name="mon_temperature" value="25" title="Temperatura del área donde se va a instalar el conductor eléctrico. Solo temperaturas hasta 85 ºC.">
+              <input class="input" type="text" id="mon_temperature" name="mon_temperature" placeholder="25" title="Temperatura del área donde se va a instalar el conductor eléctrico. Solo temperaturas hasta 85 ºC.">
             </fieldset>
+            <p class="paragraph_input-error" id="temperature_error_paragraph">Debes ingresar un valor de TEMPERATURA
+               mayor que cero.</p>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_tempcond">
               <label for="mon_fases">¿Temp. Conductor (ºC)?</label>
-              <select class="select-form" name="mon_temp-conductor" title="Temperatura del aislamiento del conductor. Esta aplicación no tiene en cuenta el efecto de las terminales de conexión.">
+              <select class="select-form" id="mon_temp-conductor" name="mon_temp-conductor" title="Temperatura del aislamiento del conductor. Esta aplicación no tiene en cuenta el efecto de las terminales de conexión.">
                   <option value="temperatura">- </option>
                   <option value="60">60</option>
                   <option value="75">75</option>
                   <option value="90">90</option>
               </select>
+              <p class="paragraph_input-error" id="tempcond_error_paragraph">Debes seleccionar un valor para la
+                TEMPERATURA del aislamiento del CONDUCTOR.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_load">
               <label for="mon_carga_continua">¿Carga continua?</label>
-              <select name="mon_carga_continua" title="Una carga continua es aquella cuya corriente máxima se prevé que opere durante tres horas o más.">
+              <select id="mon_carga_continua" name="mon_carga_continua" title="Una carga continua es aquella cuya corriente máxima se prevé que opere durante tres horas o más.">
                   <option value="carga continua">- </option>
                   <option value="y">Sí</option>
                   <option value="n">No</option>
               </select>
+              <p class="paragraph_input-error" id="load_error_paragraph">Debes seleccionar si tu carga es
+                CONTINUA o no.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
-              <label for="mon_carga_continua">¿Material del conductor?</label>
-              <select class="select-form" name="mon_material">
+            <fieldset id="field_material">
+              <label for="mon_material">¿Material del conductor?</label>
+              <select class="select-form" id="mon_material" name="mon_material">
                   <option value="material">- </option>
                   <option value="Cu">Cobre (Cu)</option>
                   <option value="Al">Aluminio (Al)</option>
                   <option value="Al-cu">Aluminio recubierto de cobre</option>
               </select>
+              <p class="paragraph_input-error" id="material_error_paragraph">Debes seleccionar el MATERIAL de
+                tu CONDUCTOR.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_number">
               <label for="mon_numero-conductores">Número de conductores energizados en una misma canalización:</label>
-              <input type="text" name="mon_numero-conductores" value="3" title="Esto es para tener en cuenta el ajuste para más de tres conductores portadores de corriente. Recuerda que el conductor de puesta a tierra no se tiene en cuenta en el conteo.">
+              <input class="input" type="text" id="mon_numero-conductores" name="mon_numero-conductores" placeholder="3" title="Esto es para tener en cuenta el ajuste para más de tres conductores portadores de corriente. Recuerda que el conductor de puesta a tierra no se tiene en cuenta en el conteo.">
+              <p class="paragraph_input-error" id="number_error_paragraph">Debes ingresar un valor mayor que cero.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_conduit">
               <label for="mon_conduit">¿Tipo de Conduit?</label>
-              <select name="mon_conduit" title="Esto es para realizar el cálculo de caída de tensión.">
+              <select id="mon_conduit" name="mon_conduit" title="Esto es para realizar el cálculo de caída de tensión.">
                   <option value="conduit">- </option>
                   <option value="PVC">PVC</option>
                   <option value="St">Acero</option>
               </select>
+              <p class="paragraph_input-error" id="conduit_error_paragraph">Debes seleccionar un TIPO de CONDUIT.</p>
             </fieldset>
           </div>
           <div class="col-lg-10">
             <fieldset>
               <input type="submit" name="mon_calcular" value="Calcular">
+              <p>Al presionar el botón CALCULAR aceptas los <a href="#">términos y condiciones</a> de uso de esta
+                aplicación.</p>
             </fieldset>
           </div>
+          <br>
           <div class="col-lg-10">
             <fieldset>
               <label class="label-form-error" for="mon_numero-conductores">{{ error }}</label>
             </fieldset>
           </div>
         </div>
+        <br>
         <div class="col-log-10">
           <fieldset>
             <h6><a href="#">¿Necesitas ayuda?</a></h6>
@@ -168,6 +191,183 @@ para el cálculo del conductor de un motor basado en el artículo
   </div>
 </div>
 </div>
-<!-- Notas para que el usuario pueda hacer uso de la aplicación -->
+
+<!-- Esta parte del código es para realizar la validación desde el frontend de los datos ingresados
+por el usuario. Mostrará un mensaje de error si no se ingresan correctamente los datos. -->
+
+<script>
+  const form = document.getElementById('form');
+  const power = document.getElementById('mon_power');
+  const voltage = document.getElementById('mon_voltage');
+  const sinchronous = document.getElementById('mon_sinchronous');
+  const length = document.getElementById('mon_longitud');
+  const temperature = document.getElementById('mon_temperature');
+  const number = document.getElementById('mon_numero-conductores');
+  const phases = document.getElementById('mon_fases');
+  const tempcon = document.getElementById('mon_temp-conductor');
+  const load = document.getElementById('mon_carga_continua');
+  const material = document.getElementById('mon_material');
+  const conduit = document.getElementById('mon_conduit');
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    error = false;
+
+    let length_value = parseInt(length.value);
+    let temperature_value = parseInt(temperature.value);
+    let number_value = parseInt(number.value);
+    let power_value = parseInt(power.value);
+    let voltage_value = parseInt(voltage.value);
+
+    if (power.value === 'potencia') {
+      document.getElementById('field_power').classList.add('group_form-mistaken');
+      document.getElementById('power_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (voltage.value === 'tension') {
+      document.getElementById('field_voltage').classList.add('group_form-mistaken');
+      document.getElementById('voltage_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (sinchronous.value === 'sincrono') {
+      document.getElementById('field_sinchronous').classList.add('group_form-mistaken');
+      document.getElementById('sinchronous_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (isNaN(length_value) || length_value < 0) {
+      document.getElementById('field_length').classList.add('group_form-mistaken');
+      document.getElementById('length_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (isNaN(temperature_value) || temperature_value < 0) {
+      document.getElementById('field_temperature').classList.add('group_form-mistaken');
+      document.getElementById('temperature_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (isNaN(number_value) || number_value < 0) {
+      document.getElementById('field_number').classList.add('group_form-mistaken');
+      document.getElementById('number_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (phases.value === 'fases') {
+      document.getElementById('field_phases').classList.add('group_form-mistaken');
+      document.getElementById('phases_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    } else if (phases.value === '1') {
+      if (power_value > 10) {
+        document.getElementById('field_power').classList.add('group_form-mistaken');
+        document.getElementById('power_error_paragraph').classList.add('paragraph_input-error-active');
+        error = true;
+      } else if (voltage_value === 460 || voltage_value === 575 || voltage_value === 2300) {
+        document.getElementById('field_voltage').classList.add('group_form-mistaken');
+        document.getElementById('voltage_error_paragraph').classList.add('paragraph_input-error-active');
+        error = true;
+      }
+    } else if (phases.value === '2') {
+      if (voltage.value === '115' && power_value > 2) {
+        document.getElementById('field_power').classList.add('group_form-mistaken');
+        document.getElementById('power_error_paragraph').classList.add('paragraph_input-error-active');
+        error = true;
+      } else if (voltage.value === '2300' && (power_value > 200 || power_value < 60)) {
+        document.getElementById('field_power').classList.add('group_form-mistaken');
+        document.getElementById('power_error_paragraph').classList.add('paragraph_input-error-active');
+        error = true;
+      } else if (power_value > 200) {
+        document.getElementById('field_power').classList.add('group_form-mistaken');
+        document.getElementById('power_error_paragraph').classList.add('paragraph_input-error-active');
+        error = true;
+      } else if (voltage_value === 200 || voltage_value === 208) {
+        document.getElementById('field_voltage').classList.add('group_form-mistaken');
+        document.getElementById('voltage_error_paragraph').classList.add('paragraph_input-error-active');
+        error = true;
+      }
+    } else {
+      if (sinchronous.value === 'NTC2050-As') {
+        if (voltage_value === 115 && power_value > 2) {
+          document.getElementById('field_power').classList.add('group_form-mistaken');
+          document.getElementById('power_error_paragraph').classList.add('paragraph_input-error-active');
+          error = true;
+        } else if (voltage_value > 115 && voltage_value < 460 && power_value > 200) {
+          document.getElementById('field_power').classList.add('group_form-mistaken');
+          document.getElementById('power_error_paragraph').classList.add('paragraph_input-error-active');
+          error = true;
+        } else if (power_value > 500) {
+          document.getElementById('field_power').classList.add('group_form-mistaken');
+          document.getElementById('power_error_paragraph').classList.add('paragraph_input-error-active');
+          error = true;
+        } else if (voltage_value === 2300 && (power_value > 500 || power_value < 60)) {
+          document.getElementById('field_power').classList.add('group_form-mistaken');
+          document.getElementById('power_error_paragraph').classList.add('paragraph_input-error-active');
+          error = true;
+        }
+      } else {
+        if (voltage_value < 230) {
+          document.getElementById('field_voltage').classList.add('group_form-mistaken');
+          document.getElementById('voltage_error_paragraph').classList.add('paragraph_input-error-active');
+          error = true;
+        } else if (voltage_value < 2300 && (power_value < 25 || power_value > 200)) {
+          document.getElementById('field_power').classList.add('group_form-mistaken');
+          document.getElementById('power_error_paragraph').classList.add('paragraph_input-error-active');
+          error = true;
+        } else if (voltage_value === 2300 && (power_value < 60 || power_value > 200)) {
+          document.getElementById('field_power').classList.add('group_form-mistaken');
+          document.getElementById('power_error_paragraph').classList.add('paragraph_input-error-active');
+          error = true;
+        }
+      }
+    }
+
+    if (tempcon.value === 'temperatura') {
+      document.getElementById('field_tempcond').classList.add('group_form-mistaken');
+      document.getElementById('tempcond_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    } else if (tempcon.value === '60' && temperature_value > 55) {
+      document.getElementById('field_temperature').classList.add('group_form-mistaken');
+      document.getElementById('temperature_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    } else if (tempcon.value === '75' && temperature_value > 70) {
+      document.getElementById('field_temperature').classList.add('group_form-mistaken');
+      document.getElementById('temperature_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    } else if (tempcon.value === '90' && temperature_value > 85) {
+      document.getElementById('field_temperature').classList.add('group_form-mistaken');
+      document.getElementById('temperature_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (load.value === 'carga continua') {
+      document.getElementById('field_load').classList.add('group_form-mistaken');
+      document.getElementById('load_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+      console.log('Error en la carga continua');
+    }
+
+    if (material.value === 'material') {
+      document.getElementById('field_material').classList.add('group_form-mistaken');
+      document.getElementById('material_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+      console.log('Error en la carga continua');
+    }
+
+    if (conduit.value === 'conduit') {
+      document.getElementById('field_conduit').classList.add('group_form-mistaken');
+      document.getElementById('conduit_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+      console.log('Error en la carga continua');
+    }
+
+    if (error === false) {
+      form.submit();
+    }
+
+  });
+
+</script>
 
 {% endblock %}
