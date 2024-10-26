@@ -44,3 +44,25 @@ class GalleryMV(models.Model):
         verbose_name = 'MV_Photo'
         verbose_name_plural = 'MV_Photos'
         ordering = ('id',)
+
+# Este modelo es para ingresar los términos y condiciones de uso de la aplicación
+class TermsConditions(models.Model):
+    title = models.CharField(
+        max_length=35,
+        verbose_name='Title',
+        blank=False
+    )
+
+    description = models.TextField(
+        verbose_name='description',
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Term_Condition'
+        verbose_name_plural = 'Terms_Conditions'
+        ordering = ('id',)
