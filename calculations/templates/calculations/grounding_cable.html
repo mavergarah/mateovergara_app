@@ -65,28 +65,25 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
   const form = document.getElementById('form');
   const protective = document.getElementById('gro_protective');
   const material = document.getElementById('gro_material');
-  var error = 'False';
-  console.log('Ya estamos dentro del script')
 
   form.addEventListener('submit',(event) => {
     event.preventDefault();
+    var error = false;
     let protective_value = parseInt(protective.value);
 
     if (isNaN(protective_value) || protective_value < 0) {
       document.getElementById('field_gro_protective').classList.add('group_form-mistaken');
       document.getElementById('protective_error_paragraph').classList.add('paragraph_input-error-active');
-      console.log('Voltage system tiene errores');
-      error = 'True';
+      error = true;
     }
 
     if (gro_material.value === 'material') {
       document.getElementById('field_gro_material').classList.add('group_form-mistaken');
       document.getElementById('material_error_paragraph').classList.add('paragraph_input-error-active');
-      console.log('Voltage system tiene errores');
-      error = 'True';
+      error = true;
     }
 
-    if (error === 'False') {
+    if (error === false) {
       form.submit();
     }
   });

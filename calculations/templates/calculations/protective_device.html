@@ -59,10 +59,10 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
   const form = document.getElementById('form');
   const current_adjust = document.getElementById('pro_current_ad');
   const current_continuous = document.getElementById('pro_current_cont');
-  var error = 'False';
 
   form.addEventListener('submit',(event) => {
     event.preventDefault();
+    var error = false;
 
     let adjust_value = parseInt(current_adjust.value);
     let continuous_value = parseInt(current_continuous.value);
@@ -70,18 +70,16 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
     if (isNaN(adjust_value) || adjust_value < 0 || adjust_value < continuous_value) {
       document.getElementById('field_pro_current_ad').classList.add('group_form-mistaken');
       document.getElementById('ad_error_paragraph').classList.add('paragraph_input-error-active');
-      console.log('Estamos dentro de la validación de la corriente ajustada');
-      error = 'True';
+      error = true;
     }
 
     if (isNaN(continuous_value) || continuous_value < 0 || adjust_value < continuous_value) {
       document.getElementById('field_pro_current_cont').classList.add('group_form-mistaken');
       document.getElementById('cont_error_paragraph').classList.add('paragraph_input-error-active');
-      console.log('Estamos dentro de la validación de la corriente continua');
-      error = 'True';
+      error = true;
     }
 
-    if (error === 'False') {
+    if (error === false) {
       form.submit();
     }
 

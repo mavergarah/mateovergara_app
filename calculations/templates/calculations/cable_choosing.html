@@ -47,11 +47,10 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
 <script>
   const form = document.getElementById('form');
   const choosing = document.getElementById('ca_calculate_choosing');
-  console.log('Ya recogimos los datos');
-  var error = false;
 
   form.addEventListener('submit',(event) => {
     event.preventDefault();
+    var error = false;
 
     if (choosing.value === 'carga') {
       document.getElementById('field_choosing').classList.add('group_form-mistaken');

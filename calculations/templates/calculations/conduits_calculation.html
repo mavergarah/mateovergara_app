@@ -88,10 +88,10 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
   const diameter = document.getElementById('co_diametro');
   const input = document.getElementById('co_ingreso');
   const conduit = document.getElementById('co_conduit_kind');
-  error = false;
 
   form.addEventListener('submit',(event) => {
     event.preventDefault();
+    error = false;
 
     if (diameter.value === 'DoA') {
       document.getElementById('field_diameter').classList.add('group_form-mistaken');

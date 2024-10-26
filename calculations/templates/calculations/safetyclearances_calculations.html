@@ -69,10 +69,10 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
   const form = document.getElementById('form');
   const voltage = document.getElementById('sc_voltage');
   const voltage_system = document.getElementById('sc_voltage_system');
-  var error = 'False';
 
   form.addEventListener('submit',(event) => {
     event.preventDefault();
+    var error = false;
 
     let voltage_value = parseInt(voltage.value);
     console.log(voltage_value);
@@ -80,17 +80,16 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
     if (isNaN(voltage_value) || voltage_value < 0 || voltage_value > 550000) {
       document.getElementById('field_sc_voltage').classList.add('group_form-mistaken');
       document.getElementById('voltage_error_paragraph').classList.add('paragraph_input-error-active');
-      error = 'True';
+      error = true;
     }
 
     if (voltage_system.value === '¿Tipo de Sistema?') {
       document.getElementById('field_sc_system').classList.add('group_form-mistaken');
       document.getElementById('system_error_paragraph').classList.add('paragraph_input-error-active');
-      console.log('Voltage system tiene errores');
-      error = 'True';
+      error = true;
     }
 
-    if (error === 'False') {
+    if (error === false) {
       form.submit();
     }
 

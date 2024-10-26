@@ -11,68 +11,80 @@
       <div class="section-heading">
         <h2>Cálculo de caída de tensión en c.a.</h2>
         <!-- Ingreso de variables por parte del usuario para el cálculo de regulación de tensión -->
-        <form class="" action="drop_voltage_result" method="post">
+        <form class="" id="form" action="drop_voltage_result" method="post">
         {% csrf_token %}
         <div class="row">
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_voltage">
               <label for="dro_voltage">Tensión (V):</label>
-              <input type="text" name="dro_voltage" value="120" title="Solo valores positivos mayores que cero.">
+              <input class="input" type="text" id="dro_voltage" name="dro_voltage" placeholder="120" title="Solo valores positivos mayores que cero.">
+              <p class="paragraph_input-error" id="voltage_error_paragraph">Debes ingresar un valor de TENSIÓN
+                mayor que cero.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_length">
               <label for="dro_length">Longitud (m):</label>
-              <input type="text" name="dro_length" value="10" title="Solo valores positivos mayores que cero.">
+              <input class="input" type="text" id="dro_length" name="dro_length" placeholder="10" title="Solo valores positivos mayores que cero.">
+              <p class="paragraph_input-error" id="length_error_paragraph">Debes ingresar un valor de LONGITUD
+                mayor que cero.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_current">
               <label for="dro_current">Corriente (A):</label>
-              <input type="text" name="dro_current" value="15" title="Solo valores positivos mayores que cero.">
+              <input class="input" type="text" id="dro_current" name="dro_current" placeholder="15" title="Solo valores positivos mayores que cero.">
+              <p class="paragraph_input-error" id="current_error_paragraph">Debes ingresar un valor de CORRIENTE
+                mayor que cero.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_pf">
               <label for="dro_pf">Factor de Potencia (0 - 1):</label>
-              <input type="text" name="dro_pf" value="0.85" title="Separa los decimales con punto.">
+              <input class="input" type="text" id="dro_pf" name="dro_pf" placeholder="0.85" title="Separa los decimales con punto.">
+              <p class="paragraph_input-error" id="pf_error_paragraph">Debes ingresar un valor que esté entre 0 y 1.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_system">
               <label for="select-form">¿Tipo de sistema?</label>
-              <select class="select-form" name="dro_system" title="¿Sistema monofásico, bifásico o trifásico?">
+              <select class="select-form" id="dro_system" name="dro_system" title="¿Sistema monofásico, bifásico o trifásico?">
                   <option value="sistema">- </option>
                   <option value="1">Monofásico</option>
                   <option value="2">Bifásico</option>
                   <option value="3">Trifásico</option>
               </select>
+              <p class="paragraph_input-error" id="system_error_paragraph">Debes seleccionar si tu sistema es MONOFÁSICO, BIFÁSICO o TRIFÁSICO.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_conduit">
               <label for="dro_conduit_kind">¿Tipo de conduit?</label>
-              <select name="dro_conduit_kind" title="Esto es para la selección de la Reactancia y la Resistencia.">
+              <select id="dro_conduit_kind" name="dro_conduit_kind" title="Esto es para la selección de la Reactancia y la Resistencia.">
                   <option value="conduit">- </option>
                   <option value="PVC">PVC</option>
                   <option value="st">Acero</option>
               </select>
+              <p class="paragraph_input-error" id="conduit_error_paragraph">Debes seleccionar si el
+                conduit es PVC o ACERO.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_material">
               <label for="dro_cable_kind">¿Material del Conductor?</label>
-              <select name="dro_cable_kind">
+              <select id="dro_cable_kind" name="dro_cable_kind">
                   <option value="material">- </option>
                   <option value="Cu">Cobre (Cu)</option>
                   <option value="Al">Aluminio (Al)</option>
               </select>
+              <p class="paragraph_input-error" id="material_error_paragraph">Debes seleccionar si tu conductor
+                es de COBRE o ALUMINIO.</p>
             </fieldset>
           </div>
           <div class="col-lg-5">
-            <fieldset>
+            <fieldset id="field_gauge">
               <label for="dro_cable_gauge">¿Calibre?</label>
-              <select class="select-form" name="dro_cable_gauge">
+              <select class="select-form" id="dro_cable_gauge" name="dro_cable_gauge">
                   <option value="calibre">- </option>
                   <option value="14 AWG">14 AWG</option>
                   <option value="12 AWG">12 AWG</option>
@@ -96,11 +108,15 @@
                   <option value="750 MCM">750 MCM</option>
                   <option value="1000 MCM">1000 MCM</option>
               </select>
+              <p class="paragraph_input-error" id="gauge_error_paragraph">Debes un calibre de
+                conductor.</p>
             </fieldset>
           </div>
           <div class="col-lg-10">
             <fieldset>
               <input type="submit" name="ca_calcular" value="Calcular">
+              <p>Al presionar el botón CALCULAR aceptas los <a href="#">términos y condiciones</a> de uso de esta
+                aplicación.</p>
             </fieldset>
           </div>
           <div class="col-lg-10">
@@ -109,6 +125,7 @@
             </fieldset>
           </div>
         </div>
+        <br>
         <div class="row">
           <fieldset>
             <h6><a href="#">¿Necesitas ayuda?</a></h6>
@@ -120,4 +137,82 @@
   </div>
 </div>
 </div>
+
+<!-- Esta parte del código es para realizar la validación desde el frontend de los datos ingresados
+por el usuario. Mostrará un mensaje de error si no se ingresan correctamente los datos. -->
+
+<script>
+  const form = document.getElementById('form');
+  const voltage = document.getElementById('dro_voltage');
+  const length = document.getElementById('dro_length');
+  const current = document.getElementById('dro_current');
+  const pf = document.getElementById('dro_pf');
+  const system = document.getElementById('dro_system');
+  const conduit = document.getElementById('dro_conduit_kind');
+  const material = document.getElementById('dro_cable_kind');
+  const gauge = document.getElementById('dro_cable_gauge');
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    error = false;
+
+    voltage_value = parseInt(voltage.value);
+    length_value = parseInt(length.value);
+    current_value = parseInt(current.value);
+    pf_value = parseInt(pf.value);
+
+    if (isNaN(voltage_value) || voltage_value < 0) {
+      document.getElementById('field_voltage').classList.add('group_form-mistaken');
+      document.getElementById('voltage_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (isNaN(length_value) || length_value < 0) {
+      document.getElementById('field_length').classList.add('group_form-mistaken');
+      document.getElementById('length_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (isNaN(current_value) || current_value < 0) {
+      document.getElementById('field_current').classList.add('group_form-mistaken');
+      document.getElementById('current_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (isNaN(pf_value) || pf_value < 0 || pf_value > 1) {
+      document.getElementById('field_pf').classList.add('group_form-mistaken');
+      document.getElementById('pf_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (system.value === 'sistema') {
+      document.getElementById('field_system').classList.add('group_form-mistaken');
+      document.getElementById('system_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (conduit.value === 'conduit') {
+      document.getElementById('field_conduit').classList.add('group_form-mistaken');
+      document.getElementById('conduit_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (material.value === 'material') {
+      document.getElementById('field_material').classList.add('group_form-mistaken');
+      document.getElementById('material_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (gauge.value === 'calibre') {
+      document.getElementById('field_gauge').classList.add('group_form-mistaken');
+      document.getElementById('gauge_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (error === false) {
+      form.submit();
+    }
+
+  });
+</script>
 {% endblock %}

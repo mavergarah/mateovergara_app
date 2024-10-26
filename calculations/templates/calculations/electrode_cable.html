@@ -89,27 +89,24 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
   const form = document.getElementById('form');
   const gauge = document.getElementById('ele_cable_gauge');
   const material = document.getElementById('ele_material');
-  var error = 'False';
-  console.log('Ya estamos dentro del script')
 
   form.addEventListener('submit',(event) => {
     event.preventDefault();
+    var error = false;
 
     if (gauge.value === 'calibre') {
       document.getElementById('field_ele_gauge').classList.add('group_form-mistaken');
       document.getElementById('gauge_error_paragraph').classList.add('paragraph_input-error-active');
-      console.log('Voltage system tiene errores');
-      error = 'True';
+      error = true;
     }
 
     if (material.value === 'material') {
       document.getElementById('field_ele_material').classList.add('group_form-mistaken');
       document.getElementById('material_error_paragraph').classList.add('paragraph_input-error-active');
-      console.log('Voltage system tiene errores');
-      error = 'True';
+      error = true;
     }
 
-    if (error === 'False') {
+    if (error === false) {
       form.submit();
     }
   });

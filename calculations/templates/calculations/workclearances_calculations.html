@@ -107,59 +107,52 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
   const voltage_system = document.getElementById('wc_voltage_system');
   const condition = document.getElementById('wc_condition');
   const back = document.getElementById('wc_backspace');
-  var error = 'False';
 
   form.addEventListener('submit',(event) => {
     event.preventDefault();
+    var error = false;
 
     let voltage_value = parseInt(voltage.value);
     let height_value = parseInt(height.value);
     let width_value = parseInt(width.value);
-    console.log(voltage_value);
 
     if (isNaN(voltage_value) || voltage_value < 0) {
       document.getElementById('field_wc_voltage').classList.add('group_form-mistaken');
       document.getElementById('voltage_error_paragraph').classList.add('paragraph_input-error-active');
-      error = 'True';
-      console.log('Voltage system tiene errores');
+      error = true;
     }
 
     if (isNaN(height_value) || height_value < 0) {
       document.getElementById('field_wc_height').classList.add('group_form-mistaken');
       document.getElementById('height_error_paragraph').classList.add('paragraph_input-error-active');
-      error = 'True';
-      console.log('Height tiene errores');
+      error = true;
     }
 
     if (isNaN(width_value) || width_value < 0) {
       document.getElementById('field_wc_width').classList.add('group_form-mistaken');
       document.getElementById('width_error_paragraph').classList.add('paragraph_input-error-active');
-      error = 'True';
-      console.log('width tiene errores');
+      error = true;
     }
 
     if (voltage_system.value === 'Sistema') {
       document.getElementById('field_wc_system').classList.add('group_form-mistaken');
       document.getElementById('system_error_paragraph').classList.add('paragraph_input-error-active');
-      console.log('Voltage system tiene errores');
-      error = 'True';
+      error = true;
     }
 
     if (condition.value === 'Condicion?') {
       document.getElementById('field_wc_condition').classList.add('group_form-mistaken');
       document.getElementById('condition_error_paragraph').classList.add('paragraph_input-error-active');
-      console.log('Voltage system tiene errores');
-      error = 'True';
+      error = true;
     }
 
     if (back.value === 'Acceso posterior?') {
       document.getElementById('field_wc_backspace').classList.add('group_form-mistaken');
       document.getElementById('back_error_paragraph').classList.add('paragraph_input-error-active');
-      console.log('Voltage system tiene errores');
-      error = 'True';
+      error = true;
     }
 
-    if (error === 'False') {
+    if (error === false) {
       form.submit();
       console.log('el formulario se envió con éxito');
     }
