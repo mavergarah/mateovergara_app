@@ -1,0 +1,157 @@
+{% extends "calculations/index.html" %}
+
+{% block title %}Conduits{% endblock %}
+
+{% block content %}
+<!-- Esta vista le permite al usuario ingresar los valores para la realización del cálculo
+de Conduits -->
+<br>
+<div class="subscribe">
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10">
+      <div class="section-heading">
+        <h2>Cálculo de Conduits</h2>
+        <form class="" action="conduit_gauge_result" method="post" id="form">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-lg-5">
+            <fieldset id="field_phainsulation">
+              <label class="label-form" for="copha_units">Fases y Neutros:</label>
+              <select class="select-form" id="co_phainsulation" name="co_phainsulation" title="Selecciona el AISLAMIENTO de tu conductor.">
+                  <option value="insulation">- </option>
+                  <option value="No_Halogenuros">Libre de Halógenos (Cu)</option>
+                  <option value="THHN_THWN2">THHN/THWN-2 (Cu)</option>
+                  <option value="THHW_CT">THHW CT (Cu)</option>
+                  <option value="RHW2_USE2">RHW-2/USE-2 (Cu)</option>
+                  <option value="XHHW2">XHHW-2 (Cu)</option>
+              </select>
+              <p class="paragraph_input-error" id="phainsulations_error_paragraph">Debes seleccionar el AISLAMIENTO de los conductores de FASE o NEUTRO.</p>
+            </fieldset>
+          </div>
+          <div class="col-lg-5">
+            <fieldset id="field_phainput">
+              <label class="label-form" for="copha_gauge">Calibres:</label>
+              <input class="input" type="text" id="co_phainput" name="co_phainput" placeholder="12 AWG,14 AWG,8AWG" title="Ingresa aquí los conductores de FASE y de NEUTRO Ejemplo: 6AWG,500MCM,1/0 AWG">
+              <p class="paragraph_input-error" id="phainput_error_paragraph">Debes ingresar los calibres de los conductores de FASE y de NEUTRO separandolos con comas. Ej: 6AWG,500MCM,1/0 AWG.</p>
+            </fieldset>
+          </div>
+          <div class="col-lg-5">
+            <fieldset id="field_earinsulation">
+              <label class="label-form" for="coear_units">Tierras:</label>
+              <select class="select-form" id="co_earinsulation" name="co_earinsulation" title="Selecciona el AISLAMIENTO de tu conductor.">
+                  <option value="insulation">- </option>
+                  <option value="bare">Cable desnudo (Cu)</option>
+                  <option value="No_Halogenuros">Libre de Halógenos (Cu)</option>
+                  <option value="THHN_THWN2">THHN/THWN-2 (Cu)</option>
+                  <option value="THHW_CT">THHW CT (Cu)</option>
+                  <option value="RHW2_USE2">RHW-2/USE-2 (Cu)</option>
+                  <option value="XHHW2">XHHW-2 (Cu)</option>
+                </select>
+                <p class="paragraph_input-error" id="earinsulation_error_paragraph">Debes seleccionar el AISLAMIENTO de los conductores de TIERRA.</p>
+              </fieldset>
+          </div>
+          <div class="col-lg-5">
+            <fieldset id="field_earinput">
+              <label class="label-form" for="coear_gauge">Calibres:</label>
+              <input class="input" type="text" id="co_earinput" name="co_earinput" placeholder="12 AWG,14 AWG,8AWG" title="Ingresa aquí los conductores de TIERRA Ejemplo: 6AWG,500MCM,1/0 AWG">
+              <p class="paragraph_input-error" id="earinput_error_paragraph">Debes ingresar los calibres de los conductores de TIERRA separandolos con comas. Ej: 6AWG,500MCM,1/0 AWG.</p>
+            </fieldset>
+          </div>
+          <div class="col-lg-5">
+            <fieldset id="field_conduit_kind">
+              <select class="select-form" id="co_conduit_kind" name="co_conduit_kind" title="¿Qué tipo de tubería tienes (PVC, EMT, IMC, etc.)?">
+                  <option value="KoC">¿Tipo de conduit?</option>
+                  <option value="PVC-80">PVC-80</option>
+                  <option value="PVC-40">PVC-40</option>
+                  <option value="PVC-A">PVC-A</option>
+                  <option value="EMT">EMT</option>
+                  <option value="IMC">IMC</option>
+                  <option value="RMC">RMC</option>
+                  <option value="ENT">ENT</option>
+                  <option value="FMC">FMC</option>
+              </select>
+              <p class="paragraph_input-error" id="conduit_error_paragraph">Debes seleccionar un tipo de tubería eléctrica en el que irán los conductores.</p>
+            </fieldset>
+          </div>
+          <div class="col-lg-10">
+            <fieldset>
+              <input type="submit" name="co_calculate" value="Calcular">
+              <p>Al presionar el botón CALCULAR aceptas los <a href="{% url 'about:terms_and_conditions' %}">términos y condiciones</a> de uso de esta
+                aplicación.</p>
+            </fieldset>
+          </div>
+        </div>
+        <div class="col-lg-10">
+          <fieldset>
+            <label for="method">{{ error }}</label>
+          </fieldset>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-lg-10">
+            <fieldset>
+              <h6><a href="https://youtu.be/pqQXQYSvHJQ" target="_blank">¿Necesitas ayuda?</a></h6>
+            </fieldset>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Esta parte del código es para realizar la validación desde el frontend de los datos ingresados
+por el usuario. Mostrará un mensaje de error si no se ingresan correctamente los datos. -->
+
+<script>
+  const form = document.getElementById('form');
+  const pha_insulation = document.getElementById('co_phainsulation');
+  const pha_input = document.getElementById('co_phainput');
+  const ear_insulation = document.getElementById('co_earinsulation');
+  const ear_input = document.getElementById('co_earinput');
+  const conduit = document.getElementById('co_conduit_kind');
+
+  form.addEventListener('submit',(event) => {
+    event.preventDefault();
+    error = false;
+
+    if (pha_insulation.value === 'insulation') {
+      document.getElementById('field_phainsulation').classList.add('group_form-mistaken');
+      document.getElementById('phainsulations_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+      console.log('Estamos dentro del primer if');
+    }
+
+    if (ear_insulation.value === 'insulation') {
+      document.getElementById('field_earinsulation').classList.add('group_form-mistaken');
+      document.getElementById('earinsulation_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (conduit.value === 'KoC') {
+      document.getElementById('field_conduit_kind').classList.add('group_form-mistaken');
+      document.getElementById('conduit_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (pha_input.value === '') {
+      document.getElementById('field_phainput').classList.add('group_form-mistaken');
+      document.getElementById('phainput_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (ear_input.value === '') {
+      document.getElementById('field_earinput').classList.add('group_form-mistaken');
+      document.getElementById('earinput_error_paragraph').classList.add('paragraph_input-error-active');
+      error = true;
+    }
+
+    if (error === false) {
+      form.submit();
+    }
+  });
+
+</script>
+{% endblock %}

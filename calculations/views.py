@@ -330,10 +330,56 @@ def electrode_result(request):
     else:
         return render(request, 'calculations/electrode_cable.html',{'error':'El formulario contiene errores.'})
 
+def conduit_choosing(request):
+    # Esta función carga el formulario de ingreso de datos para que el usuario
+    # seleccione el tipo de cálculo que quiere realizar.
+    return render(request, 'calculations/conduit_choosing.html')
+
+def conduit_choosing_result(request):
+    # Dependiendo del tipo de selección que haya hecho el usuario en la vista anterior se realiza
+    # la redirección al formulario correspondiente.
+
+    # 1. Se valida la selección del usuario
+    validation = Cable_Calculations.is_choice(request.POST['co_calculate_choosing'],'conduit')
+
+    if validation:
+        select = request.POST['co_calculate_choosing']
+
+        if select == 'DoA':
+            return render(request, 'calculations/conduits_calculation.html')
+        else:
+            return render(request, 'calculations/conduits_calculation_gauge.html')
+    else:
+        return render(request, 'calculations/conduit_choosing.html',{'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
+
 def conduit_calculation(request):
     # Esta función carga el formulario de ingreso de datos para que el usuario
     # ingrese bien sea los diámetros o las áreas de cada uno de los conductores.
     return render(request, 'calculations/conduits_calculation.html')
+
+def conduit_gauge_result(request):
+    # Una vez que el usuario ha realizado el ingreso de los datos de los calibres
+    # se realiza el cálculo de los conduits.
+
+    # Validar los datos de ingreso al formulario del HTML
+    k_phases = Cable_Calculations.is_choice(request.POST['co_phainsulation'],'insulation')
+    k_earth = Cable_Calculations.is_choice(request.POST['co_earinsulation'],'insulation')
+    k_conduit = Cable_Calculations.is_choice(request.POST['co_conduit_kind'],'KoC')
+
+    # Realizar cálculo de conduits si el formulario no tiene errores
+    if k_phases and k_earth:
+        phases = request.POST['co_phainput'].split(',') # Arreglo de fases
+        earth = request.POST['co_earinput'].split(',') # Variable de tierras
+
+        k_phases = request.POST['co_phainsulation'] # Variable de selección de aislamiento de fases
+        k_earth = request.POST['co_earinsulation'] # Variable de selección de aislamiento de tierra
+        k_conduit = request.POST['co_conduit_kind'] # Variable de selección de tipo de tubería
+
+        conduit = Conduits_Calculation.conduit_sizing(k_phases, phases, k_earth, earth,'',k_conduit,'g')
+        print(conduit)
+        return render(request, 'calculations/conduits_result.html', {'kind_of_conduit':k_conduit, 'conduit':conduit})
+    else:
+        return render(request, 'calculations/conduits_calculation_gauge.html', {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
 
 def conduit_result(request):
     # Una vez que el usuario ha realizado el ingreso de los datos de los diámetros o de las
@@ -349,10 +395,15 @@ def conduit_result(request):
 
         SDA = request.POST['co_diametro'] # Variable de selección de diámetro o área
         CK = request.POST['co_conduit_kind'] # Tipo de tubería
-        conduit = Conduits_Calculation.conduit_sizing(DoA,CK,SDA)
+        conduit = Conduits_Calculation.conduit_sizing('','','','',DoA,CK,SDA)
         return render(request, 'calculations/conduits_result.html', {'kind_of_conduit':CK, 'conduit':conduit})
     else:
         return render(request, 'calculations/conduits_calculation.html', {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
+
+def conduit_gauge_calculation(request):
+    # Esta vista carga el formulario en el que se pueden ingresar los calibres
+    # para realizar el cálculo de los conduits.
+    return render(request,'calculations/conduits_calculation_gauge.html')
 
 def conduit_cable_table(request):
     # Esta función se encarga de mostrarle al usuario una tabla con los diámetros y las áreas de

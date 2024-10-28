@@ -276,7 +276,113 @@ def convert2list_or_value(list_or_value):
 
     return float_list_or_value
 
-def conduit_sizing(areas_or_diameters, conduit_type = 'pvc', variable = 'd'):
+def area_from_gauge(k_ph,phases,k_earth,earth):
+    """ Esta función se encarga de seleccionar el área de un conductor de una tabla de un fábricante de cables
+    (PROCABLES) dependiendo del tipo de conductor y del calibre (AWG) de cada uno. La función recibe un arreglo
+    con los calibres y el tipo de cable tanto de la fase como de la tierra. """
+
+    # Se definen los arreglos que contienen las áreas y los calibres y de cada conductor
+    bare_cable_Cu = [2.079,3.302,5.259,8.318,13.21,21.12,33.54,42.62,53.47,67.70,85.04,107.2,126.6,151.8,177.5,202.8,253.1,304.1,354.5,380.1,506.4]
+    THHN_THWN2_Cu = [6.61,9.0,14.3,23.8,32.3,52.6,73.1,98.5,116.9,138.9,167.4,201.1,248.8,286.5,326.9,363.1,441.2,539.1,651.4,834.7]
+    THHW_CT_Cu = [8.87,11.58,15.55,28.09,46.57,62.49,84.95,122.72,143.14,169.72,201.06,237.79,292.55,651.44,380.13,422.73,506.71,651.44,749.91,951.15]
+    RHW2_USE2_Cu = [36.32,46.57,62.21,83.32,120.76,141.03,165.13,196.07,232.35,286.52,330.06,373.25,411.87,490.87,602.63,759.64,962.11]
+    No_Halogenuros = [2.69,12.13,16.12,27.90,46.45,61.79,84.30,134.78,158.14,221.93,287.72,370.86,491.27]
+    XHHW2 = [28.09,37.28,51.40,71.78,93.31,111.22,132.73,158.37,191.13,243.28,283.53,320.47,359.68,433.74,539.13,688.13,829.58]
+
+    gauge_no_h = ['14 AWG','12 AWG','10 AWG','8 AWG','6 AWG','4 AWG','2 AWG','1/0 AWG','2/0 AWG','4/0 AWG','250 MCM','350 MCM','500 MCM']
+    gauge_no_h_2 = ['14AWG','12AWG','10AWG','8AWG','6AWG','4AWG','2AWG','1/0AWG','2/0AWG','4/0AWG','250MCM','350MCM','500MCM']
+    gauge_bare_THHN = ['14 AWG','12 AWG','10 AWG','8 AWG','6 AWG','4 AWG','2 AWG','1 AWG','1/0 AWG','2/0 AWG','3/0 AWG','4/0 AWG','250 MCM','300 MCM','350 MCM','400 MCM','500 MCM','600 MCM','700 MCM','750 MCM','1000 MCM']
+    gauge_bare_THHN_2 = ['14AWG','12AWG','10AWG','8AWG','6AWG','4AWG','2AWG','1AWG','1/0AWG','2/0AWG','3/0AWG','4/0AWG','250MCM','300MCM','350MCM','400MCM','500MCM','600MCM','700MCM','750MCM','1000MCM']
+    gauge_RHW2 = ['8 AWG','6 AWG','4 AWG','2 AWG','1 AWG','1/0 AWG','2/0 AWG','3/0 AWG','4/0 AWG','250 MCM','300 MCM','350 MCM','400 MCM','500 MCM','600 MCM','1000 MCM']
+    gauge_RHW2_2 = ['8AWG','6AWG','4AWG','2AWG','1AWG','1/0AWG','2/0AWG','3/0AWG','4/0AWG','250MCM','300MCM','350MCM','400MCM','500MCM','600MCM','1000MCM']
+    gauge_XHHW2 = ['8 AWG','6 AWG','4 AWG','2 AWG','1 AWG','1/0 AWG','2/0 AWG','3/0 AWG','4/0 AWG','250 MCM','300 MCM','350 MCM','400 MCM','500 MCM','600 MCM','750 MCM','1000 MCM']
+    gauge_XHHW2_2 = ['8AWG','6AWG','4AWG','2AWG','1AWG','1/0AWG','2/0AWG','3/0AWG','4/0AWG','250MCM','300MCM','350MCM','400MCM','500MCM','600MCM','750MCM','1000MCM']
+
+    # Se suman las áreas de los conductores de FASE
+    if k_ph == 'THHN_THWN2':
+        all_gauges = gauge_bare_THHN
+        all_gauges_2 = gauge_bare_THHN_2
+        area = THHN_THWN2_Cu
+    elif k_ph == 'THHW_CT':
+        all_gauges = gauge_bare_THHN
+        all_gauges_2 = gauge_bare_THHN_2
+        area = THHW_CT_Cu
+    elif k_ph == 'RHW2_USE2':
+        all_gauges = gauge_RHW2
+        all_gauges_2 = gauge_RHW2_2
+        area = RHW2_USE2_Cu
+    elif k_ph == 'No_Halogenuros':
+        all_gauges = gauge_no_h
+        all_gauges_2 = gauge_no_h_2
+        area = No_Halogenuros
+    elif k_ph == 'XHHW2':
+        all_gauges = gauge_XHHW2
+        all_gauges_2 = gauge_XHHW2_2
+        area = XHHW2
+
+    area_phases_1 = sum_array(phases,all_gauges,area)
+    print('El area 1 de los conductores es: %f' %area_phases_1)
+    area_phases_2 = sum_array(phases,all_gauges_2,area)
+    print('El area 2 de los conductores es: %f' %area_phases_2)
+    area_phases = area_phases_1 + area_phases_2
+
+    # Se suman las áreas de los conductores de TIERRA
+    if k_earth == 'THHN_THWN2':
+        all_gauges = gauge_bare_THHN
+        all_gauges_2 = gauge_bare_THHN_2
+        area = THHN_THWN2_Cu
+    elif k_earth == 'bare':
+        all_gauges = gauge_bare_THHN
+        all_gauges_2 = gauge_bare_THHN_2
+        area = bare_cable_Cu
+    elif k_earth == 'THHW_CT':
+        all_gauges = gauge_bare_THHN
+        all_gauges_2 = gauge_bare_THHN_2
+        area = THHW_CT_Cu
+    elif k_earth == 'RHW2_USE2':
+        all_gauges = gauge_RHW2
+        all_gauges_2 = gauge_RHW2_2
+        area = RHW2_USE2_Cu
+    elif k_earth == 'No_Halogenuros':
+        all_gauges = gauge_no_h
+        all_gauges_2 = gauge_no_h_2
+        area = No_Halogenuros
+    elif k_earth == 'XHHW2':
+        all_gauges = gauge_XHHW2
+        all_gauges_2 = gauge_XHHW2_2
+        area = XHHW2
+
+    area_earth_1 = sum_array(earth,all_gauges,area)
+    print('El area 1 de los conductores es: %f' %area_earth_1)
+    area_earth_2 = sum_array(earth,all_gauges_2,area)
+    print('El area 2 de los conductores es: %f' %area_earth_2)
+    area_earth = area_earth_1 + area_earth_2
+
+    return area_phases + area_earth
+
+def sum_array(values,array_1,array_2):
+    """ Esta función realiza la suma de los valores de un arreglo (array 2) a partir de los
+    valores que coincidan entre otros dos arreglos (values y array_1). """
+    suma_total = 0
+    for value in values:
+        i = 0
+        flag = True
+        while flag == True:
+            if i == len(array_1):
+                value_array2 = '-'
+                flag = False
+            elif value != array_1[i] and i < len(array_1):
+                i = i + 1
+                flag = True
+            else:
+                flag = False
+                value_array2 = array_2[i]
+
+        if value_array2 != '-':
+            suma_total = suma_total + value_array2
+    return suma_total
+
+def conduit_sizing(k_ph, phases, k_earth, earth, areas_or_diameters, conduit_type = 'pvc', variable = 'd'):
     """ Esta función calcula en calibre del conduit dependiendo de la cantidad de conductores.
     Para eso se deben ingresar las áreas de los conductores (areas), el tipo de conduit (conduit_type)
     e indicarle al software si estamos ingresando las áreas (a) o los diámetros (d).
@@ -284,32 +390,42 @@ def conduit_sizing(areas_or_diameters, conduit_type = 'pvc', variable = 'd'):
     import math
 
     # Sumar las áreas ingresadas por el usuario
+    if variable == 'd' or variable == 'a':
+        if isinstance(areas_or_diameters,float):
+            percentage_ocuppancy = 0.53
 
-    if isinstance(areas_or_diameters,float):
-        percentage_ocuppancy = 0.53
-
-        if variable == 'd':
-            areas = math.pi * (areas_or_diameters ** 2) / 4
+            if variable == 'd':
+                areas = math.pi * (areas_or_diameters ** 2) / 4
+            else:
+                areas = areas_or_diameters
+            At_cables = areas
         else:
-            areas = areas_or_diameters
-        At_cables = areas
+            # Porcentaje de llenado de los conduits de acuerdo a la NTC 2050
+            if (len(areas_or_diameters)) == 2:
+                percentage_ocuppancy = 0.31
+            else:
+                percentage_ocuppancy = 0.40
+
+            areas = []
+            # Verificar si el usuario ingresó los diámetros o las áreas
+            if variable == 'd':
+                for diameter in areas_or_diameters:
+                    area = math.pi * (diameter ** 2) / 4
+                    areas.append(area)
+            else:
+                areas = areas_or_diameters
+
+            At_cables = sum(areas)
     else:
-        # Porcentaje de llenado de los conduits de acuerdo a la NTC 2050
-        if (len(areas_or_diameters)) == 2:
+        At_cables = area_from_gauge(k_ph, phases, k_earth, earth)
+        print(At_cables)
+        print(phases)
+        if len(phases) + len(earth) < 1:
+            percentage_ocuppancy = 0.53
+        elif (len(phases) + len(earth)) == 2:
             percentage_ocuppancy = 0.31
         else:
-            percentage_ocuppancy = 0.40
-
-        areas = []
-        # Verificar si el usuario ingresó los diámetros o las áreas
-        if variable == 'd':
-            for diameter in areas_or_diameters:
-                area = math.pi * (diameter ** 2) / 4
-                areas.append(area)
-        else:
-            areas = areas_or_diameters
-
-        At_cables = sum(areas)
+            percentage_ocuppancy = 0.4
 
     # Calculo del area del área del conduit_type
     A_conduit = At_cables / percentage_ocuppancy
