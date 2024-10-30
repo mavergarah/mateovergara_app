@@ -10,9 +10,15 @@
   <table class="table" border="1">
   <caption class="caption-result">Tabla de resultados.</caption>
     <tr>
+      <th class="th">{{ column_1 }}</th>
+      <th class="th">{{ column_2 }}</th>
+      <th class="th">{{ column_3 }}</th>
       <th class="th">Protección (A)</th>
     </tr>
     <tr>
+      <td class="td">{{ gauge }}</td>
+      <td class="td">{{ material }}</td>
+      <td class="td">{{ temperature }}</td>
       <td class="td">{{ protective_device }}</td>
     </tr>
   </table>
@@ -22,7 +28,7 @@
   <div class="instrucciones">
   <ol>
     <li>El cálculo ha sido realizado de acuerdo a la NTC 2050.</li>
-    <li>El usuario es responsable de revisar los cálculos obtenidos.</li>
+    <li>El usuario es responsable de revisar los resultados obtenidos.</li>
     <li>Recuerda que la corriente ajustada debe ser mayor a la continua.</li>
     <li>Si encuentras un error en los cálculos realizados puedes escribirnos a:
     <b>consultoriaelectrica@mateovergara.com</b>.</li>

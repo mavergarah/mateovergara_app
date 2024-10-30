@@ -346,6 +346,73 @@ def protective_device(I_adjust, I_continuous):
     else:
         return '-'
 
+def protective_device_gauge(material, temperature, gauge):
+    """ Esta función realiza la selección del dispositivo de protección contra sobrecorriente
+    a partir del material, la temperatura, y el calibre del conductor."""
+
+    gauge_bare_THHN = ['14 AWG','12 AWG','10 AWG','8 AWG','6 AWG','4 AWG','3 AWG','2 AWG','1 AWG','1/0 AWG','2/0 AWG','3/0 AWG','4/0 AWG','250 MCM','300 MCM','350 MCM','400 MCM','500 MCM','600 MCM','700 MCM','750 MCM','800 MCM','900 MCM','1000 MCM','1250 MCM','1500 MCM','1750 MCM','2000 MCM']
+    current_cu_60 = [15,20,30,40,55,70,85,95,110,125,145,165,195,215,240,260,280,320,350,385,400,410,435,455,495,525,545,555]
+    current_cu_75 = [20,25,35,50,65,85,100,115,130,150,175,200,230,255,285,310,335,380,420,460,475,490,520,545,590,625,650,665]
+    current_cu_90 = [25,30,45,55,75,95,115,130,145,170,195,225,260,290,320,350,380,430,475,520,535,555,585,615,665,705,735,750]
+    current_al_60 = ['-',15,25,35,40,55,65,75,85,100,115,130,150,170,195,210,225,260,285,315,320,330,355,375,405,435,455,470]
+    current_al_75 = ['-',20,30,40,50,65,75,90,100,120,135,155,180,205,230,250,270,310,340,375,385,395,425,445,485,520,545,560]
+    current_al_90 = ['-',25,35,45,55,75,85,100,115,135,150,175,205,230,260,280,305,350,385,425,435,445,480,500,545,585,615,630]
+
+    nominal_protective = [3,5,10,15,20,25,30,35,40,45,50,60,70,80,90,100,110,125,150,175,200,225,250,300,350,400,450,500,600,700,800,1000,1200,1600,2000,2500,3000,4000,5000,6000]
+
+    if material == 'Cu':
+        if temperature == '60':
+            current = current_cu_60
+        elif temperature == '75':
+            current = current_cu_75
+        else:
+            current = current_cu_90
+    else:
+        if temperature == '60':
+            current = current_al_60
+        elif temperature == '75':
+            current = current_al_75
+        else:
+            current = current_al_90
+
+    position_gauge = find_position(gauge,gauge_bare_THHN)
+    nominal_current = current[position_gauge]
+    print('La corriente nominal del conductor es %d' %nominal_current)
+
+    i = 0
+    flag = True
+    while flag == True:
+        if i == len(nominal_protective):
+            protective = '-'
+            flag = False
+        elif nominal_protective[i] < nominal_current <= nominal_protective[i+1]:
+            if nominal_current < nominal_protective[i+1]:
+                protective = nominal_protective[i]
+            else:
+                protective = nominal_protective[i+1]
+            flag = False
+        else:
+            i = i + 1
+
+    return protective
+
+def find_position(element,array):
+    """ Esta función se encarga de retornar la posición en la que se encuentra un elemento dentro de un
+    arreglo. """
+    i = 0
+    flag = True
+
+    while flag == True:
+        if i == len(array):
+            flag = False
+            i = '-'
+        elif element == array[i]:
+            flag = False
+        else:
+            i = i + 1
+
+    return i
+
 def find_next_gauge(gauge):
     """ Compara el calibre actual y devuelve el siguiente calibre más grande para poder volver a calcular la regulación
     de tensión con el calibre más grande y garantizar así que esta sea menor que 3%. """

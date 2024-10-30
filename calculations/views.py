@@ -274,7 +274,60 @@ def protective_result(request):
 
         protective = Cable_Calculations.protective_device(I_ad, I_cont)
         print(protective)
-        return render(request, 'calculations/protective_result.html', {'protective_device':protective})
+        return render(request, 'calculations/protective_result.html', {'column_1':'-','column_2':'Corriente Contina (A)',
+        'column_3':'Corriente Ajustada (A)','gauge':'-','material':I_cont,'temperature':I_ad,
+        'protective_device':protective})
+    else:
+        return render(request, 'calculations/protective_device.html', {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
+
+def protective_choosing(request):
+    # Esta función carga el formulario de ingreso de datos para que el usuario
+    # seleccione el tipo de cálculo que quiere realizar.
+    return render(request, 'calculations/protective_choosing.html')
+
+def protective_choosing_result(request):
+    # Dependiendo del tipo de selección que haya hecho el usuario en la vista anterior se realiza
+    # la redirección al formulario correspondiente.
+
+    # 1. Se valida la selección del usuario
+    validation = Cable_Calculations.is_choice(request.POST['pro_calculate_choosing'],'proteccion')
+
+    if validation:
+        select = request.POST['pro_calculate_choosing']
+
+        if select == 'C':
+            return render(request, 'calculations/protective_device.html')
+        else:
+            return render(request, 'calculations/protective_device_gauge.html')
+    else:
+        return render(request, 'calculations/protective_choosing.html',{'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
+
+def protective_device_gauge(request):
+    # Esta vista carga el formulario que permite seleccionar un dispositivo de protección a partir del
+    # calibre del conductor.
+    return render(request, 'calculations/protective_device_gauge.html')
+
+def protective_gauge_result(request):
+    # Con esta función se realiza la selección del dispositivo de protección basado en la corriente
+    # continua y en la corriente ajustada.
+
+    # Validar los datos de ingreso al formulario del HTML
+    gauge = Cable_Calculations.is_choice(request.POST['pro_gauge'],'calibre')
+    material = Cable_Calculations.is_choice(request.POST['pro_material'],'material')
+    temperature = Cable_Calculations.is_choice(request.POST['pro_temperature'],'temperatura')
+
+    # Realizar cálculo de conduits si el formulario no tiene errores
+    if gauge and material and temperature:
+        gauge = request.POST['pro_gauge'] # Variable del calibre del conductor
+        material = request.POST['pro_material'] # Variable del material del conductor
+        temperature = request.POST['pro_temperature'] # Variable de la temperatura del conductor
+        print(gauge, material, temperature)
+
+        protective = Cable_Calculations.protective_device_gauge(material, temperature, gauge)
+        print(protective)
+        return render(request, 'calculations/protective_result.html', {'column_1':'Calibre','column_2':'Material',
+        'column_3':'Temperatura ºC','protective_device':protective,'gauge':gauge,'material':material,
+        'temperature':temperature})
     else:
         return render(request, 'calculations/protective_device.html', {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
 

@@ -1,6 +1,6 @@
 {% extends "calculations/index.html" %}
 
-{% block title %}Conduits{% endblock %}
+{% block title %}Protección{% endblock %}
 
 {% block content %}
 <!-- Esta plantilla le permite seleccionar al usuario el tipo de cable a calcular -->
@@ -12,14 +12,14 @@
       <div class="section-heading">
         <!-- Se selecciona el tipo de carga que se tiene para realizar el cálculo posteriormente -->
         <h2>Cálculo de Conductores Eléctricos</h2>
-        <form id="form" action="conduit_choosing_result" method="post">
+        <form id="form" action="protective_choosing_result" method="post">
         {% csrf_token %}
         <div class="col-lg-8">
           <fieldset id="field_choosing">
-            <label class="label-form" for="ca_calculate_choosing">¿Qué INFORMACIÓN tienes para el cálculo?</label>
-            <select name="co_calculate_choosing" id="co_calculate_choosing" title="¿Tienes un motor o otro tipo de carga?">
-                <option value="conduit">- </option>
-                <option value="DoA">Tengo los DIÁMETROS o las ÁREAS de los conductores.</option>
+            <label class="label-form" for="pro_calculate_choosing">¿Qué INFORMACIÓN tienes para la selección?</label>
+            <select name="pro_calculate_choosing" id="pro_calculate_choosing" title="¿Tienes un motor o otro tipo de carga?">
+                <option value="proteccion">- </option>
+                <option value="C">Tengo la corriente CONTINUA y la corriente AJUSTADA.</option>
                 <option value="G">Solo tengo los CALIBRES de los conductores.</option>
             </select>
             <p class="paragraph_input-error" id="choosing_error_paragraph">Por favor selecciona una opción.</p>
@@ -30,7 +30,7 @@
         </div>
         <div class="col-lg-8">
           <fieldset>
-            <label class="label-form-error" for="ca_calculate_choosing">{{ error }}</label>
+            <label class="label-form-error" for="pro_calculate_choosing">{{ error }}</label>
           </fieldset>
         </div>
         </form>
@@ -45,13 +45,13 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
 
 <script>
   const form = document.getElementById('form');
-  const choosing = document.getElementById('co_calculate_choosing');
+  const choosing = document.getElementById('pro_calculate_choosing');
 
   form.addEventListener('submit',(event) => {
     event.preventDefault();
     var error = false;
 
-    if (choosing.value === 'conduit') {
+    if (choosing.value === 'proteccion') {
       document.getElementById('field_choosing').classList.add('group_form-mistaken');
       document.getElementById('choosing_error_paragraph').classList.add('paragraph_input-error-active');
       error = true;
