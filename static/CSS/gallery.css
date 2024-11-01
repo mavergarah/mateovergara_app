@@ -1,0 +1,53 @@
+#gallery {
+  display: none;
+}
+
+.active-image {
+  width: 70%;
+  height: auto;
+}
+
+.main-container {
+  position: fixed;
+  top: 90px;
+  left: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.65);
+}
+
+.inner-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.button {
+  cursor: pointer;
+  border: none;
+}
+
+#btn-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: transparent;
+  font-size: 2rem;
+}
+
+#btn-prev {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  background: transparent;
+  font-size: 3rem;
+}
+
+#btn-next {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  background: transparent;
+  font-size: 3rem;
+}

@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class AboutMV(models.Model):
     title = models.CharField(
-        max_length=35,
+        max_length=50,
         verbose_name='Title',
         blank=False
     )
@@ -48,7 +48,7 @@ class GalleryMV(models.Model):
 # Este modelo es para ingresar los términos y condiciones de uso de la aplicación
 class TermsConditions(models.Model):
     title = models.CharField(
-        max_length=35,
+        max_length=50,
         verbose_name='Title',
         blank=False
     )
