@@ -200,12 +200,12 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
     if (indexImage === 1) {
       active_image.src = "{% static 'img/condicion_1-2.png' %}";
     } else if (indexImage === 2) {
-      active_image.src = "{% static 'img/condicion_2.png' %}"
+      active_image.src = "{% static 'img/condicion_2.png' %}";
     } else if (indexImage === 3) {
-      active_image.src = "{% static 'img/condicion_3.png' %}"
+      active_image.src = "{% static 'img/condicion_3.png' %}";
     } else if (indexImage === 4) {
       indexImage = 0;
-      active_image.src = "{% static 'img/condicion_1-1.png' %}"
+      active_image.src = "{% static 'img/condicion_1-1.png' %}";
       console.log('reiniciamos el index');
     };
     indexImage++;
@@ -216,14 +216,14 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
 
   const prevImage = () => {
     if (indexImage === 1) {
-      indexImage = 4;
+      indexImage = 5;
       active_image.src = "{% static 'img/condicion_1-2.png' %}";
     } else if (indexImage === 2) {
-      active_image.src = "{% static 'img/condicion_2.png' %}"
+      active_image.src = "{% static 'img/condicion_2.png' %}";
     } else if (indexImage === 3) {
-      active_image.src = "{% static 'img/condicion_3.png' %}"
+      active_image.src = "{% static 'img/condicion_3.png' %}";
     } else if (indexImage === 4) {
-      active_image.src = "{% static 'img/condicion_1-1.png' %}"
+      active_image.src = "{% static 'img/condicion_1-1.png' %}";
       console.log('reiniciamos el index');
     };
     indexImage--;
@@ -234,7 +234,3 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
 
 </script>
 {% endblock %}
-
-<img src="{% static 'img/condicion_1-2.png' %}" alt="Condición 1">
-<img src= alt="Condición 2">
-<img src="{% static 'img/condicion_3.png' %}" alt="Condición 3">

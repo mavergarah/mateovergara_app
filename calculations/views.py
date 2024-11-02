@@ -574,11 +574,12 @@ def arcflash_result(request):
         KE = request.POST['ar_earth_kind'] # Kind of earth (HR - High Resistance or WR - Without Resistance)
         KM = request.POST['ar_method'] # Method of calculation
 
-        IE, EPPs = Arc_Flash_Calculation.incident_energy(V, I, t, D, G, KP, KA, KE, KM)
+        IE, Category, EPPs_1, EPPs_2 = Arc_Flash_Calculation.incident_energy(V, I, t, D, G, KP, KA, KE, KM)
         print(IE)
 
         # Se envía el resultado a la vista de resultado de arco eléctrico.
-        return render(request, 'calculations/arcflash_result.html', {'result':round(IE,3), 'epps':EPPs})
+        return render(request, 'calculations/arcflash_result.html', {'result':round(IE,3),'category':Category,
+        'voltage':V,'current':I,'time':t,'EPPs_1':EPPs_1,'EPPs_2':EPPs_2})
     else:
         # Si los datos ingresados no son correctos entonces se muestra un error en la vista del formulario
         return render(request, 'calculations/arcflash_calculations.html', {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})

@@ -269,12 +269,48 @@ def incident_energy(V, F, t, D, G, kind_of_panel, kind_of_arc, kind_of_earth, me
             incident_energy = incident_energy_doughty_neal(F, kind_of_panel, t, kind_of_arc)
     print(incident_energy)
     if incident_energy <= 4:
-        epps = 'Cat. 1'
+        category = 'Cat. 1'
+        clothes = ['Camisa de mangas largas y pantalones resistentes al arco u overol (mameluco) resistente al arco',
+        'Protector facial resistente al arco o capucha del traje de protección contra relámpago de arco',
+        'Chaqueta, parka, prendas impermeables o forros de cascos con valor de resistencia al arco (SSN)']
+        head_protection = ['Casco',
+        'Anteojos de seguridad o gafas de seguridad (SR)',
+        'Guantes de cuero para uso industrial',
+        'Calzado de trabajo de cuero']
     elif incident_energy <= 8:
-        epps = 'Cat. 2'
+        category = 'Cat. 2'
+        clothes = ['Camisa de mangas largas y pantalones resistentes al arco u overol (mameluco) resistente al arco',
+        'Capucha del traje de protección contra relámpago de arco con valor de resistencia al arco o protector facial con valor de resistencia al arco y pasamontañas con valor de resistencia al arco',
+        'Chaqueta, parka, prendas impermeables o forros de cascos con valor de resistencia al arco (SSN)']
+        head_protection = ['Casco',
+        'Anteojos de seguridad o gafas de seguridad (SR)',
+        'Protección auditiva (tapones)',
+        'Guantes de cuero para uso industrial',
+        'Calzado de trabajo de cuero']
     elif incident_energy <= 25:
-        epps = 'Cat. 3'
+        category = 'Cat. 3'
+        clothes = ['Camisa de manga larga resistente al arco (SSR)',
+        'Pantalones de traje de protección contra relámpago de arco con valor de resistencia al arco (SSR)',
+        'Capucha de traje de protección contra relámpago de arco con valor de resistencia al arco',
+        'Guantes resistentes al arco',
+        'Chaqueta, parka, prendas impermeables o forros de cascos con valor de resistencia al arco (SSN)']
+        head_protection = ['Casco',
+        'Anteojos de seguridad o gafas de seguridad (SR)',
+        'Protección auditiva (tapones)',
+        'Calzado de trabajo de cuero']
     elif incident_energy <= 40:
-        epps = 'Cat. 4'
+        category = 'Cat. 4'
+        clothes = ['Camisa de manga larga resistente al arco (SSR)',
+        'Pantalones resistentes al arco (SSR)',
+        'Overol (mameluco) resistente al arco (SSR)',
+        'Chaqueta de traje de protección contra relámpago de arco con valor de resistencia al arco (SSR)',
+        'Pantalones de traje de protección contra relámpago de arco con valor de resistencia al arco (SSR)',
+        'Capucha de traje de protección contra relámpago de arco con valor de resistencia al arco',
+        'Guantes resistentes al arco',
+        'Chaqueta, parka, prendas impermeables o forros de cascos con valor de resistencia al arco (SSN)']
+        head_protection = ['Casco',
+        'Anteojos de seguridad o gafas de seguridad (SR)',
+        'Protección auditiva (tapones)',
+        'Calzado de trabajo de cuero']
 
-    return incident_energy, epps
+    return incident_energy, category, clothes, head_protection

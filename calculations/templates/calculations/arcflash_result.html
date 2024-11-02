@@ -1,4 +1,5 @@
 {% extends "calculations/index.html" %}
+{% load static %}
 
 {% block title %}Arc Flash{% endblock %}
 {% block content %}
@@ -11,22 +12,34 @@
       <tr>
         <th class="th">Energía Incidente (cal/cm2)</th>
         <th class="th">Nivel de Protección de EPPs</th>
-        <th class="th">Recursos</th>
+        <th class="th">Tensión (V)</th>
+        <th class="th">Corriente de Corto (kA)</th>
+        <th class="th">Tiempo de despeje de falla (s)</th>
       </tr>
       <tr>
         <td class="td">{{ result }}</td>
-        <td class="td">{{ epps }}</td>
-        <td class="td"><a class="a-underline" href="http://127.0.0.1:8000/calculations/arcflash_epps">Muestrame la Tabla de EPPs.</a></td>
+        <td class="td">{{ category }}</td>
+        <td class="td">{{ voltage }}</td>
+        <td class="td">{{ current }}</td>
+        <td class="td">{{ time }}</td>
       </tr>
     </table>
     <br>
-    <h6 class="h6-result">Notas:</h6>
+    <h6 class="h6-result">Vestimenta Resistente al Arco:</h6>
     <div class="instrucciones">
     <ol>
-      <li>El cálculo ha sido realizado de acuerdo al anexo D de la NFPA 70E.</li>
-      <li>Por favor revisar los cálculos obtenidos.</li>
-      <li>Si encuentras un error en los cálculos realizados puedes escribirnos a:
-      <b>consultoriaelectrica@mateovergara.com</b>.</li>
+      {% for EPP in EPPs_1 %}
+        <li>{{ EPP }}.</li>
+      {% endfor %}
+    </ol>
+    </div>
+    <br>
+    <h6 class="h6-result">Equipos de Protección:</h6>
+    <div class="instrucciones">
+    <ol>
+      {% for EPP in EPPs_2 %}
+        <li>{{ EPP }}.</li>
+      {% endfor %}
     </ol>
     </div>
 </div>
