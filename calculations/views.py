@@ -334,7 +334,23 @@ def protective_gauge_result(request):
 def grounding_cable(request):
     # En esta vista se carga el formulario de selección del conductor de puesta a tierra
     # de equipos.
-    return render(request, 'calculations/grounding_cable.html')
+    if request.method != 'POST':
+        return render(request, 'calculations/grounding_cable.html')
+    else:
+        # Validar los datos ingresados por el usuario
+        Protective = Cable_Calculations.is_number(request.POST['gro_protective'])
+        Material = Cable_Calculations.is_choice(request.POST['gro_material'],'material')
+
+        if Protective and Material:
+            # Obtener los valores ingresados por el usuario en el formulario HTML
+            Protective = float(request.POST['gro_protective'])
+            Material = request.POST['gro_material']
+
+            # Realizar la selección del conductor de puesta a tierra
+            grounding_cable = Cable_Calculations.earth_conductor(Protective, Material)
+
+            return render(request, 'calculations/grounding_cable.html',{'protective':Protective,
+            'gauge':grounding_cable,'material':Material})
 
 def grounding_result(request):
     # Con esta función se realiza la selección del conductor de puesta a tierra de equipos basado
@@ -360,7 +376,23 @@ def grounding_result(request):
 def electrode_cable(request):
     # Esta vista carga el formulario de ingreso de datos para que a partir del conductor
     # de fase el usuario pueda seleccionar el conductor del electrodo de puesta a tierra.
-    return render(request, 'calculations/electrode_cable.html')
+    if request.method != 'POST':
+        return render(request, 'calculations/electrode_cable.html')
+    else:
+        # Validar los datos ingresados por el usuario
+        gauge = Cable_Calculations.is_choice(request.POST['ele_cable_gauge'], 'calibre')
+        material = Cable_Calculations.is_choice(request.POST['ele_material'], 'material')
+
+        if gauge and material:
+            # Obtener los valores ingresados por el usuario en el formulario HTML
+            gauge = request.POST['ele_cable_gauge']
+            material = request.POST['ele_material']
+
+            # Realizar la selección del conductor de puesta a tierra
+            electrode_cu, electrode_al = Cable_Calculations.electrode_conductor(gauge, material)
+
+            return render(request, 'calculations/electrode_cable.html',{'ele_cu':electrode_cu,
+            'ele_al':electrode_al,'material':material, 'gauge':gauge})
 
 def electrode_result(request):
     # Aquí en esta parte del código se realiza la selección del conductor del electrodo de puesta
@@ -495,7 +527,8 @@ def work_clearances_calculation(request):
             print(DC, HC, WC, BC)
 
             # Se envían los resultados del espacio de trabajo a la vista correspondiente.
-            return render(request, 'calculations/workclearances_calculations.html', {'height':HC, 'width': WC, 'depth':DC, 'back':BC, 'condition':CO,'voltage':V})
+            return render(request, 'calculations/workclearances_calculations.html', {'height':HC,
+            'width': WC, 'depth':DC, 'back':BC, 'condition':CO,'voltage':V})
 
 def work_clearances_result(request):
     # Una vez que en la vista anterior se han ingresado los datos se realiza el cálculo del espacio
@@ -559,7 +592,7 @@ def safety_clearances_calculation(request):
             # Se renderizan los resultados de las distancias de seguridad en la vista de resultados.
             return render(request, 'calculations/safetyclearances_calculations.html',
             {'error':'BAJA PARA VER EL RESULTADO','safety_clearance_movil':SCM, 'safety_clearance_static': SCS,
-            'restricted_clearance':RC, 'voltage':V})
+            'restricted_clearance':RC, 'voltage':V, 'system':S})
 
 def safety_clearances_result(request):
     # Una vez que el usuario ha ingresado los datos de cálculo se determina
