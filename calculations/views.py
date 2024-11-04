@@ -467,7 +467,35 @@ def work_clearances_calculation(request):
     # En esta vista se carga el formulario que le permite al usuario ingresar los datos correspondientes
     # al ancho, anto y condición en la que se encuentra el tablero para realizar el cálculo del
     # espacio de trabajo.
-    return render(request, 'calculations/workclearances_calculations.html')
+    if request.method != 'POST':
+        return render(request, 'calculations/workclearances_calculations.html')
+    else:
+        # Validar los datos de ingreso al formulario del HTML
+        V = Safety_Calculations.is_number(request.POST['wc_voltage'])
+        V2 = Safety_Calculations.is_positive(request.POST['wc_voltage'])
+        H = Safety_Calculations.is_number(request.POST['wc_height'])
+        H2 = Safety_Calculations.is_positive(request.POST['wc_height'])
+        W = Safety_Calculations.is_number(request.POST['wc_width'])
+        W2 = Safety_Calculations.is_positive(request.POST['wc_width'])
+        VS = Safety_Calculations.is_choice(request.POST['wc_voltage_system'],'Sistema')
+        BS = Safety_Calculations.is_choice(request.POST['wc_backspace'],'Acceso posterior?')
+        CO = Safety_Calculations.is_choice(request.POST['wc_condition'],'Condicion?')
+
+        # Realizar cálculo de los espacios de trabajo si el formulario no tiene errores
+        if V and V2 and H and H2 and W and W2 and VS and BS and CO:
+            # Importar las variables del formulario
+            V = float(request.POST['wc_voltage'])
+            H = float(request.POST['wc_height'])
+            W = float(request.POST['wc_width'])
+            VS = request.POST['wc_voltage_system'] # Sistema monofásico, bifásico o trifásico
+            BS = request.POST['wc_backspace'] # Espacio de trabajo en la parte posterior
+            CO = request.POST['wc_condition'] # Condición en la cual se encuentra el tablero
+
+            DC, HC, WC, BC = Safety_Calculations.work_clearances(V, H, W, VS, CO, BS)
+            print(DC, HC, WC, BC)
+
+            # Se envían los resultados del espacio de trabajo a la vista correspondiente.
+            return render(request, 'calculations/workclearances_calculations.html', {'height':HC, 'width': WC, 'depth':DC, 'back':BC, 'condition':CO,'voltage':V})
 
 def work_clearances_result(request):
     # Una vez que en la vista anterior se han ingresado los datos se realiza el cálculo del espacio
@@ -509,7 +537,29 @@ def safety_clearances_calculation(request):
     # basado en el RETIE actual legal y vigente. Esta vista carga el formulario
     # de ingreso de datos. El usuario deberá ingresar si el sistema es corriente,
     # alterna o continua.
-    return render(request, 'calculations/safetyclearances_calculations.html')
+    if request.method != 'POST':
+        return render(request, 'calculations/safetyclearances_calculations.html')
+    else:
+        # Una vez que el usuario ha ingresado los datos de cálculo se determina
+        # en esta vista cuáles son las distancias de seguridad para el nivel de tensión
+        # indicado.
+
+        # Validar los datos ingresados por el usuario.
+        R = Safety_Calculations.isin_range(request.POST['sc_voltage'],50,550000)
+        V = Safety_Calculations.is_number(request.POST['sc_voltage'])
+        S = Safety_Calculations.is_choice(request.POST['sc_voltage_system'],'¿Tipo de Sistema?')
+
+        if V and S and R:
+            # Importar las variables del formulario
+            V = float(request.POST['sc_voltage'])
+            S = request.POST['sc_voltage_system'] # Sistema monofásico, bifásico o trifásico
+
+            SCM, SCS, RC = Safety_Calculations.safety_clearances(V, S)
+
+            # Se renderizan los resultados de las distancias de seguridad en la vista de resultados.
+            return render(request, 'calculations/safetyclearances_calculations.html',
+            {'error':'BAJA PARA VER EL RESULTADO','safety_clearance_movil':SCM, 'safety_clearance_static': SCS,
+            'restricted_clearance':RC, 'voltage':V})
 
 def safety_clearances_result(request):
     # Una vez que el usuario ha ingresado los datos de cálculo se determina

@@ -12,7 +12,7 @@ que le permiten realizar la selección de las distancias de seguridad -->
     <div class="col-lg-12">
       <div class="section-heading">
         <h2>Cálculo Distancias de Seguridad</h2>
-        <form action="safety_clearances_result" method="post" id="form">
+        <form method="post" id="form" action="#result">
         {% csrf_token %}
         <div class="row">
           <div class="col-lg-5">
@@ -45,7 +45,7 @@ que le permiten realizar la selección de las distancias de seguridad -->
           </div>
           <div class="col-lg-10">
             <fieldset class="error_message" id="error-message">
-              <label class="label-form-error" for="method">{{ error }}</label>
+              <label class="label-form-error" for="sc_calculate">{{ error }}</label>
             </fieldset>
           </div>
         </div>
@@ -61,6 +61,43 @@ que le permiten realizar la selección de las distancias de seguridad -->
   </div>
 </div>
 </div>
+<!-- Esta parte de la vista muestra el resultado del cálculo de las distancias
+de seguridad -->
+<section id="result">
+  <div class="subscribe">
+      <div class="container">
+        <h2>Resultados:</h2>
+        <br>
+        <table class="table" border="1">
+          <caption class="caption-result">Tabla de resultados.</caption>
+          <tr>
+            <th class="th">Límite de aproximación seguro a una parte móvil (m)</th>
+            <th class="th">Límite de aproximación seguro a una parte fija (m)</th>
+            <th class="th">Límite de aproximación restringido (m)</th>
+            <th class="th">Tensión (V)</th>
+          </tr>
+          <tr>
+            <td class="td">{{ safety_clearance_movil }}</td>
+            <td class="td">{{ safety_clearance_static }}</td>
+            <td class="td">{{ restricted_clearance }}</td>
+            <td class="td">{{ voltage }}</td>
+          </tr>
+        </table>
+<!-- Aquí se muestran las notas que le permiten al usuario entender el resultado
+del cálculo de las distancias de seguridad -->
+        <br>
+        <div class="result-notes">
+          <h6 class = "h6-result">Notas:</h6>
+          <ol>
+            <li>La selección de las distancias de seguridad se hizo de acuerdo al libro 3 del RETIE.</li>
+            <li>Estas distancias aplican UNICAMENTE para el nivel de tensión ingresado.</li>
+            <li>Si encuentras un error en los cálculos realizados puedes escribirnos a:
+            <b>consultoriaelectrica@mateovergara.com</b>.</li>
+          </ol>
+        </div>
+      </div>
+  </div>
+</section>
 
 <!-- Esta parte del código es para realizar la validación desde el frontend de los datos ingresados
 por el usuario. Mostrará un mensaje de error si no se ingresan correctamente los datos. -->
@@ -69,6 +106,8 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
   const form = document.getElementById('form');
   const voltage = document.getElementById('sc_voltage');
   const voltage_system = document.getElementById('sc_voltage_system');
+
+  const result = document.getElementById('result');
 
   form.addEventListener('submit',(event) => {
     event.preventDefault();

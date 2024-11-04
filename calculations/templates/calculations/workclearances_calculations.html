@@ -13,7 +13,7 @@ para la realización del cálculo de los espacios de trabajo -->
     <div class="col-lg-12">
       <div class="section-heading">
         <h2>Cálculo de Espacios de Trabajo</h2>
-        <form class="" action="work_clearances_result" method="post" id="form">
+        <form class="" action="#result" method="post" id="form">
         {% csrf_token %}
         <div class="row">
           <div class="col-lg-5">
@@ -114,6 +114,42 @@ para la realización del cálculo de los espacios de trabajo -->
   </div>
 </div>
 </div>
+
+<section id="result">
+  <div class="subscribe">
+    <div class="container">
+      <h2>Resultados:</h2>
+      <br>
+      <table class="table" border="1">
+        <caption class="caption-result">Tabla de resultados. Tensión: {{ voltage }} V;Condición: {{ condition }}.</caption>
+        <tr>
+          <th class="th">Altura (m)</th>
+          <th class="th">Ancho (m)</th>
+          <th class="th">Profundidad (m)</th>
+          <th class="th">Posterior (m)</th>
+        </tr>
+        <tr>
+          <td class="td">{{ height }}</td>
+          <td class="td">{{ width }}</td>
+          <td class="td">{{ depth }}</td>
+          <td class="td">{{ back }}</td>
+        </tr>
+      </table>
+  <!-- Estas notas son una ayuda para que el usuario entienda el resultado -->
+      <br>
+        <h6 class="h6-result">Notas: </h6>
+        <div class="result-notes">
+          <ol>
+            <li>"Posterior" debe ser entendido como el espacio de trabajo que debe ser mantenido en la parte posterior para acceder a elementos NO ENERGIZADOS.</li>
+            <li>Estos espacios de trabajo han sido seleccionados de acuerdo al artículo 110.26 de la NTC 2050 del 2021.</li>
+            <li>Los espacios de trabajo corresponden al nivel de tensión y a la condición indicada en la tabla. </li>
+            <li>Si encuentras un error en los cálculos realizados puedes escribirnos a:
+            <b>consultoriaelectrica@mateovergara.com</b>.</li>
+          </ol>
+        </div>
+    </div>
+  </div>
+</section>
 
 <!-- Esta parte del código es para realizar la validación desde el frontend de los datos ingresados
 por el usuario. Mostrará un mensaje de error si no se ingresan correctamente los datos. -->
