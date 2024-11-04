@@ -171,7 +171,7 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
       error = true;
     }
 
-    if (isNaN(separation_value) || separation_value) < 10 || separation_value > 153) {
+    if ((isNaN(separation_value) || separation_value) < 10 || separation_value > 153) {
       document.getElementById('field_ar_conductors_separation').classList.add('group_form-mistaken');
       document.getElementById('separation_error_paragraph').classList.add('paragraph_input-error-active');
       error = true;
