@@ -211,7 +211,47 @@ def cable_result(request):
 def drop_voltage(request):
     # En esta parte del código se carga el formulario correspondiente al cálculo de caída de
     # tensión.
-    return render(request, 'calculations/drop_voltage.html')
+
+    if request.method != 'POST':
+        return render(request, 'calculations/drop_voltage.html')
+    else:
+        # Validar datos de ingreso del usuario. Las funciones retornan True or False
+        V = Cable_Calculations.is_number(request.POST['dro_voltage'])
+        V2 = Cable_Calculations.is_positive(request.POST['dro_voltage']) # Se valida que la caída de tensión sea mayor que cero
+        L = Cable_Calculations.is_number(request.POST['dro_length'])
+        L2 = Cable_Calculations.is_positive(request.POST['dro_length'])
+        I = Cable_Calculations.is_number(request.POST['dro_current'])
+        FP = Cable_Calculations.is_number(request.POST['dro_pf'])
+        Ph = Cable_Calculations.is_choice(request.POST['dro_system'],'sistema')
+        gauge = Cable_Calculations.is_choice(request.POST['dro_cable_gauge'],'calibre')
+        KC = Cable_Calculations.is_choice(request.POST['dro_cable_kind'],'material')
+        K = Cable_Calculations.is_choice(request.POST['dro_conduit_kind'],'conduit')
+
+        # Validrar que para conductores de aluminio no se pueda seleccionar el calibre #14AWG no se pueda seleccionar
+        if request.POST['dro_cable_kind'] == 'Al' and request.POST['dro_cable_gauge'] == '14 AWG':
+            gauge2 = False
+        else:
+            gauge2 = True
+
+        if (V and V2 and L and L2 and I and FP and Ph and gauge and gauge2 and KC and K):
+            # Capturar los datos del formulario HTML para realizar el cálculo
+            V = float(request.POST['dro_voltage'])
+            L = float(request.POST['dro_length'])
+            I = float(request.POST['dro_current'])
+            FP = float(request.POST['dro_pf'])
+            Ph = float(request.POST['dro_system'])
+            gauge = request.POST['dro_cable_gauge']
+            KC = request.POST['dro_conduit_kind']
+            K = request.POST['dro_cable_kind']
+
+            VDrop, VDrop100, R, X = Cable_Calculations.drop_voltage_calculation(Ph, V, L, I, FP, gauge, KC, K)
+            print('R= %f y X= %f' %(R,X))
+            return render(request, 'calculations/drop_voltage.html',{'drop_voltage':round(VDrop,2),
+            'drop_voltage_percentage':round(VDrop100,2),'resistance':R,'reactance':X,'length':L,
+            'volts':V,'gauge':gauge})
+        else:
+            return render(request, 'calculations/drop_voltage.html',
+            {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
 
 def drop_voltage_result(request):
     # Esta función se encarga de realizar el cálculo de la caída de tensión para una carga
@@ -256,7 +296,27 @@ def drop_voltage_result(request):
 def protective_device(request):
     # Esta vista carga el formulario que permite seleccionar un dispositivo de protección a partir de
     # la corriente continua y de la corriente ajustada.
-    return render(request, 'calculations/protective_device.html')
+    if request.method != 'POST':
+        return render(request, 'calculations/protective_device.html')
+    else:
+        # Validar los datos de ingreso al formulario del HTML
+        I_ad = Cable_Calculations.is_number(request.POST['pro_current_ad'])
+        I_cont = Cable_Calculations.is_number(request.POST['pro_current_cont'])
+        print(I_ad, I_cont)
+
+        # Realizar cálculo de conduits si el formulario no tiene errores
+        if I_ad and I_cont:
+            I_ad = float(request.POST['pro_current_ad']) # Variable de corriente ajustada
+            I_cont = float(request.POST['pro_current_cont']) # Variable de corriente continua
+
+            protective = Cable_Calculations.protective_device(I_ad, I_cont)
+            print(protective)
+            return render(request, 'calculations/protective_result.html', {'column_1':'-','column_2':'Corriente Contina (A)',
+            'column_3':'Corriente Ajustada (A)','gauge':'-','material':I_cont,'temperature':I_ad,
+            'protective_device':protective})
+        else:
+            return render(request, 'calculations/protective_device.html',
+            {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
 
 def protective_result(request):
     # Con esta función se realiza la selección del dispositivo de protección basado en la corriente
@@ -278,7 +338,8 @@ def protective_result(request):
         'column_3':'Corriente Ajustada (A)','gauge':'-','material':I_cont,'temperature':I_ad,
         'protective_device':protective})
     else:
-        return render(request, 'calculations/protective_device.html', {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
+        return render(request, 'calculations/protective_device.html',
+        {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
 
 def protective_choosing(request):
     # Esta función carga el formulario de ingreso de datos para que el usuario
@@ -351,6 +412,8 @@ def grounding_cable(request):
 
             return render(request, 'calculations/grounding_cable.html',{'protective':Protective,
             'gauge':grounding_cable,'material':Material})
+        else:
+            return render(request, 'calculations/grounding_cable.html',{'error':'El formulario contiene errores.'})
 
 def grounding_result(request):
     # Con esta función se realiza la selección del conductor de puesta a tierra de equipos basado
@@ -393,6 +456,8 @@ def electrode_cable(request):
 
             return render(request, 'calculations/electrode_cable.html',{'ele_cu':electrode_cu,
             'ele_al':electrode_al,'material':material, 'gauge':gauge})
+        else:
+            return render(request, 'calculations/electrode_cable.html',{'error':'El formulario contiene errores.'})
 
 def electrode_result(request):
     # Aquí en esta parte del código se realiza la selección del conductor del electrodo de puesta
@@ -529,6 +594,9 @@ def work_clearances_calculation(request):
             # Se envían los resultados del espacio de trabajo a la vista correspondiente.
             return render(request, 'calculations/workclearances_calculations.html', {'height':HC,
             'width': WC, 'depth':DC, 'back':BC, 'condition':CO,'voltage':V})
+        else:
+            return render(request, 'calculations/workclearances_calculations.html',
+            {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
 
 def work_clearances_result(request):
     # Una vez que en la vista anterior se han ingresado los datos se realiza el cálculo del espacio
@@ -563,7 +631,8 @@ def work_clearances_result(request):
     else:
         # Si el formulario presenta errores en alguno de los datos ingresados, entonces se muestra
         # un error al usuario en la misma vista de ingreso de datos.
-        return render(request, 'calculations/workclearances_calculations.html', {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
+        return render(request, 'calculations/workclearances_calculations.html',
+        {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
 
 def safety_clearances_calculation(request):
     # Esta función se encarga de determinar las distancias de seguridad
@@ -593,6 +662,9 @@ def safety_clearances_calculation(request):
             return render(request, 'calculations/safetyclearances_calculations.html',
             {'error':'BAJA PARA VER EL RESULTADO','safety_clearance_movil':SCM, 'safety_clearance_static': SCS,
             'restricted_clearance':RC, 'voltage':V, 'system':S})
+        else:
+            return render(request, 'calculations/safetyclearances_calculations.html',
+            {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
 
 def safety_clearances_result(request):
     # Una vez que el usuario ha ingresado los datos de cálculo se determina
@@ -621,7 +693,47 @@ def safety_clearances_result(request):
 def arcflash_calculation(request):
     # Esta vista carga el formulario de ingreso de datos al usuario. Aquí el usuario puede
     # ingresar el nivel de tensión, la corriente de cortocircuito y el tiempo de despeje de falla.
-    return render(request, 'calculations/arcflash_calculations.html')
+    if request.method != 'POST':
+        return render(request, 'calculations/arcflash_calculations.html')
+    else:
+        # Validar los datos ingresados en el formulario HTML
+        V = Arc_Flash_Calculation.is_number(request.POST['ar_voltage'])
+        I = Arc_Flash_Calculation.is_number(request.POST['ar_current'])
+        t = Arc_Flash_Calculation.is_number(request.POST['ar_time'])
+        D = Arc_Flash_Calculation.is_number(request.POST['ar_distance'])
+        G = Arc_Flash_Calculation.is_number(request.POST['ar_conductors_separation'])
+        V2 = Arc_Flash_Calculation.is_positive(request.POST['ar_voltage'])
+        I2 = Arc_Flash_Calculation.is_positive(request.POST['ar_current'])
+        t2 = Arc_Flash_Calculation.is_positive(request.POST['ar_time'])
+        D2 = Arc_Flash_Calculation.is_positive(request.POST['ar_distance'])
+        G2 = Arc_Flash_Calculation.is_positive(request.POST['ar_conductors_separation'])
+        KP = Arc_Flash_Calculation.is_choice(request.POST['ar_panel_kind'],'tablero')
+        KA = Arc_Flash_Calculation.is_choice(request.POST['ar_arc_kind'],'arco')
+        KE = Arc_Flash_Calculation.is_choice(request.POST['ar_earth_kind'],'tierra')
+        KM = Arc_Flash_Calculation.is_choice(request.POST['ar_method'],'metodo')
+
+        # Se realiza el cálculo si todos los valores ingresados por el usuario son correctos
+        if V and V2 and I and I2 and t and t2 and D and D2 and G and G2 and KP and KA and KE and KM:
+            # Importar las variables del formulario
+            V = float(request.POST['ar_voltage'])
+            I = float(request.POST['ar_current'])
+            t = float(request.POST['ar_time'])
+            D = float(request.POST['ar_distance'])
+            G = float(request.POST['ar_conductors_separation'])
+            KP = request.POST['ar_panel_kind'] # Kind of Panel (CCM o PP)
+            KA = request.POST['ar_arc_kind'] # Kind of arc flash (O - Opened, C - Closed)
+            KE = request.POST['ar_earth_kind'] # Kind of earth (HR - High Resistance or WR - Without Resistance)
+            KM = request.POST['ar_method'] # Method of calculation
+
+            IE, Category, EPPs_1, EPPs_2 = Arc_Flash_Calculation.incident_energy(V, I, t, D, G, KP, KA, KE, KM)
+            print(IE)
+
+            # Se envía el resultado a la vista de resultado de arco eléctrico.
+            return render(request, 'calculations/arcflash_calculations.html', {'result':round(IE,3),
+            'category':Category,'volts':V,'amperes':I,'seconds':t,'EPPs_1':EPPs_1,'EPPs_2':EPPs_2,'meth':KM})
+        else:
+            return render(request, 'calculations/arcflash_calculations.html',
+            {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
 
 def arcflash_result(request):
     # Una vez que en la vista anterior el usuario ha ingresado los datos en el formulario

@@ -10,7 +10,7 @@
     <div class="col-lg-12">
       <div class="section-heading">
         <h2>Selección del Dispositivo de Protección</h2>
-        <form action="protective_result" method="post" id='form'>
+        <form action="#result" method="post" id='form'>
         {% csrf_token %}
         <!-- Se ingresan las variables para el cálculo del dispositivo de protección
         por parte del usuario -->
@@ -51,6 +51,41 @@
   </div>
 </div>
 </div>
+<!-- Esta parte de la plantilla muestra el resultado del cálculo del dispositivo de protección -->
+<section id="result" class="section">
+  <div class="subscribe">
+    <div class="container">
+      <h2>Resultados:</h2>
+      <table class="table" border="1">
+        <caption class="caption-result">Dispositivo de Protección.</caption>
+        <tr>
+          <th class="th">{{ column_1 }}</th>
+          <th class="th">{{ column_2 }}</th>
+          <th class="th">{{ column_3 }}</th>
+          <th class="th">Protección (A)</th>
+        </tr>
+        <tr>
+          <td class="td">{{ gauge }}</td>
+          <td class="td">{{ material }}</td>
+          <td class="td">{{ temperature }}</td>
+          <td class="td">{{ protective_device }}</td>
+        </tr>
+      </table>
+      <br>
+      <!-- Estas notas son una ayuda para el usuario para que entienda el resultado del cálculo -->
+      <h6 class="h6-result">Notas:</h6>
+      <div class="instrucciones">
+        <ol>
+          <li>El cálculo ha sido realizado de acuerdo a la NTC 2050.</li>
+          <li>El usuario es responsable de revisar los resultados obtenidos.</li>
+          <li>Recuerda que la corriente ajustada debe ser mayor a la continua.</li>
+          <li>Si encuentras un error en los cálculos realizados puedes escribirnos a:
+          <b>consultoriaelectrica@mateovergara.com</b>.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Esta parte del código es para realizar la validación desde el frontend de los datos ingresados
 por el usuario. Mostrará un mensaje de error si no se ingresan correctamente los datos. -->
