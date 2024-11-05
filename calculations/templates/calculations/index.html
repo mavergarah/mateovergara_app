@@ -52,7 +52,9 @@
                 <li class="submenu">
                   <a href="javascript:;">Conductores</a>
                   <ul>
-                    <li><a href="{% url 'calculations:cable_choosing' %}">Fase, neutro y tierra</a></li>
+                    <li><a href="{% url 'calculations:cable_motor' %}">Para un motor</a></li>
+                    <li><a href="{% url 'calculations:cable_calculation' %}">Para carga general</a></li>
+                    <li><a href="{% url 'calculations:cable_motorntc' %}">Para un motor (NTC)</a></li>
                     <li><a href="{% url 'calculations:grounding_cable' %}">De protección (tierra)</a></li>
                     <li><a href="{% url 'calculations:electrode_cable' %}">Del electrodo de puesta a tierra</a></li>
                     <li><a href="{% url 'calculations:drop_voltage' %}">Caída de tensión</a></li>

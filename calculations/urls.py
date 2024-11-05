@@ -36,7 +36,7 @@ urlpatterns = [
     path("electrode_result", views.electrode_result, name = "electrode_result"),
     path("cable_choosing", views.cable_choosing, name = "cable_choosing"),
     path("cable_choosing_result", views.cable_choosing_result, name = "cable_choosing_result"),
-    path("cable_motor_result", views.cable_motor_result, name = "cable_motor_result"),
-    path("cable_motorntc_result", views.cable_motorntc_result, name = "cable_motorntc_result"),
+    path("cable_motor", views.cable_motor, name = "cable_motor"),
+    path("cable_motorntc", views.cable_motorntc, name = "cable_motorntc"),
     path('about', views.about, name = 'about'),
 ]

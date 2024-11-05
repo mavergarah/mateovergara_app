@@ -8,146 +8,193 @@
 del conductor del motor teniendo en cuenta la eficiencia y el factor de potencia -->
 <br>
 <div class="subscribe">
-<div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="section-heading">
-        <h2>Cálculo de Conductores Eléctricos</h2>
-        <form action="cable_motor_result" method="post" id="form">
-        {% csrf_token %}
-        <div class="row">
-          <!-- Aquí se muestran los botones que permiten al usuario ingresar los valores para el cálculo -->
-          <div class="col-lg-5">
-            <fieldset id="field_mo_power">
-              <label for="mo_power">Potencia (HP):</label>
-              <input class="input" type="text" id="mo_power" name="mo_power" placeholder="1" title="Separa los decimales con punto.">
-              <p class="paragraph_input-error" id="power_error_paragraph">Debes ingresar un valor mayor que cero.</p>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-heading">
+          <h2>Cálculo de Conductores Eléctricos</h2>
+          <form action="#result" method="post" id="form">
+          {% csrf_token %}
+          <div class="row">
+            <!-- Aquí se muestran los botones que permiten al usuario ingresar los valores para el cálculo -->
+            <div class="col-lg-5">
+              <fieldset id="field_mo_power">
+                <label for="mo_power">Potencia (HP):</label>
+                <input class="input" type="text" id="mo_power" name="mo_power" placeholder="1" title="Separa los decimales con punto.">
+                <p class="paragraph_input-error" id="power_error_paragraph">Debes ingresar un valor mayor que cero.</p>
+              </fieldset>
+            </div>
+            <div class="col-lg-5">
+              <fieldset id="field_mo_efficiency">
+                <label for="mo_efficiency">Eficiencia (0 - 1):</label>
+                <input class="input" type="text" id="mo_efficiency" name="mo_efficiency" placeholder="0.65" title="Separa los decimales con punto.">
+                <p class="paragraph_input-error" id="efficiency_error_paragraph">Debes ingresar un valor mayor que 0 y menor o igual que 1.</p>
+              </fieldset>
+            </div>
+            <div class="col-lg-5">
+              <fieldset id="field_mo_fp">
+                <label for="mo_fp">Factor de Potencia (0 - 1):</label>
+                <input class="input" type="text" id="mo_fp" name="mo_fp" placeholder="0.85" title="Separa los decimales con punto.">
+                <p class="paragraph_input-error" id="fp_error_paragraph">Debes ingresar un valor mayor que 0 y menor o igual que 1.</p>
+              </fieldset>
+            </div>
+            <div class="col-lg-5">
+              <fieldset id="field_mo_tension">
+                <label for="mo_tension">Tensión (V):</label>
+                <input class="input" type="text" id="mo_tension" name="mo_tension" placeholder="208" title="Solo valores positivos mayores que cero.">
+                <p class="paragraph_input-error" id="voltage_error_paragraph">Debes ingresar un valor mayor que cero.</p>
+              </fieldset>
+            </div>
+            <div class="col-lg-5">
+              <fieldset id="field_mo_longitud">
+                <label for="mo_longitud">Longitud (m):</label>
+                <input class="input" type="text" id="mo_longitud" name="mo_longitud" placeholder="15" title="Solo valores positivos mayores que cero.">
+                <p class="paragraph_input-error" id="length_error_paragraph">Debes ingresar un valor mayor que cero.</p>
+              </fieldset>
+            </div>
+            <div class="col-lg-5">
+              <fieldset id="field_mo_temperature">
+                <label for="mo_temperature">Temp. Ambiente (ºC):</label>
+                <input class="input" type="text" id="mo_temperature" name="mo_temperature" placeholder="25" title="Temperatura del área donde se va a instalar el conductor eléctrico. Solo temperaturas hasta 85 ºC.">
+                <p class="paragraph_input-error" id="temperature_error_paragraph">Debes ingresar un valor mayor que 0 y menor que 85 para temperatura del conductor de 90 ºC, menor que 70 para temperatura de conductor de 75 ºC y menor que 55 para temperatura de conductor de 60 ºC.</p>
+              </fieldset>
+            </div>
+            <div class="col-lg-5">
+              <fieldset id="field_mo_numero-conductores">
+                <label for="mo_numero-conductores">Número de conductores energizados en una misma canalización:</label>
+                <input class="input" type="text" id="mo_numero-conductores" name="mo_numero-conductores" placeholder="3" title="Esto es para tener en cuenta el ajuste para más de tres conductores portadores de corriente. Recuerda que el conductor de puesta a tierra no se tiene en cuenta en el conteo.">
+                <p class="paragraph_input-error" id="number_error_paragraph">Debes ingresar un valor mayor que cero.</p>
+              </fieldset>
+            </div>
+            <div class="col-lg-5">
+              <fieldset id="field_mo_fases">
+                <label for="mo_fases">¿Cuántas Fases?</label>
+                <select name="mo_fases" id="mo_fases" title="¿Cuántas fases tiene tu circuito?">
+                    <option value="fases">- </option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <p class="paragraph_input-error" id="phases_error_paragraph">Selecciona si tu sistemas eléctrico es MONOFASICO, BIFASICO o TRIFASICO.</p>
+              </fieldset>
+            </div>
+            <div class="col-lg-5">
+              <fieldset id="field_mo_temp-conductor">
+                <label for="mo_temp-conductor">¿Temp. Conductor (ºC)?</label>
+                <select name="mo_temp-conductor" id="mo_temp-conductor" title="Temperatura del aislamiento del conductor. Esta aplicación no tiene en cuenta el efecto de las terminales de conexión.">
+                    <option value="temperatura"></option>
+                    <option value="60">60</option>
+                    <option value="75">75</option>
+                    <option value="90">90</option>
+                </select>
+                <p class="paragraph_input-error" id="tempcon_error_paragraph">Selecciona la TEMPERATURA del aislamiento que quieres para tu CONDUCTOR.</p>
+              </fieldset>
+            </div>
+            <div class="col-lg-5">
+              <fieldset id="field_mo_load">
+                <label for="mo_carga_continua">¿Carga continua?</label>
+                <select class="select-form" id="mo_carga_continua" name="mo_carga_continua" title="Una carga continua es aquella cuya corriente máxima se prevé que opere durante tres horas o más.">
+                    <option value="carga continua">- </option>
+                    <option value="y">Sí</option>
+                    <option value="n">No</option>
+                </select>
+                <p class="paragraph_input-error" id="load_error_paragraph">Selecciona ti tu carga es CONTINUA / NO CONTINUA o no.</p>
+              </fieldset>
+            </div>
+            <div class="col-lg-5">
+              <fieldset id="field_mo_material">
+                <label for="mo_material">¿Material del conductor?</label>
+                <select class="select-form" id="mo_material" name="mo_material" title="¿El conductor que quieres para tu circuito es de ALUMINIO o de COBRE?">
+                    <option value="material">- </option>
+                    <option value="Cu">Cobre (Cu)</option>
+                    <option value="Al">Aluminio (Al)</option>
+                    <option value="Al-cu">Aluminio recubierto de cobre</option>
+                </select>
+                <p class="paragraph_input-error" id="material_error_paragraph">Selecciona si quieres que tu conductor sea de ALUMINIO o de COBRE.</p>
+              </fieldset>
+            </div>
+            <div class="col-lg-5">
+              <fieldset id="field_mo_conduit">
+                <label for="mo_conduit">¿Tipo de Conduit?</label>
+                <select class="select-form" id="mo_conduit" name="mo_conduit" title="Esto es para la selección de la Reactancia y la Resistencia">
+                    <option value="conduit">- </option>
+                    <option value="PVC">PVC</option>
+                    <option value="St">Acero</option>
+                </select>
+                <p class="paragraph_input-error" id="conduit_error_paragraph">Selecciona en que tipo de CONDUIT estará tu circuito.</p>
+              </fieldset>
+            </div>
+          </div>
+          <div class="col-lg-10">
+            <fieldset>
+              <input type="submit" name="mo_calcular" value="Calcular">
+              <p>Al presionar el botón CALCULAR aceptas los <a href="{% url 'about:terms_and_conditions' %}">términos y condiciones</a> de uso de esta aplicación.</p>
             </fieldset>
           </div>
-          <div class="col-lg-5">
-            <fieldset id="field_mo_efficiency">
-              <label for="mo_efficiency">Eficiencia (0 - 1):</label>
-              <input class="input" type="text" id="mo_efficiency" name="mo_efficiency" placeholder="0.65" title="Separa los decimales con punto.">
-              <p class="paragraph_input-error" id="efficiency_error_paragraph">Debes ingresar un valor mayor que 0 y menor o igual que 1.</p>
+          <div class="col-lg-10">
+            <fieldset>
+              <label class="label-form-error" for="mo_numero-conductores">{{ error }}</label>
             </fieldset>
           </div>
-          <div class="col-lg-5">
-            <fieldset id="field_mo_fp">
-              <label for="mo_fp">Factor de Potencia (0 - 1):</label>
-              <input class="input" type="text" id="mo_fp" name="mo_fp" placeholder="0.85" title="Separa los decimales con punto.">
-              <p class="paragraph_input-error" id="fp_error_paragraph">Debes ingresar un valor mayor que 0 y menor o igual que 1.</p>
+          <br>
+          <div class="col-log-10">
+            <fieldset>
+              <h6><a href="#">¿Necesitas ayuda?</a></h6>
             </fieldset>
           </div>
-          <div class="col-lg-5">
-            <fieldset id="field_mo_tension">
-              <label for="mo_tension">Tensión (V):</label>
-              <input class="input" type="text" id="mo_tension" name="mo_tension" placeholder="208" title="Solo valores positivos mayores que cero.">
-              <p class="paragraph_input-error" id="voltage_error_paragraph">Debes ingresar un valor mayor que cero.</p>
-            </fieldset>
-          </div>
-          <div class="col-lg-5">
-            <fieldset id="field_mo_longitud">
-              <label for="mo_longitud">Longitud (m):</label>
-              <input class="input" type="text" id="mo_longitud" name="mo_longitud" placeholder="15" title="Solo valores positivos mayores que cero.">
-              <p class="paragraph_input-error" id="length_error_paragraph">Debes ingresar un valor mayor que cero.</p>
-            </fieldset>
-          </div>
-          <div class="col-lg-5">
-            <fieldset id="field_mo_temperature">
-              <label for="mo_temperature">Temp. Ambiente (ºC):</label>
-              <input class="input" type="text" id="mo_temperature" name="mo_temperature" placeholder="25" title="Temperatura del área donde se va a instalar el conductor eléctrico. Solo temperaturas hasta 85 ºC.">
-              <p class="paragraph_input-error" id="temperature_error_paragraph">Debes ingresar un valor mayor que 0 y menor que 85 para temperatura del conductor de 90 ºC, menor que 70 para temperatura de conductor de 75 ºC y menor que 55 para temperatura de conductor de 60 ºC.</p>
-            </fieldset>
-          </div>
-          <div class="col-lg-5">
-            <fieldset id="field_mo_numero-conductores">
-              <label for="mo_numero-conductores">Número de conductores energizados en una misma canalización:</label>
-              <input class="input" type="text" id="mo_numero-conductores" name="mo_numero-conductores" placeholder="3" title="Esto es para tener en cuenta el ajuste para más de tres conductores portadores de corriente. Recuerda que el conductor de puesta a tierra no se tiene en cuenta en el conteo.">
-              <p class="paragraph_input-error" id="number_error_paragraph">Debes ingresar un valor mayor que cero.</p>
-            </fieldset>
-          </div>
-          <div class="col-lg-5">
-            <fieldset id="field_mo_fases">
-              <label for="mo_fases">¿Cuántas Fases?</label>
-              <select name="mo_fases" id="mo_fases" title="¿Cuántas fases tiene tu circuito?">
-                  <option value="fases">- </option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-              </select>
-              <p class="paragraph_input-error" id="phases_error_paragraph">Selecciona si tu sistemas eléctrico es MONOFASICO, BIFASICO o TRIFASICO.</p>
-            </fieldset>
-          </div>
-          <div class="col-lg-5">
-            <fieldset id="field_mo_temp-conductor">
-              <label for="mo_temp-conductor">¿Temp. Conductor (ºC)?</label>
-              <select name="mo_temp-conductor" id="mo_temp-conductor" title="Temperatura del aislamiento del conductor. Esta aplicación no tiene en cuenta el efecto de las terminales de conexión.">
-                  <option value="temperatura"></option>
-                  <option value="60">60</option>
-                  <option value="75">75</option>
-                  <option value="90">90</option>
-              </select>
-              <p class="paragraph_input-error" id="tempcon_error_paragraph">Selecciona la TEMPERATURA del aislamiento que quieres para tu CONDUCTOR.</p>
-            </fieldset>
-          </div>
-          <div class="col-lg-5">
-            <fieldset id="field_mo_load">
-              <label for="mo_carga_continua">¿Carga continua?</label>
-              <select class="select-form" id="mo_carga_continua" name="mo_carga_continua" title="Una carga continua es aquella cuya corriente máxima se prevé que opere durante tres horas o más.">
-                  <option value="carga continua">- </option>
-                  <option value="y">Sí</option>
-                  <option value="n">No</option>
-              </select>
-              <p class="paragraph_input-error" id="load_error_paragraph">Selecciona ti tu carga es CONTINUA / NO CONTINUA o no.</p>
-            </fieldset>
-          </div>
-          <div class="col-lg-5">
-            <fieldset id="field_mo_material">
-              <label for="mo_material">¿Material del conductor?</label>
-              <select class="select-form" id="mo_material" name="mo_material" title="¿El conductor que quieres para tu circuito es de ALUMINIO o de COBRE?">
-                  <option value="material">- </option>
-                  <option value="Cu">Cobre (Cu)</option>
-                  <option value="Al">Aluminio (Al)</option>
-                  <option value="Al-cu">Aluminio recubierto de cobre</option>
-              </select>
-              <p class="paragraph_input-error" id="material_error_paragraph">Selecciona si quieres que tu conductor sea de ALUMINIO o de COBRE.</p>
-            </fieldset>
-          </div>
-          <div class="col-lg-5">
-            <fieldset id="field_mo_conduit">
-              <label for="mo_conduit">¿Tipo de Conduit?</label>
-              <select class="select-form" id="mo_conduit" name="mo_conduit" title="Esto es para la selección de la Reactancia y la Resistencia">
-                  <option value="conduit">- </option>
-                  <option value="PVC">PVC</option>
-                  <option value="St">Acero</option>
-              </select>
-              <p class="paragraph_input-error" id="conduit_error_paragraph">Selecciona en que tipo de CONDUIT estará tu circuito.</p>
-            </fieldset>
-          </div>
+          </form>
         </div>
-        <div class="col-lg-10">
-          <fieldset>
-            <input type="submit" name="mo_calcular" value="Calcular">
-            <p>Al presionar el botón CALCULAR aceptas los <a href="{% url 'about:terms_and_conditions' %}">términos y condiciones</a> de uso de esta aplicación.</p>
-          </fieldset>
-        </div>
-        <div class="col-lg-10">
-          <fieldset>
-            <label class="label-form-error" for="mo_numero-conductores">{{ error }}</label>
-          </fieldset>
-        </div>
-        <br>
-        <div class="col-log-10">
-          <fieldset>
-            <h6><a href="#">¿Necesitas ayuda?</a></h6>
-          </fieldset>
-        </div>
-        </form>
       </div>
     </div>
   </div>
 </div>
-</div>
+
+<!-- Esta tabla muestra el resultado del cálculo de conductores -->
+<section id="result" class="section">
+  <div class="subscribe">
+    <div class="container">
+      <h2>Resultados:</h2>
+      <br>
+      <table class="table" border = "1">
+        <caption class="caption-result">Conductores de FASE, NEUTRO y TIERRA para carga de
+        <b>{{ Pot }} {{ Un }}, {{ Volts }} V</b>.</caption>
+      <tr>
+        <th class="th">No. Fases</th>
+        <th class="th">Cond. por Fase</th>
+        <th class="th">Fase</th>
+        <th class="th">Neutro</th>
+        <th class="th">Tierra</th>
+        <th class="th">Protección (A)</th>
+        <th class="th"><b>Caída de tensión (%)</b></td>
+      </tr>
+      <tr>
+        <td class="td">{{ numb_phases }}</td>
+        <td class="td">{{ conductors_per_fase}}</td>
+        <td class="td">{{ phase }}</td>
+        <td class="td">{{ neutral }}</td>
+        <td class="td">{{ ground }}</td>
+        <td class="td">{{ protective }}</td>
+        <td class="td">{{ Vdrop }}</td>
+      </tr>
+    </table>
+
+    <!-- Estas notas son para explicarle al usuario las consideraciones tenidas en
+    cuenta para la realización del cálculo -->
+    <br>
+      <h6 class="h6-result">Notas al cálculo:</h6>
+      <div class="instrucciones">
+        <ol>
+          <li>El cálculo se ha realizado de acuerdo a la NTC 2050 de 2021 (Código eléctrico colombiano).</li>
+          <li>El factor de corrección por temperatura considerado es: {{ corrective_factor }}. </li>
+          <li>El factor de ajuste para más de tres conductores portadores de corriente en una misma canalización es: {{ adjust_factor }}.</li>
+          <li>Este cálculo no tiene en cuenta la temperatura de las terminales de conexión al cableado.</li>
+          <li>Si encuentras un error en los cálculos realizados puedes escribirnos a:
+          <b>consultoriaelectrica@mateovergara.com</b>.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Esta parte del código es para realizar la validación desde el frontend de los datos ingresados
 por el usuario. Mostrará un mensaje de error si no se ingresan correctamente los datos. -->

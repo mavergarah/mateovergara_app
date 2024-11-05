@@ -13,7 +13,7 @@ para el cálculo del conductor de un motor basado en el artículo
     <div class="col-lg-12">
       <div class="section-heading">
         <h2>Cálculo de Conductores Eléctricos</h2>
-        <form id="form" action="cable_motorntc_result" method="post">
+        <form id="form" action="#result" method="post">
         {% csrf_token %}
         <div class="row">
           <div class="col-lg-5">
@@ -191,6 +191,53 @@ para el cálculo del conductor de un motor basado en el artículo
   </div>
 </div>
 </div>
+
+<!-- Esta tabla muestra el resultado del cálculo de conductores -->
+<section id="result" class="section">
+  <div class="subscribe">
+    <div class="container">
+      <h2>Resultados:</h2>
+      <br>
+      <table class="table" border = "1">
+        <caption class="caption-result">Conductores de FASE, NEUTRO y TIERRA para carga de
+        <b>{{ Pot }} {{ Un }}, {{ Volts }} V</b>.</caption>
+      <tr>
+        <th class="th">No. Fases</th>
+        <th class="th">Cond. por Fase</th>
+        <th class="th">Fase</th>
+        <th class="th">Neutro</th>
+        <th class="th">Tierra</th>
+        <th class="th">Protección (A)</th>
+        <th class="th"><b>Caída de tensión (%)</b></td>
+      </tr>
+      <tr>
+        <td class="td">{{ numb_phases }}</td>
+        <td class="td">{{ conductors_per_fase}}</td>
+        <td class="td">{{ phase }}</td>
+        <td class="td">{{ neutral }}</td>
+        <td class="td">{{ ground }}</td>
+        <td class="td">{{ protective }}</td>
+        <td class="td">{{ Vdrop }}</td>
+      </tr>
+    </table>
+
+    <!-- Estas notas son para explicarle al usuario las consideraciones tenidas en
+    cuenta para la realización del cálculo -->
+    <br>
+      <h6 class="h6-result">Notas al cálculo:</h6>
+      <div class="instrucciones">
+        <ol>
+          <li>El cálculo se ha realizado de acuerdo a la NTC 2050 de 2021 (Código eléctrico colombiano).</li>
+          <li>El factor de corrección por temperatura considerado es: {{ corrective_factor }}. </li>
+          <li>El factor de ajuste para más de tres conductores portadores de corriente en una misma canalización es: {{ adjust_factor }}.</li>
+          <li>Este cálculo no tiene en cuenta la temperatura de las terminales de conexión al cableado.</li>
+          <li>Si encuentras un error en los cálculos realizados puedes escribirnos a:
+          <b>consultoriaelectrica@mateovergara.com</b>.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Esta parte del código es para realizar la validación desde el frontend de los datos ingresados
 por el usuario. Mostrará un mensaje de error si no se ingresan correctamente los datos. -->
