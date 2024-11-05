@@ -12,7 +12,7 @@ de Conduits -->
     <div class="col-lg-10">
       <div class="section-heading">
         <h2>Cálculo de Conduits</h2>
-        <form class="" action="conduit_gauge_result" method="post" id="form">
+        <form class="" action="#result" method="post" id="form">
         {% csrf_token %}
         <div class="row">
           <div class="col-lg-5">
@@ -101,6 +101,41 @@ de Conduits -->
   </div>
 </div>
 </div>
+
+<!-- Esta parte de la vista muestra el resultado del cálculo de conduits -->
+<section class="section" id="result">
+  <br>
+  <div class="subscribe">
+    <div class="container">
+      <h2>Resultados:</h2>
+      <br>
+      <table class="table" border="1">
+        <caption class="caption-result">TUBERÍA Eléctrica para los CONDUCTORES indicados.</caption>
+        <tr>
+          <th class="th">Conduit</th>
+          <th class="th">Calibre (pulg)</th>
+          <th class="th">Calibres Ingresados</th>
+        </tr>
+        <tr>
+          <td class="td">{{ kind_of_conduit }}</td>
+          <td class="td">{{ conduit }}</td>
+          <td class="td">{{ gauges }}</td>
+        </tr>
+      </table>
+      <!-- Estas notas son para explicarle al usuario como ha sido realizado el cálculo -->
+      <br>
+      <h6 class="h6-result">Notas:</h6>
+      <div class="result-notes">
+        <ol>
+          <li>El cálculo ha sido realizado de acuerdo a los porcentajes de llenado permisibles de la tabla 1 de la NTC 2050.</li>
+          <li>Por favor revisar los resultados obtenidos.</li>
+          <li>Si encuentras un error en los cálculos realizados puedes escribirnos a:
+          <b>consultoriaelectrica@mateovergara.com</b>.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Esta parte del código es para realizar la validación desde el frontend de los datos ingresados
 por el usuario. Mostrará un mensaje de error si no se ingresan correctamente los datos. -->
