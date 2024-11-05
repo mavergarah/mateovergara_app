@@ -56,7 +56,13 @@
                     <li><a href="{% url 'calculations:grounding_cable' %}">De protección (tierra)</a></li>
                     <li><a href="{% url 'calculations:electrode_cable' %}">Del electrodo de puesta a tierra</a></li>
                     <li><a href="{% url 'calculations:drop_voltage' %}">Caída de tensión</a></li>
-                    <li><a href="{% url 'calculations:protective_choosing' %}">Disp. de protección</a></li>
+                  </ul>
+                </li>
+                <li class="submenu">
+                  <a href="javascript:;">Protecciones</a>
+                  <ul>
+                    <li><a href="{% url 'calculations:protective_device_gauge' %}">Por Calibre</a></li>
+                    <li><a href="{% url 'calculations:protective_device' %}">Por Corrientes</a></li>
                   </ul>
                 </li>
                 <li class="submenu">
@@ -69,8 +75,8 @@
                 <li class="submenu">
                   <a href="javascript:;">Conduits</a>
                   <ul>
-                    <li class="scroll-to-section"><a href="{% url 'calculations:conduit_gauge_calculation' %}">Calibres de Cond.</a></li>
-                    <li class="scroll-to-section"><a href="{% url 'calculations:conduit_calculation' %}">Diámetros y Áreas</a></li>
+                    <li class="scroll-to-section"><a href="{% url 'calculations:conduit_gauge_calculation' %}">Por Calibres</a></li>
+                    <li class="scroll-to-section"><a href="{% url 'calculations:conduit_calculation' %}">Por Diámetros y Áreas</a></li>
                   </ul>
                 </li>
                 <li class="scroll-to-section"><a href="{% url 'calculations:arcflash_calculation' %}">Arco</a></li>

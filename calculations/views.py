@@ -311,9 +311,8 @@ def protective_device(request):
 
             protective = Cable_Calculations.protective_device(I_ad, I_cont)
             print(protective)
-            return render(request, 'calculations/protective_result.html', {'column_1':'-','column_2':'Corriente Contina (A)',
-            'column_3':'Corriente Ajustada (A)','gauge':'-','material':I_cont,'temperature':I_ad,
-            'protective_device':protective})
+            return render(request, 'calculations/protective_device.html', {'I_continuous':I_cont,
+            'I_adjust':I_ad,'protective_device':protective})
         else:
             return render(request, 'calculations/protective_device.html',
             {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
@@ -366,7 +365,28 @@ def protective_choosing_result(request):
 def protective_device_gauge(request):
     # Esta vista carga el formulario que permite seleccionar un dispositivo de protección a partir del
     # calibre del conductor.
-    return render(request, 'calculations/protective_device_gauge.html')
+    if request.method != 'POST':
+        return render(request, 'calculations/protective_device_gauge.html')
+    else:
+        # Validar los datos de ingreso al formulario del HTML
+        gauge = Cable_Calculations.is_choice(request.POST['pro_gauge'],'calibre')
+        material = Cable_Calculations.is_choice(request.POST['pro_material'],'material')
+        temperature = Cable_Calculations.is_choice(request.POST['pro_temperature'],'temperatura')
+
+        # Realizar cálculo de conduits si el formulario no tiene errores
+        if gauge and material and temperature:
+            gauge = request.POST['pro_gauge'] # Variable del calibre del conductor
+            material = request.POST['pro_material'] # Variable del material del conductor
+            temperature = request.POST['pro_temperature'] # Variable de la temperatura del conductor
+            print(gauge, material, temperature)
+
+            protective = Cable_Calculations.protective_device_gauge(material, temperature, gauge)
+            print(protective)
+            return render(request, 'calculations/protective_device_gauge.html', {'protective_device':protective,
+            'gauge':gauge,'material':material,'temperature':temperature})
+        else:
+            return render(request, 'calculations/protective_device_gauge.html',
+            {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
 
 def protective_gauge_result(request):
     # Con esta función se realiza la selección del dispositivo de protección basado en la corriente
@@ -390,7 +410,8 @@ def protective_gauge_result(request):
         'column_3':'Temperatura ºC','protective_device':protective,'gauge':gauge,'material':material,
         'temperature':temperature})
     else:
-        return render(request, 'calculations/protective_device.html', {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
+        return render(request, 'calculations/protective_device.html',
+        {'error':'El formulario tiene errores, por favor verifica los datos ingresados'})
 
 def grounding_cable(request):
     # En esta vista se carga el formulario de selección del conductor de puesta a tierra
