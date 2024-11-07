@@ -214,7 +214,7 @@ def cable_motorntc(request):
             Ph, 0.85, V, L, T_cond, T_amb, CL, K, NC, C, S)
             return render(request, 'calculations/cable_motorntc_calculations.html',
             {'phase':ph, 'neutral':n,'ground':g,'Vdrop':round(V_drop,2), 'protective':pd,
-            'corrective_factor':fa_corr,'conductors_per_fase':nf, 'numb_phases':ph,
+            'corrective_factor':fa_corr,'conductors_per_fase':nf, 'numb_phases':Ph,
             'Pot':P,'Un':'HP','Volts':V,'adjust_factor':ad_corr})
         else:
             return render(request, 'calculations/cable_motorntc_calculations.html',
