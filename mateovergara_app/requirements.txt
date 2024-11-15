@@ -6,6 +6,7 @@ bcrypt==4.0.0
 cffi==1.15.1
 Django==4.2.16
 django-debug-toolbar==4.4.6
+django-google-analytics==2
 django-mdeditor==0.1.20
 future @ file:///System/Volumes/Data/SWE/Apps/DT/BuildRoots/BuildRoot2/ActiveBuildRoot/Library/Caches/com.apple.xbs/Sources/python3/python3-124/future-0.18.2-py3-none-any.whl
 importlib_metadata==8.5.0
