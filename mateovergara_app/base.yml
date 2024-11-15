@@ -13,7 +13,7 @@ services:
     image: mateo_web
     build: ./
     volumes:
-      - ./app:/app
+      - ./mateovergara_app:/app
     env_file: .env
     restart: on-failure
     command: sh ./scripts/dev.sh
