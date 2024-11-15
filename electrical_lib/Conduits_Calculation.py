@@ -291,40 +291,63 @@ def area_from_gauge(k_ph,phases,k_earth,earth):
 
     gauge_no_h = ['14 AWG','12 AWG','10 AWG','8 AWG','6 AWG','4 AWG','2 AWG','1/0 AWG','2/0 AWG','4/0 AWG','250 MCM','350 MCM','500 MCM']
     gauge_no_h_2 = ['14AWG','12AWG','10AWG','8AWG','6AWG','4AWG','2AWG','1/0AWG','2/0AWG','4/0AWG','250MCM','350MCM','500MCM']
+    gauge_no_h_3 = [' 14AWG',' 12AWG',' 10AWG',' 8AWG',' 6AWG',' 4AWG',' 2AWG',' 1/0AWG',' 2/0AWG',' 4/0AWG',' 250MCM',' 350MCM',' 500MCM']
+    gauge_no_h_4 = [' 14 AWG',' 12 AWG',' 10 AWG',' 8 AWG',' 6 AWG',' 4 AWG',' 2 AWG',' 1/0 AWG',' 2/0 AWG',' 4/0 AWG',' 250 MCM',' 350 MCM',' 500 MCM']
     gauge_bare_THHN = ['14 AWG','12 AWG','10 AWG','8 AWG','6 AWG','4 AWG','2 AWG','1 AWG','1/0 AWG','2/0 AWG','3/0 AWG','4/0 AWG','250 MCM','300 MCM','350 MCM','400 MCM','500 MCM','600 MCM','700 MCM','750 MCM','1000 MCM']
     gauge_bare_THHN_2 = ['14AWG','12AWG','10AWG','8AWG','6AWG','4AWG','2AWG','1AWG','1/0AWG','2/0AWG','3/0AWG','4/0AWG','250MCM','300MCM','350MCM','400MCM','500MCM','600MCM','700MCM','750MCM','1000MCM']
+    gauge_bare_THHN_3 = [' 14AWG',' 12AWG',' 10AWG',' 8AWG',' 6AWG',' 4AWG',' 2AWG',' 1AWG',' 1/0AWG',' 2/0AWG',' 3/0AWG',' 4/0AWG',' 250MCM',' 300MCM',' 350MCM',' 400MCM',' 500MCM',' 600MCM',' 700MCM',' 750MCM',' 1000MCM']
+    gauge_bare_THHN_4 = [' 14 AWG',' 12 AWG',' 10 AWG',' 8 AWG',' 6 AWG',' 4 AWG',' 2 AWG',' 1 AWG',' 1/0 AWG',' 2/0 AWG',' 3/0 AWG',' 4/0 AWG',' 250 MCM',' 300 MCM',' 350 MCM',' 400 MCM',' 500 MCM',' 600 MCM',' 700 MCM',' 750 MCM',' 1000 MCM']
     gauge_RHW2 = ['8 AWG','6 AWG','4 AWG','2 AWG','1 AWG','1/0 AWG','2/0 AWG','3/0 AWG','4/0 AWG','250 MCM','300 MCM','350 MCM','400 MCM','500 MCM','600 MCM','1000 MCM']
     gauge_RHW2_2 = ['8AWG','6AWG','4AWG','2AWG','1AWG','1/0AWG','2/0AWG','3/0AWG','4/0AWG','250MCM','300MCM','350MCM','400MCM','500MCM','600MCM','1000MCM']
+    gauge_RHW2_3 = [' 8AWG',' 6AWG',' 4AWG',' 2AWG',' 1AWG',' 1/0AWG',' 2/0AWG',' 3/0AWG',' 4/0AWG',' 250MCM',' 300MCM',' 350MCM',' 400MCM',' 500MCM',' 600MCM',' 1000MCM']
+    gauge_RHW2_4 = [' 8 AWG',' 6 AWG',' 4 AWG',' 2 AWG',' 1 AWG',' 1/0 AWG',' 2/0 AWG',' 3/0 AWG',' 4/0 AWG',' 250 MCM',' 300 MCM',' 350 MCM',' 400 MCM',' 500 MCM',' 600 MCM',' 1000 MCM']
     gauge_XHHW2 = ['8 AWG','6 AWG','4 AWG','2 AWG','1 AWG','1/0 AWG','2/0 AWG','3/0 AWG','4/0 AWG','250 MCM','300 MCM','350 MCM','400 MCM','500 MCM','600 MCM','750 MCM','1000 MCM']
     gauge_XHHW2_2 = ['8AWG','6AWG','4AWG','2AWG','1AWG','1/0AWG','2/0AWG','3/0AWG','4/0AWG','250MCM','300MCM','350MCM','400MCM','500MCM','600MCM','750MCM','1000MCM']
+    gauge_XHHW2_3 = [' 8AWG',' 6AWG',' 4AWG',' 2AWG',' 1AWG',' 1/0AWG',' 2/0AWG',' 3/0AWG',' 4/0AWG',' 250MCM',' 300MCM',' 350MCM',' 400MCM',' 500MCM',' 600MCM',' 750MCM',' 1000MCM']
+    gauge_XHHW2_4 = [' 8 AWG',' 6 AWG',' 4 AWG',' 2 AWG',' 1 AWG',' 1/0 AWG',' 2/0 AWG',' 3/0 AWG',' 4/0 AWG',' 250 MCM',' 300 MCM',' 350 MCM',' 400 MCM',' 500 MCM',' 600 MCM',' 750 MCM',' 1000 MCM']
 
     # Se suman las áreas de los conductores de FASE
     if k_ph == 'THHN_THWN2':
         all_gauges = gauge_bare_THHN
         all_gauges_2 = gauge_bare_THHN_2
+        all_gauges_3 = gauge_bare_THHN_3
+        all_gauges_4 = gauge_bare_THHN_4
         area = THHN_THWN2_Cu
     elif k_ph == 'THHW_CT':
         all_gauges = gauge_bare_THHN
         all_gauges_2 = gauge_bare_THHN_2
+        all_gauges_3 = gauge_bare_THHN_3
+        all_gauges_4 = gauge_bare_THHN_4
         area = THHW_CT_Cu
     elif k_ph == 'RHW2_USE2':
         all_gauges = gauge_RHW2
         all_gauges_2 = gauge_RHW2_2
+        all_gauges_3 = gauge_RHW2_3
+        all_gauges_4 = gauge_RHW2_4
         area = RHW2_USE2_Cu
     elif k_ph == 'No_Halogenuros':
         all_gauges = gauge_no_h
         all_gauges_2 = gauge_no_h_2
+        all_gauges_3 = gauge_no_h_3
+        all_gauges_4 = gauge_no_h_4
         area = No_Halogenuros
     elif k_ph == 'XHHW2':
         all_gauges = gauge_XHHW2
         all_gauges_2 = gauge_XHHW2_2
+        all_gauges_3 = gauge_XHHW2_3
+        all_gauges_4 = gauge_XHHW2_4
         area = XHHW2
 
     area_phases_1 = sum_array(phases,all_gauges,area)
     print('El area 1 de los conductores es: %f' %area_phases_1)
     area_phases_2 = sum_array(phases,all_gauges_2,area)
     print('El area 2 de los conductores es: %f' %area_phases_2)
-    area_phases = area_phases_1 + area_phases_2
+    area_phases_3 = sum_array(phases,all_gauges_3,area)
+    print('El area 2 de los conductores es: %f' %area_phases_3)
+    area_phases_4 = sum_array(phases,all_gauges_4,area)
+    print('El area 2 de los conductores es: %f' %area_phases_4)
+    area_phases = area_phases_1 + area_phases_2 + area_phases_3 + area_phases_4
+    print(area_phases)
 
     # Se suman las áreas de los conductores de TIERRA
     if k_earth == 'THHN_THWN2':
@@ -364,6 +387,7 @@ def sum_array(values,array_1,array_2):
     """ Esta función realiza la suma de los valores de un arreglo (array 2) a partir de los
     valores que coincidan entre otros dos arreglos (values y array_1). """
     suma_total = 0
+    print('La longitud del arreglo dentro de la función es %d' %len(values))
     for value in values:
         i = 0
         flag = True
@@ -371,15 +395,19 @@ def sum_array(values,array_1,array_2):
             if i == len(array_1):
                 value_array2 = '-'
                 flag = False
+                print(value_array2)
             elif value != array_1[i] and i < len(array_1):
                 i = i + 1
                 flag = True
             else:
                 flag = False
                 value_array2 = array_2[i]
+                print(value_array2)
 
         if value_array2 != '-':
             suma_total = suma_total + value_array2
+
+        print('La suma total es %f' %suma_total)
     return suma_total
 
 def conduit_sizing(k_ph, phases, k_earth, earth, areas_or_diameters, conduit_type = 'pvc', variable = 'd'):
@@ -417,6 +445,7 @@ def conduit_sizing(k_ph, phases, k_earth, earth, areas_or_diameters, conduit_typ
 
             At_cables = sum(areas)
     else:
+        print('La longitud de los conductores antes de la función es %d' %len(phases))
         At_cables = area_from_gauge(k_ph, phases, k_earth, earth)
         print(At_cables)
         print(phases)
@@ -426,6 +455,7 @@ def conduit_sizing(k_ph, phases, k_earth, earth, areas_or_diameters, conduit_typ
             percentage_ocuppancy = 0.31
         else:
             percentage_ocuppancy = 0.4
+        print(percentage_ocuppancy)
 
     # Calculo del area del área del conduit_type
     A_conduit = At_cables / percentage_ocuppancy
