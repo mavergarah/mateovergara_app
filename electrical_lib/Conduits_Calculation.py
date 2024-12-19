@@ -387,7 +387,7 @@ def sum_array(values,array_1,array_2):
     """ Esta función realiza la suma de los valores de un arreglo (array 2) a partir de los
     valores que coincidan entre otros dos arreglos (values y array_1). """
     suma_total = 0
-    print('La longitud del arreglo dentro de la función es %d' %len(values))
+
     for value in values:
         i = 0
         flag = True
@@ -395,19 +395,16 @@ def sum_array(values,array_1,array_2):
             if i == len(array_1):
                 value_array2 = '-'
                 flag = False
-                print(value_array2)
             elif value != array_1[i] and i < len(array_1):
                 i = i + 1
                 flag = True
             else:
                 flag = False
                 value_array2 = array_2[i]
-                print(value_array2)
 
         if value_array2 != '-':
             suma_total = suma_total + value_array2
 
-        print('La suma total es %f' %suma_total)
     return suma_total
 
 def conduit_sizing(k_ph, phases, k_earth, earth, areas_or_diameters, conduit_type = 'pvc', variable = 'd'):
@@ -448,7 +445,6 @@ def conduit_sizing(k_ph, phases, k_earth, earth, areas_or_diameters, conduit_typ
         print('La longitud de los conductores antes de la función es %d' %len(phases))
         At_cables = area_from_gauge(k_ph, phases, k_earth, earth)
         print(At_cables)
-        print(phases)
         if len(phases) + len(earth) < 1:
             percentage_ocuppancy = 0.53
         elif (len(phases) + len(earth)) == 2:

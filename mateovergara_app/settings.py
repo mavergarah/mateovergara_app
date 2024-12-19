@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-$t20o%gz+89puf%*y7r^0a4*^kgq%84h7z#u&b7u(xfnijm$9l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -82,7 +82,7 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/media/'
 
-
+# Para agregar la base de datos por defecto de Django
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -94,13 +94,15 @@ DATABASES = {
 }
 
 # Para asociar la base de datos a Postgresql es necesario hacer los siguiente:
-# DATABASES = {
-#   'default': {
-#       'ENGINE': 'django.db.backends.postgresql',
-#       'USER': 'nombre de tu base de datos',
-#       'PASSWORD': 'tu contraseña',
-#       'HOST': 'localhost',
-#       'PORT': '5432',
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'HOST': 'aws-0-sa-east-1.pooler.supabase.com',
+#        'NAME': 'postgres',
+#        'USER': 'postgres.dkiwkwoyiyjmfpspmuon',
+#        'PASSWORD': 'u4ItVL8oD6NCc2YBYuI',
+#        'PORT': 5432,
+#    }
 #}
 
 
