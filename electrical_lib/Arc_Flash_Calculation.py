@@ -85,7 +85,7 @@ def incident_energy_600_more(V, F, d, t = 2):
     falla de cortocircuito sólido (F, kA), la distancia a la fuente de arco (cm), el tiempo de duración del arco
     (s). El resultado se da en cal/cm2 """
 
-    """Este método se puede utilizar solo para arcos trifásicos abierto en sistemas con valores nominales
+    """ Este método se puede utilizar solo para arcos trifásicos abiertos en sistemas con valores nominales
     superiores a 600 V """
 
     D = d * 100
