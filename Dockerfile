@@ -1,22 +1,17 @@
-# Utilizamos una imagen base de Python con herramientas para Django
-FROM python:3.9-slim-buster
+FROM python:3.6.5
+ARG DJANGO_ENV
 
-# Establecemos el directorio de trabajo dentro del contenedor
-WORKDIR /app
+# Add requirements to the image.
+ADD requirements /app/requirements
 
-# Copiamos el archivo requirements.txt y lo instalamos
-RUN pip install --upgrade pip
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+# Asign work directory.
+WORKDIR /app/
 
-# Copiamos el resto de los archivos del proyecto
-COPY . .
+# Install Python requirements.
+RUN pip install --upgrade pip; \
+        pip install -r requirements/$DJANGO_ENV.txt
 
-# Establecemos la variable de entorno para las configuraciones de Django
-ENV PYTHONUNBUFFERED=1
+# Create user without privilegies.
+RUN adduser --disabled-password --gecos '' app
 
-# Exponemos el puerto donde se ejecutará el servidor de desarrollo
-EXPOSE 8000
-
-# Comando para ejecutar el servidor de desarrollo de Django
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+ENV HOME /home/app

@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$t20o%gz+89puf%*y7r^0a4*^kgq%84h7z#u&b7u(xfnijm$9l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -86,24 +86,24 @@ MEDIA_URL = '/media/'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-# Para asociar la base de datos a Postgresql es necesario hacer los siguiente:
 #DATABASES = {
 #    'default': {
-#        'ENGINE': 'django.db.backends.postgresql',
-#        'HOST': 'aws-0-sa-east-1.pooler.supabase.com',
-#        'NAME': 'postgres',
-#        'USER': 'postgres.dkiwkwoyiyjmfpspmuon',
-#        'PASSWORD': 'u4ItVL8oD6NCc2YBYuI',
-#        'PORT': 5432,
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
 #}
+
+# Para asociar la base de datos a Postgresql es necesario hacer los siguiente:
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME':     os.environ.get('POSTGRES_DB',       ''),
+        'USER':     os.environ.get('POSTGRES_USER',     ''),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
+        'HOST':     'postgres',
+        'PORT':     '5432',
+    }
+}
 
 
 # Password validation

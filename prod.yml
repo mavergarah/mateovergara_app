@@ -7,23 +7,25 @@ services:
     links:
       - app
     ports:
-      - "5000:5000"
+      - "5003:5003"
 
     postgres:
       extends:
         file: base.yml
         service: postgres
+      volumes:
+        - ./db-data:/var/lib/postgresql/data/
 
     app:
       extends:
         file: base.yml
-        service: app
+      service:
+        app
       environment:
-        - DJANGO_SETTINGS_MODULE=service.settings.dev_settings
+        - DJANGO_SETTINGS_MODULE=service.settings.prod_settings
+      command: sh ./scripts/prod.sh
       build:
         args:
-          - DJANGO_ENV=dev
+          - DJANGO_ENV=prod
       links:
         - postgres
-      ports:
-        - "8000:8000"
