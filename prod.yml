@@ -23,7 +23,7 @@ services:
         app
       environment:
         - DJANGO_SETTINGS_MODULE=service.settings.prod_settings
-      command: sh ./scripts/prod.sh
+      command: python manage.py runserver 0.0.0.0:8000
       build:
         args:
           - DJANGO_ENV=prod
