@@ -1,4 +1,4 @@
-Django==4.2.16
+Django==4.1.0
 django-debug-toolbar==4.4.6
 django-google-analytics==2
 django-mdeditor==0.1.20
