@@ -2,14 +2,14 @@ FROM python:3.6.5
 ARG DJANGO_ENV
 
 # Add requirements to the image.
-ADD requirements /app/requirements
+ADD requirements.txt /app/requirements.txt
 
 # Asign work directory.
 WORKDIR /app/
 
 # Install Python requirements.
 RUN pip install --upgrade pip; \
-        pip install -r requirements/$DJANGO_ENV.txt
+        pip install -r requirements.txt/$DJANGO_ENV.txt
 
 # Create user without privilegies.
 RUN adduser --disabled-password --gecos '' app
