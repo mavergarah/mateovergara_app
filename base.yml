@@ -7,7 +7,7 @@ services:
       - ./app:/app
 
   postgres:
-    image: postgres: 12
+    image: postgres:12
     env_file: .env
 
   app:
