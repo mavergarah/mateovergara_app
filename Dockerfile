@@ -9,7 +9,8 @@ WORKDIR /app/
 
 # Install Python requirements.
 RUN pip install --upgrade pip; \
-        pip install -r requirements.txt
+    pip cache purge; \
+    pip install -r requirements.txt
 
 # Create user without privilegies.
 RUN adduser --disabled-password --gecos '' app
