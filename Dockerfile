@@ -1,4 +1,4 @@
-FROM python:3.6.5
+FROM python:3.9-alpine3.20
 ARG DJANGO_ENV
 
 # Add requirements to the image.
