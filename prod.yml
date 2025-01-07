@@ -7,7 +7,7 @@ services:
     links:
       - app
     ports:
-      - "5003:5003"
+      - "5000:5000"
 
     postgres:
       extends:
