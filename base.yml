@@ -12,7 +12,9 @@ services:
 
   app:
     image: mateovergara_web
-    build: ./mateovergara_app
+    build:
+      context: .
+      dockerfile: Dockerfile
     volumes:
       - ./mateovergara_app:/app
     env_file: .env
