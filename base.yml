@@ -6,17 +6,9 @@ services:
       - ./nginx:/etc/nginx/conf.d
       - ./mateovergara_app:/app
 
-  db:
+  postgres:
     image: postgres:12
-
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: 'mateovergara_sql'
-      POSTGRES_USER: 'mavergarah'
-      POSTGRES_PASSWORD: 'S4F3RL1N1B4'
-    ports:
-      - "5432:5432"
+    env_file: .env
 
   app:
     image: mateovergara_web

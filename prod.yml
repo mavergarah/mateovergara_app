@@ -19,8 +19,7 @@ services:
     app:
       extends:
         file: base.yml
-      service:
-        app
+        service: app
       environment:
         - DJANGO_SETTINGS_MODULE=mateovergara_app.settings
       command: python manage.py runserver 0.0.0.0:8000

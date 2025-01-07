@@ -96,10 +96,10 @@ MEDIA_URL = '/media/'
 # Para asociar la base de datos a Postgresql es necesario hacer los siguiente:
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mateovergara_sql',
-        'USER': 'mavergarah',
-        'PASSWORD': 'S4F3RL1N1B4',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME':     os.environ.get('POSTGRES_DB',       ''),
+        'USER':     os.environ.get('POSTGRES_USER',     ''),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
         'HOST': 'postgres',
         'PORT': '5432',
     }

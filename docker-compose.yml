@@ -12,7 +12,7 @@ services:
   postgres:
     extends:
       file: base.yml
-      service: db
+      service: postgres
 
   app:
     extends:
@@ -27,6 +27,3 @@ services:
       - postgres
     ports:
       - "8000:8000"
-
-volumes:
-  postgres_data:
