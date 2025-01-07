@@ -6,9 +6,8 @@ services:
       - ./nginx:/etc/nginx/conf.d
       - ./mateovergara_app:/app
 
-  postgres:
+  db:
     image: postgres:12
-    env_file: .env
 
     volumes:
       - postgres_data:/var/lib/postgresql/data
