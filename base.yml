@@ -10,6 +10,15 @@ services:
     image: postgres:12
     env_file: .env
 
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: 'mateovergara_sql'
+      POSTGRES_USER: 'mavergarah'
+      POSTGRES_PASSWORD: 'S4F3RL1N1B4'
+    ports:
+      - "5432:5432"
+
   app:
     image: mateovergara_web
     build:
