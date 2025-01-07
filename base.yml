@@ -4,7 +4,7 @@ services:
     image: nginx:1.15.2
     volumes:
       - ./nginx:/etc/nginx/conf.d
-      - ./app:/app
+      - ./mateovergara_app:/app
 
   postgres:
     image: postgres:12
@@ -12,9 +12,9 @@ services:
 
   app:
     image: mateovergara_web
-    build: ./app
+    build: ./mateovergara_app
     volumes:
-      - ./app:/app
+      - ./mateovergara_app:/app
     env_file: .env
     restart: on-failure
     command: sh ./scripts/dev.sh
