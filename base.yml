@@ -4,7 +4,7 @@ services:
     image: nginx:1.15.2
     volumes:
       - ./nginx:/etc/nginx/conf.d
-      - ./mateovergara_app:/app
+      - ./mateovergara_app:/mateovergara_app
       - ./staticfiles:/staticfiles
 
   postgres:
