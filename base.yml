@@ -17,7 +17,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - .:/mateovergara_app
+      - .:/app
     env_file: .env
     restart: on-failure
     command: python manage.py runserver 0.0.0.0:8000
