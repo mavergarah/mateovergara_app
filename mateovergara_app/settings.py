@@ -25,10 +25,8 @@ SECRET_KEY = 'django-insecure-$t20o%gz+89puf%*y7r^0a4*^kgq%84h7z#u&b7u(xfnijm$9l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_TRUSTED_ORIGINS = ['https://mateovergara.com/']
+CSRF_TRUSTED_ORIGINS = ['https://mateovergara.com']
+ALLOWED_HOSTS = ['mateovergara.com', 'www.mateovergara.com']
 
 # Application definition
 
@@ -57,6 +55,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 ROOT_URLCONF = 'mateovergara_app.urls'
 
