@@ -85,10 +85,10 @@ para la realización del cálculo de los espacios de trabajo -->
           </div>
           <div class="col-lg-10">
             <section id="gallery">
-              <img src="{% static 'img/condicion_1-1.png' %}" alt="Condición 1">
-              <img src="{% static 'img/condicion_1-2.png' %}" alt="Condición 1">
-              <img src="{% static 'img/condicion_2.png' %}" alt="Condición 2">
-              <img src="{% static 'img/condicion_3.png' %}" alt="Condición 3">
+              <img src="{% static 'img/condicion_1-1.PNG' %}" alt="Condición 1">
+              <img src="{% static 'img/condicion_1-2.PNG' %}" alt="Condición 1">
+              <img src="{% static 'img/condicion_2.PNG' %}" alt="Condición 2">
+              <img src="{% static 'img/condicion_3.PNG' %}" alt="Condición 3">
             </section>
           </div>
           <div class="col-lg-10">
@@ -234,14 +234,14 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
 
   const nextImage = () => {
     if (indexImage === 1) {
-      active_image.src = "{% static 'img/condicion_1-2.png' %}";
+      active_image.src = "{% static 'img/condicion_1-2.PNG' %}";
     } else if (indexImage === 2) {
-      active_image.src = "{% static 'img/condicion_2.png' %}";
+      active_image.src = "{% static 'img/condicion_2.PNG' %}";
     } else if (indexImage === 3) {
-      active_image.src = "{% static 'img/condicion_3.png' %}";
+      active_image.src = "{% static 'img/condicion_3.PNG' %}";
     } else if (indexImage === 4) {
       indexImage = 0;
-      active_image.src = "{% static 'img/condicion_1-1.png' %}";
+      active_image.src = "{% static 'img/condicion_1-1.PNG' %}";
       console.log('reiniciamos el index');
     };
     indexImage++;
@@ -253,13 +253,13 @@ por el usuario. Mostrará un mensaje de error si no se ingresan correctamente lo
   const prevImage = () => {
     if (indexImage === 1) {
       indexImage = 5;
-      active_image.src = "{% static 'img/condicion_1-2.png' %}";
+      active_image.src = "{% static 'img/condicion_1-2.PNG' %}";
     } else if (indexImage === 2) {
-      active_image.src = "{% static 'img/condicion_2.png' %}";
+      active_image.src = "{% static 'img/condicion_2.PNG' %}";
     } else if (indexImage === 3) {
-      active_image.src = "{% static 'img/condicion_3.png' %}";
+      active_image.src = "{% static 'img/condicion_3.PNG' %}";
     } else if (indexImage === 4) {
-      active_image.src = "{% static 'img/condicion_1-1.png' %}";
+      active_image.src = "{% static 'img/condicion_1-1.PNG' %}";
       console.log('reiniciamos el index');
     };
     indexImage--;
